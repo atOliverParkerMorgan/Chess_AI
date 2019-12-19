@@ -280,7 +280,7 @@ public class Game implements Serializable {
 
 
 
-    private void UpdatePlayerPieces(){
+    public void UpdatePlayerPieces(){
         List<Piece> ALL_BLACK_PIECES = new ArrayList<>();
         List<Piece> ALL_WHITE_PIECES = new ArrayList<>();
 
@@ -301,7 +301,7 @@ public class Game implements Serializable {
     }
 
 
-    static void Possible_moves_black(Board board, Player white, Player black){
+    public static void Possible_moves_black(Board board, Player white, Player black){
         // create possible moves on click @Board 57
         for (Piece p : white.pieces) {
             p.all_possible_moves = new ArrayList<>();

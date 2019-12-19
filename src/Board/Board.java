@@ -202,6 +202,7 @@ public final class Board implements Serializable{
         for(Piece p: pieces){
             String c = p.category;
 
+
             switch (c) {
                 case "Rook_black":
                     Rook.possible_moves(this, p, "black");
