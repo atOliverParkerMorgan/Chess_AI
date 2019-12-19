@@ -35,7 +35,7 @@ public class StandardBoardEvaluator implements BoardEvaluation {
     }
 
     private static int checkmate(Player player, int depth){
-        return player.opponent.IsInCheckMate() ? CHECK_MATE_BONUS * depthBonus(depth): 0;
+        return player.getOpponent().IsInCheckMate() ? CHECK_MATE_BONUS * depthBonus(depth): 0;
     }
 
     private static int depthBonus(int depth) {
@@ -43,13 +43,13 @@ public class StandardBoardEvaluator implements BoardEvaluation {
     }
 
     private static int check(Player player) {
-        return player.opponent.IsInCheck() ? CHECK_BONUS: 0;
+        return player.getOpponent().IsInCheck() ? CHECK_BONUS: 0;
     }
 
     private static int mobility(final Game game, final boolean white){
         int score = 0;
 
-            for( Spot[] spots : game.board.spots){
+            for( Spot[] spots : game.getBoard().spots){
                 for(Spot s: spots) {
                     if(s.isOccupied()){
                         if(white) {
@@ -146,7 +146,7 @@ public class StandardBoardEvaluator implements BoardEvaluation {
 
     private static int pieceValue(final Game game, final boolean white){
         int pieceValueScore = 0;
-        for( Spot[] spots : game.board.spots){
+        for( Spot[] spots : game.getBoard().spots){
             for(Spot s: spots) {
                 if(s.isOccupied()){
                     if(white && s.piece.category.contains("white")){

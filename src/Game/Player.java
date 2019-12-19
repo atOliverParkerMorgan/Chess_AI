@@ -12,9 +12,9 @@ import java.util.List;
 public final class Player implements Serializable {
 
     public List<Piece> pieces;
-    public boolean white;
-    public Player opponent;
-    public Board board;
+    private boolean white;
+    private Player opponent;
+    private Board board;
     private static int cord_white_y = 0;
     private static int cord_black_y = 7;
 
@@ -29,6 +29,8 @@ public final class Player implements Serializable {
     }
     public boolean IsInCheck(){
         King k = this.Get_King();
+
+        assert k != null;
         Spot s = this.board.getSpot(k.x,k.y);
 
         Game.create_check_map(this.board);
@@ -42,6 +44,8 @@ public final class Player implements Serializable {
     }
     public boolean IsInCheckMate(){
         King k = this.Get_King();
+
+        assert k != null;
         Spot s = this.board.getSpot(k.x,k.y);
 
         Game.create_check_map(this.board);
@@ -60,6 +64,8 @@ public final class Player implements Serializable {
     }
     public boolean HasCastled(){
         King k = this.Get_King();
+
+        assert k != null;
         return k.castled;
 
 
@@ -171,5 +177,24 @@ public final class Player implements Serializable {
 
     public static int getCord_black_y() {
         return cord_black_y;
+    }
+
+    public boolean isWhite() {
+        return white;
+    }
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    void setOpponent(Player opponent) {
+        this.opponent = opponent;
+    }
+    void setBoard(Board board){
+        this.board = board;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

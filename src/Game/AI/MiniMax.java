@@ -34,28 +34,28 @@ public class MiniMax implements MoveStrategy{
         int currentValue;
 
         final Game current_game = game.copy();
-        Player player = current_game.board.currentPlayer;
+        Player player = current_game.getBoard().currentPlayer;
 
-        if(game.board.currentPlayer.white) {
+        if(game.getBoard().currentPlayer.isWhite()) {
             System.out.println("WHITE " + "THINKING with depth = " + this.searchDepth);
         }else{
             System.out.println("BLACK " + "THINKING with depth = " + this.searchDepth);
         }
-        int numMoves = 100/game.board.currentPlayer.Legal_moves().size();
+        int numMoves = 100/game.getBoard().currentPlayer.Legal_moves().size();
         int all = 0;
         int alpha = Integer.MIN_VALUE;
         int beta = Integer.MAX_VALUE;
 
-        for(Move move : game.board.currentPlayer.Legal_moves()){
+        for(Move move : game.getBoard().currentPlayer.Legal_moves()){
             game = current_game;
 
             game = game.GetGameAfterMove(move);
 
-            currentValue = game.board.currentPlayer.white ?
+            currentValue = game.getBoard().currentPlayer.isWhite() ?
                     min(game,this.searchDepth-1,alpha,beta):
                     max(game,this.searchDepth-1,alpha,beta);
 
-            if(player.white && currentValue >= highestSeenValue){
+            if(player.isWhite() && currentValue >= highestSeenValue){
                 highestSeenValue = currentValue;
                 System.out.println("WHITE score: "+highestSeenValue);
 
@@ -64,7 +64,7 @@ public class MiniMax implements MoveStrategy{
 
                 Best_Move = move;
 
-            }if(!player.white && currentValue <= lowestSeenValue){
+            }if(!player.isWhite() && currentValue <= lowestSeenValue){
                 lowestSeenValue = currentValue;
                 System.out.println("BLACK score: "+ -lowestSeenValue);
 
@@ -87,13 +87,13 @@ public class MiniMax implements MoveStrategy{
     }
     private int min(Game game, final int depth, int alpha, int beta){
         if(depth == 0){
-            game.board.currentPlayer = game.board.white;
+            game.getBoard().currentPlayer = game.getBoard().white;
             return this.boardEvaluator.evaluate(game, depth);
         }
         int lowestSeenValue = Integer.MAX_VALUE;
         Game original = game.copy();
 
-        for(Move move: original.board.currentPlayer.Legal_moves()){
+        for(Move move: original.getBoard().currentPlayer.Legal_moves()){
 
             final int currentValue = max(game.GetGameAfterMove(move), depth-1,alpha, beta);
 
@@ -117,14 +117,14 @@ public class MiniMax implements MoveStrategy{
 
     private int max(Game game, final int depth, int alpha, int beta){
         if(depth == 0){
-            game.board.currentPlayer = game.board.black;
+            game.getBoard().currentPlayer = game.getBoard().black;
             return this.boardEvaluator.evaluate(game, depth);
         }
 
         int highestSeenValue = Integer.MIN_VALUE;
         Game original = game.copy();
 
-        for(Move move: original.board.currentPlayer.Legal_moves()){
+        for(Move move: original.getBoard().currentPlayer.Legal_moves()){
 
             final int currentValue = min(game.GetGameAfterMove(move), depth-1, alpha, beta);
 

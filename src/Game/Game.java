@@ -16,12 +16,12 @@ import java.util.List;
 
 public class Game implements Serializable {
 
-    public Player white;
-    public Player black;
+   private Player white;
+   private Player black;
 
-    public int turn;
+   private int turn;
 
-    public Board board;
+   private Board board;
 
     // show piece menu when pawn at end of the board
     public boolean white_menu;
@@ -56,11 +56,11 @@ public class Game implements Serializable {
             board.getSpot(P.x, P.y).occupySpot(P);
         }
 
-        this.white.board = this.board;
-        this.white.opponent = this.black;
+        this.white.setBoard(this.board);
+        this.white.setOpponent(this.black);
 
-        this.black.board = this.board;
-        this.black.opponent = this.white;
+        this.black.setBoard(this.board);
+        this.black.setOpponent(this.white);
 
         //Pawn gets to the end init
         this.black_menu = false;
@@ -123,15 +123,19 @@ public class Game implements Serializable {
 
         if(piece.category.equals("Rook_white")) {
             if(piece.x==0) {
+                assert this.white.Get_King() != null;
                 this.white.Get_King().castling_l = false;
             }else if(piece.x==7){
+                assert this.white.Get_King() != null;
                 this.white.Get_King().castling_r = false;
             }
         }
         else if(piece.category.equals("Rook_black")){
             if(piece.x==0) {
+                assert this.black.Get_King() != null;
                 this.black.Get_King().castling_l = false;
             }else if(piece.x==7){
+                assert this.black.Get_King() != null;
                 this.black.Get_King().castling_r = false;
             }
         }
@@ -242,7 +246,7 @@ public class Game implements Serializable {
         this.moving = false;
         this.turn++;
 
-        if (this.board.currentPlayer.white) {
+        if (this.board.currentPlayer.isWhite()) {
             this.board.setCurrentPlayer(this.black);
             Possible_moves_black(this.board, this.white, this.black);
 
@@ -322,7 +326,19 @@ public class Game implements Serializable {
 
     }
 
+    public Board getBoard() {
+        return board;
+    }
 
+    public Player getWhite() {
+        return white;
+    }
 
+    public Player getBlack() {
+        return black;
+    }
 
+    public int getTurn() {
+        return turn;
+    }
 }

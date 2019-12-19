@@ -53,6 +53,10 @@ public final class King extends Piece implements Serializable {
         side2 = Math.min(GoToY, x);
         side3 = Math.min(x, y);
         side4 = Math.min(y, GoToX);
+
+        // updating board check values
+        checkLogic(board,x,y,"white");
+        checkLogic(board,x,y,"black");
         if (GoToX > 0) {
             Spot s = board.getSpot(x + 1, y);
             if (s.isOccupied()) {
@@ -105,6 +109,7 @@ public final class King extends Piece implements Serializable {
                 }
             } else {
                 // castling
+
                 Move move = new Move(s,old_spot);
                 p.all_possible_moves.add(move);
                 King k = (King) p;

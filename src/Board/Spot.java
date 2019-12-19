@@ -19,7 +19,7 @@ public final class Spot implements Serializable {
 
     public boolean mouse_on = false;
 
-    public final String id;
+    final String id;
 
 
     Spot(int x, int y, String id) {

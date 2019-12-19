@@ -49,7 +49,7 @@ public final class Board implements Serializable{
 
 
     public void SwitchPlayer(){
-        if(this.currentPlayer.white){
+        if(this.currentPlayer.isWhite()){
             this.currentPlayer = this.black;
         }else{
             this.currentPlayer = this.white;
