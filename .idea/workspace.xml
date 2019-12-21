@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="135aabdd-e228-408d-92c0-92d0de262d13" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/BoardEvaluation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/MoveStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/StandardBoardEvaluator.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunTime/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunTime/Screen.java" afterDir="false" />
     </list>
@@ -106,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576778555832</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="check bug when pawn reaches lv 9 bug&#10; fixed">
+      <created>1576781345305</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1576781345305</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +136,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="files refactored" />
     <MESSAGE value="castling check bug fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="castling check bug fixed" />
+    <MESSAGE value="check bug when pawn reaches lv 9 bug&#10; fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="check bug when pawn reaches lv 9 bug&#10; fixed" />
   </component>
 </project>

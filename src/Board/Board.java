@@ -72,7 +72,7 @@ public final class Board implements Serializable{
     }
 
     // copy
-    private Board copy() {
+    public Board copy() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);

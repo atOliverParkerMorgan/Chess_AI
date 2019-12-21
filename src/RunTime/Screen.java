@@ -3,7 +3,6 @@ package RunTime;
 import Board.Move;
 import Board.Spot;
 import Game.AI.MiniMax;
-import Game.AI.MoveStrategy;
 import Game.Game;
 import pieces.*;
 import processing.core.PApplet;
@@ -98,8 +97,8 @@ public class Screen extends PApplet {
         if(mouseY>=500 && mouseY <600){Y = 5;}
         if(mouseX>=600 && mouseX <700){X = 6;}
         if(mouseY>=600 && mouseY <700){Y = 6;}
-        if(mouseX>=700 && mouseX <800){X = 7;}
-        if(mouseY>=700 && mouseY <800){Y = 7;}
+        if(mouseX>=700){X = 7;}
+        if(mouseY>=700){Y = 7;}
         return new int[]{X, Y};
     }
 
@@ -325,11 +324,13 @@ public class Screen extends PApplet {
 
             if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && !PLAYERvsPLAYER && draw >= 1) {
 
-                final MoveStrategy AI_logic = new MiniMax(2);
+              //  final MoveStrategy AI_logic = new MiniMax(2);
                 Game_history.add(mGame.copy());
-                Move move_AI = AI_logic.execute(mGame.copy());
-                mGame.MOVE(move_AI,true);
+              //  Move move_AI = AI_logic.execute(mGame.copy());
+              //  mGame.MOVE(move_AI,true);
                 draw = 0;
+                MiniMax AI = new MiniMax(1,false);
+                Move move_AI =
 
 
 
@@ -374,7 +375,6 @@ public class Screen extends PApplet {
                 // button pos
                 int circle_Size = 80;
                 if (overCircle(650, circle_Size) && mGame.white_menu) {
-                    Queen q = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_white", 900);
                     mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_white", 900);
                     mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
                     mGame.getWhite().pieces.remove(mGame.change_pawn);
@@ -399,7 +399,7 @@ public class Screen extends PApplet {
                     mGame.getWhite().pieces.remove(mGame.change_pawn);
                     mGame.change_pawn = null;
                     mGame.white_menu = false;
-                    Game.Possible_moves_black(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());;
+                    Game.Possible_moves_black(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
 
 
                 } else if (overCircle(200, circle_Size) && mGame.white_menu) {
@@ -511,7 +511,7 @@ public class Screen extends PApplet {
                     for (Move m : mGame.Piece_moving.all_possible_moves) {
                         if (m.spot == new_move.spot && m.old_spot == new_move.old_spot) {
                             Game_history.add(mGame.copy());
-                            mGame.MOVE(new_move, true);
+                            mGame.MOVE(new_move, false);
                         }
                     }
 

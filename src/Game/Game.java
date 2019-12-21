@@ -33,14 +33,14 @@ public class Game implements Serializable {
     public boolean moving;
     public Piece Piece_moving;
 
-
+    private static final boolean whiteSide = true;
 
 
     public Game(){
 
 
         this.Piece_moving = null;
-        Player.setBoardToWhiteSide(false);
+        Player.setBoardToWhiteSide(whiteSide);
         this.white = new Player(true);
         this.black = new Player(false);
 
@@ -193,12 +193,16 @@ public class Game implements Serializable {
 
 
     private void checkMoveAfter(Spot old_spot, Spot spot, Piece piece, boolean UI) {
+
+        int endForWhitePawn = whiteSide?0:7;
+        int endForBlackPawn = whiteSide?7:0;
+
         // Pawn logic
         if (piece.category.equals("Pawns_white")) {
             //creating menu when pawn gets at the end of the board
             Pawn p = (Pawn) piece;
 
-            if (piece.y == 7) {
+            if (piece.y == endForWhitePawn) {
                 this.white_menu = true;
                 this.change_pawn = piece;
             }
@@ -211,7 +215,7 @@ public class Game implements Serializable {
             //creating menu when pawn gets at the end of the board
             Pawn p = (Pawn) piece;
 
-            if (piece.y == 0) {
+            if (piece.y == endForBlackPawn) {
                 this.black_menu = true;
                 this.change_pawn = piece;
             }
@@ -328,6 +332,9 @@ public class Game implements Serializable {
 
     public Board getBoard() {
         return board;
+    }
+    public void setBoard(Board board){
+        this.board = board;
     }
 
     public Player getWhite() {
