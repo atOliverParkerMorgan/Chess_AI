@@ -12,28 +12,28 @@ public final class King extends Piece implements Serializable {
     public boolean castling_l;
     public boolean castling_k;
     public boolean castled;
-    public int[][] pos_eval_white;
-    public int[][] pos_eval_black;
+    private final static int[][] pos_eval_white = new int[][]{
+            { 0,   0,   0,   0,   0,   0,   0,   0},
+            {50,  50,  50,  50,  50,  50,  50,  50},
+            {10,  10,  20,  30,  30,  20,  10,  10},
+            { 5,   5,  10,  25,  25,  10,   5,   5},
+            { 0,   0,   0,  20,  20,   0,   0,   0},
+            { 5, - 5, -10,   0,   0, -10, - 5,   5},
+            { 5,  10,  10, -20, -20,  10,  10,   5},
+            { 0,   0,   0,   0,   0,   0,   0,   0}
+    };
+
+    private final static int[][] pos_eval_black = Piece.reverse_array(Objects.requireNonNull(Piece.array_clone(pos_eval_white)));
 
 
 
     public King(int x, int y, String c, int score) {
-        super(x, y, c,score);
+        super(x, y, c,score,pos_eval_white,pos_eval_black);
         this.castling_r = true;
         this.castling_l = true;
         this.castling_k = true;
         this.castled = false;
-        this.pos_eval_white = new int[][]{
-                {-30, -40, -40, -50, -50, -40, -40, -30},
-                {-30, -40, -40, -50, -50, -40, -40, -30},
-                {-30, -40, -40, -50, -50, -40, -40, -30},
-                {-30, -40, -40, -50, -50, -40, -40, -30},
-                {-20, -30, -30, -40, -40, -30, -30, -20},
-                {-10, -20, -20, -20, -20, -20, -20, -10},
-                { 20,  20,   0,   0,   0,   0,  20,  20},
-                { 20,  30,  10,   0,   0,  10,  30,  20}
-        };
-        this.pos_eval_black = Piece.reverse_array(Objects.requireNonNull(Piece.array_clone(pos_eval_white)));
+
     }
 
     public static void possible_moves(Board board, Piece p, String colour){

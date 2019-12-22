@@ -15,9 +15,13 @@ public class Piece implements Serializable {
     public int Score;
 
     public List<Move> all_possible_moves;
+    public int[][] pos_eval_white;
+    public int[][] pos_eval_black;
 
-    public Piece(int x, int y, String c, int Score){
+    public Piece(int x, int y, String c, int Score,int[][] pos_eval_white, int[][] pos_eval_black){
         super();
+        this.pos_eval_white = pos_eval_white;
+        this.pos_eval_black = pos_eval_black;
         this.x = x;
         this.y = y;
         this.category = c;

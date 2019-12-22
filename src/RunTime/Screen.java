@@ -329,8 +329,9 @@ public class Screen extends PApplet {
               //  Move move_AI = AI_logic.execute(mGame.copy());
               //  mGame.MOVE(move_AI,true);
                 draw = 0;
-                MiniMax AI = new MiniMax(1,false);
-                Move move_AI =
+                MiniMax AI = new MiniMax(2,false);
+                Move move_AI = AI.getBestMove(mGame);
+                mGame.MOVE(move_AI,true);
 
 
 

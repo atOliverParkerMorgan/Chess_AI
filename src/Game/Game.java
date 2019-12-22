@@ -33,7 +33,7 @@ public class Game implements Serializable {
     public boolean moving;
     public Piece Piece_moving;
 
-    private static final boolean whiteSide = true;
+    public static final boolean whiteSide = false;
 
 
     public Game(){
