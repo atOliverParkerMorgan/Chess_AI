@@ -76,11 +76,9 @@ public final class King extends Piece implements Serializable {
                     if (k.castling_r && !s2.isOccupied()) {
                         Game.create_check_map(board);
                         Spot current = board.getSpot(k.x,k.y);
-                        System.out.println("here1");
                         // checking if the castling would be valid
                         if (colour.equals("white") && s.isValid_for_white_king && s2.isValid_for_white_king && current.isValid_for_white_king ||
                                 colour.equals("black") && s.isValid_for_black_king && s2.isValid_for_black_king && current.isValid_for_black_king) {
-                            System.out.println("here");
                             move = new Move(s2,old_spot);
                             p.all_possible_moves.add(move);
                         }

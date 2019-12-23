@@ -1,5 +1,6 @@
 package Game.AI;
 
+import Board.Board;
 import Board.Move;
 import Game.Game;
 import Game.Player;
@@ -12,6 +13,17 @@ public class MiniMax {
 
     }
     public Move getBestMove(final Game mGame) {
+
+        final long starTime = System.currentTimeMillis();
+
+        if(mGame.getBoard().currentPlayer.isWhite()) {
+            System.out.println("WHITE " + "THINKING with depth = " + this.searchDepth);
+        }else{
+            System.out.println("BLACK " + "THINKING with depth = " + this.searchDepth);
+        }
+        int numMoves = 100 / mGame.getBoard().currentPlayer.Legal_moves().size();
+        int all = 0;
+
         Move BestMove = null;
 
         int highestSeenValue = Integer.MIN_VALUE;
@@ -26,14 +38,14 @@ public class MiniMax {
         int alpha = Integer.MIN_VALUE;
         int beta = Integer.MAX_VALUE;
 
-        for(Move move : simulatingGame.getBoard().currentPlayer.Legal_moves()){
+        for(final Move move : simulatingGame.getBoard().currentPlayer.Legal_moves()){
             simulatingGame = mGame;
             simulatingGame = simulatingGame.GetGameAfterMove(move);
 
 
             currentValue = simulatingGame.getBoard().currentPlayer.isWhite() ?
-                    min(simulatingGame,this.searchDepth-1,alpha,beta):
-                    max(simulatingGame,this.searchDepth-1,alpha,beta);
+                    max(simulatingGame,this.searchDepth-1,alpha,beta):
+                    min(simulatingGame,this.searchDepth-1,alpha,beta);
 
             if(player.isWhite() && currentValue > highestSeenValue){
                 highestSeenValue = currentValue;
@@ -43,17 +55,16 @@ public class MiniMax {
             }if(!player.isWhite() && currentValue < lowestSeenValues){
                 lowestSeenValues = currentValue;
                 System.out.println("BLACK score: "+ -lowestSeenValues);
-                simulatingGame.getBoard().BoardInChars();
-                simulatingGame.getBoard().printBoardChars();
-                System.out.println();
                 BestMove = move;
 
             }
+            all+=numMoves;
+            System.out.println("Process: "+ all+" %");
 
         }
 
-       // final long executionTime = System.currentTimeMillis() - starTime;
-       // System.out.println("Time: "+executionTime);
+       final long executionTime = System.currentTimeMillis() - starTime;
+       System.out.println("Time: "+executionTime);
         return BestMove;
 
 
@@ -61,25 +72,25 @@ public class MiniMax {
 
 
     }
-    private int min(Game game, final int depth, int alpha, int beta){
-        if(depth == 0){
-            return Evaluate.EvaluateGame(game);
+    private int max(Game game, final int depth, int alpha, int beta){
+        if(depth == 0||isEndGameScenario(game.getBoard())){
+            return Evaluate.EvaluateGame(game, depth);
         }
         int highestSeenValue = Integer.MIN_VALUE;
         Game original = game.copy();
 
-        original.getBoard().currentPlayer = original.getWhite();
 
 
-        for(Move move: original.getBoard().currentPlayer.Legal_moves()){
+        for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
 
             final int currentValue = max(game.GetGameAfterMove(move), depth-1,alpha, beta);
             //Alpha beta pruning
-            beta = Integer.min(beta,currentValue);
-            if(beta<=alpha){
-               break;
+            alpha = Integer.max(alpha, currentValue);
+            if(beta <= alpha){
+                break;
             }
-            if(currentValue > highestSeenValue){
+
+            if(currentValue >= highestSeenValue){
                 highestSeenValue = currentValue;
             }
         }
@@ -89,25 +100,24 @@ public class MiniMax {
 
 
         return highestSeenValue;
-    }private int max(Game game, final int depth, int alpha, int beta){
-        if(depth == 0){
-            return  Evaluate.EvaluateGame(game);
+    }private int min(Game game, final int depth, int alpha, int beta){
+        if(depth == 0||isEndGameScenario(game.getBoard())){
+            return  Evaluate.EvaluateGame(game,depth);
         }
 
         int lowestSeenValue = Integer.MAX_VALUE;
         Game original = game.copy();
 
-        original.getBoard().currentPlayer = original.getBlack();
-        for(Move move: original.getBoard().currentPlayer.Legal_moves()){
+        for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
 
             final int currentValue = min(game.GetGameAfterMove(move), depth-1, alpha, beta);
 
             //Alpha beta pruning
-             alpha = Integer.max(alpha, currentValue);
-            if(beta <= alpha){
+            beta = Integer.min(beta,currentValue);
+            if(beta<=alpha){
                 break;
             }
-            if(currentValue < lowestSeenValue){
+            if(currentValue <= lowestSeenValue){
                 lowestSeenValue = currentValue;
             }
         }
@@ -115,6 +125,11 @@ public class MiniMax {
 
 
         return lowestSeenValue;
+
+    }
+    private boolean isEndGameScenario(Board board) {
+        return board.currentPlayer.IsInCheckMate() ||
+                board.currentPlayer.IsInStaleMate();
 
     }
 
