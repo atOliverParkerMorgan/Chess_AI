@@ -15,10 +15,10 @@ public class Piece implements Serializable {
     public int Score;
 
     public List<Move> all_possible_moves;
-    public int[][] pos_eval_white;
-    public int[][] pos_eval_black;
+    public double[][] pos_eval_white;
+    public double[][] pos_eval_black;
 
-    public Piece(int x, int y, String c, int Score,int[][] pos_eval_white, int[][] pos_eval_black){
+    public Piece(int x, int y, String c, int Score,double[][] pos_eval_white, double[][] pos_eval_black){
         super();
         this.pos_eval_white = pos_eval_white;
         this.pos_eval_black = pos_eval_black;
@@ -44,14 +44,14 @@ public class Piece implements Serializable {
             return null;
         }
     }
-    static int[][] array_clone(int[][] array){
+    static double[][] array_clone(double[][] array){
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);
             oos.writeObject(array);
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
             ObjectInputStream ois = new ObjectInputStream(bais);
-            return (int[][]) ois.readObject();
+            return (double [][]) ois.readObject();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -60,14 +60,14 @@ public class Piece implements Serializable {
     }
 
 
-    static int[][] reverse_array(int[][] array){
+    static double[][] reverse_array(double[][] array){
 
 
         // switch items in array
-        for(int[] ar : array){
+        for(double[] ar : array){
             for(int i = 0; i < ar.length / 2; i++)
             {
-                int temp = ar[i];
+                double temp = ar[i];
                 ar[i] = ar[ar.length - i - 1];
                 ar[ar.length - i - 1] = temp;
             }
@@ -75,7 +75,7 @@ public class Piece implements Serializable {
         }
         // switch arrays in array
         for(int y = 0; y<array.length / 2; y++){
-            int[] temp = array[y];
+            double[] temp = array[y];
             array[y] = array[array.length- y- 1];
             array[array.length- y- 1] = temp;
 

@@ -148,7 +148,7 @@ public class Game implements Serializable {
             }
         }
     }
-    public Game GetGameAfterMove(Move move){
+    public Game getGameAfterMove(Move move){
         Game game = this.copy();
 
         game.MOVE(move, false);

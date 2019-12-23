@@ -324,12 +324,9 @@ public class Screen extends PApplet {
 
             if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && !PLAYERvsPLAYER && draw >= 1) {
 
-              //  final MoveStrategy AI_logic = new MiniMax(2);
                 Game_history.add(mGame.copy());
-              //  Move move_AI = AI_logic.execute(mGame.copy());
-              //  mGame.MOVE(move_AI,true);
                 draw = 0;
-                MiniMax AI = new MiniMax(2,Game.whiteSide);
+                MiniMax AI = new MiniMax(3,Game.whiteSide);
                 Move move_AI = AI.getBestMove(mGame);
                 mGame.MOVE(move_AI,true);
 
@@ -363,6 +360,7 @@ public class Screen extends PApplet {
         if(MENU){
             if(PLAYERvsPLAYER||PLAYERvsAI||AIvsAI){
                 MENU = false;
+
             }
 
         }else {

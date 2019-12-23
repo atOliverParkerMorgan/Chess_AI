@@ -12,18 +12,18 @@ public final class King extends Piece implements Serializable {
     public boolean castling_l;
     public boolean castling_k;
     public boolean castled;
-    private final static int[][] pos_eval_white = new int[][]{
-            { 0,   0,   0,   0,   0,   0,   0,   0},
-            {50,  50,  50,  50,  50,  50,  50,  50},
-            {10,  10,  20,  30,  30,  20,  10,  10},
-            { 5,   5,  10,  25,  25,  10,   5,   5},
-            { 0,   0,   0,  20,  20,   0,   0,   0},
-            { 5, - 5, -10,   0,   0, -10, - 5,   5},
-            { 5,  10,  10, -20, -20,  10,  10,   5},
-            { 0,   0,   0,   0,   0,   0,   0,   0}
+    private final static double[][] pos_eval_white = new double[][]{
+            {-3,-4,-4,-5,-5,-4,-4,-3},
+            {-3,-4,-4,-5,-5,-4,-4,-3},
+            {-3,-4,-4,-5,-5,-4,-4,-3},
+            {-3,-4,-4,-5,-5,-4,-4,-3},
+            {-2,-3,-3,-4,-4,-3,-3,-2},
+            {-1,-2,-2,-2,-2,-2,-2,-1},
+            { 2, 2, 0, 0, 0, 0, 2, 2},
+            { 2, 3, 1, 0, 0, 1, 3, 2}
     };
 
-    private final static int[][] pos_eval_black = Piece.reverse_array(Objects.requireNonNull(Piece.array_clone(pos_eval_white)));
+    private final static double[][] pos_eval_black = Piece.reverse_array(Objects.requireNonNull(Piece.array_clone(pos_eval_white)));
 
 
 

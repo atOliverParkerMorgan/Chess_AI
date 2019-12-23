@@ -5,16 +5,16 @@ import Board.Move;
 import Game.Game;
 import Game.Player;
 
-public class MiniMax {
+public final class MiniMax {
     private int searchDepth;
+
+    private static final int timeLimit = 30000;
 
     public MiniMax(int depth, boolean isWhite){
         this.searchDepth = depth;
 
     }
     public Move getBestMove(final Game mGame) {
-
-        final long starTime = System.currentTimeMillis();
 
         if(mGame.getBoard().currentPlayer.isWhite()) {
             System.out.println("WHITE " + "THINKING with depth = " + this.searchDepth);
@@ -26,26 +26,33 @@ public class MiniMax {
 
         Move BestMove = null;
 
-        int highestSeenValue = Integer.MIN_VALUE;
-        int lowestSeenValues = Integer.MAX_VALUE;
 
-        int currentValue;
+        double highestSeenValue = Integer.MIN_VALUE;
+        double lowestSeenValues = Integer.MAX_VALUE;
+
+        double currentValue;
 
         Game simulatingGame = mGame.copy();
 
         Player player = mGame.getBoard().currentPlayer;
 
-        int alpha = Integer.MIN_VALUE;
-        int beta = Integer.MAX_VALUE;
+        double alpha = Integer.MIN_VALUE;
+        double beta = Integer.MAX_VALUE;
 
-        for(final Move move : simulatingGame.getBoard().currentPlayer.Legal_moves()){
+        Move[] sortedMoves = MoveOrdering.orderMoves(simulatingGame.copy());
+
+        // time limit started
+        final long starTime = System.currentTimeMillis();
+
+        for(final Move move : sortedMoves){
             simulatingGame = mGame;
-            simulatingGame = simulatingGame.GetGameAfterMove(move);
+            simulatingGame = simulatingGame.getGameAfterMove(move);
 
 
             currentValue = simulatingGame.getBoard().currentPlayer.isWhite() ?
                     max(simulatingGame,this.searchDepth-1,alpha,beta):
                     min(simulatingGame,this.searchDepth-1,alpha,beta);
+
 
             if(player.isWhite() && currentValue > highestSeenValue){
                 highestSeenValue = currentValue;
@@ -60,39 +67,43 @@ public class MiniMax {
             }
             all+=numMoves;
             System.out.println("Process: "+ all+" %");
+            if(System.currentTimeMillis() - starTime>=timeLimit && all>=60){
+                System.out.println("Time: "+ (System.currentTimeMillis() - starTime));
+                return BestMove;
+            }
 
         }
 
        final long executionTime = System.currentTimeMillis() - starTime;
        System.out.println("Time: "+executionTime);
-        return BestMove;
+       return BestMove;
 
 
 
 
 
     }
-    private int max(Game game, final int depth, int alpha, int beta){
+    private double max(Game game, final int depth, double alpha, double beta){
         if(depth == 0||isEndGameScenario(game.getBoard())){
             return Evaluate.EvaluateGame(game, depth);
         }
-        int highestSeenValue = Integer.MIN_VALUE;
+        double highestSeenValue = Integer.MIN_VALUE;
         Game original = game.copy();
 
 
 
         for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
 
-            final int currentValue = max(game.GetGameAfterMove(move), depth-1,alpha, beta);
-            //Alpha beta pruning
-            alpha = Integer.max(alpha, currentValue);
+            final double currentValue = min(game.getGameAfterMove(move), depth-1,alpha, beta);
+
+            highestSeenValue = Math.max(currentValue, highestSeenValue);
+            alpha = Math.max(alpha, highestSeenValue);
+
             if(beta <= alpha){
                 break;
             }
 
-            if(currentValue >= highestSeenValue){
-                highestSeenValue = currentValue;
-            }
+
         }
 
 
@@ -100,26 +111,24 @@ public class MiniMax {
 
 
         return highestSeenValue;
-    }private int min(Game game, final int depth, int alpha, int beta){
+    }private double min(Game game, final int depth, double alpha, double beta){
         if(depth == 0||isEndGameScenario(game.getBoard())){
             return  Evaluate.EvaluateGame(game,depth);
         }
 
-        int lowestSeenValue = Integer.MAX_VALUE;
+        double lowestSeenValue = Integer.MAX_VALUE;
         Game original = game.copy();
 
         for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
 
-            final int currentValue = min(game.GetGameAfterMove(move), depth-1, alpha, beta);
+            final double currentValue = max(game.getGameAfterMove(move), depth-1, alpha, beta);
 
-            //Alpha beta pruning
-            beta = Integer.min(beta,currentValue);
-            if(beta<=alpha){
+            lowestSeenValue = Math.min(currentValue, lowestSeenValue);
+            beta = Math.min(beta, lowestSeenValue);
+            if(beta <= alpha){
                 break;
             }
-            if(currentValue <= lowestSeenValue){
-                lowestSeenValue = currentValue;
-            }
+
         }
 
 

@@ -5,12 +5,13 @@ import pieces.Knight;
 import pieces.Pawn;
 import pieces.Piece;
 
-class Evaluate {
+final class Evaluate {
     private static final int DEPTH_BONUS = 10;
     private static final int CHECK_BONUS = 5;
     private static final int CHECK_MATE_BONUS = 99999;
+    private static final double MOBILITY_BIAS = 0.1;
 
-    static int EvaluateGame(final Game mGame, int depth){
+    static double EvaluateGame(final Game mGame, int depth){
         return Score(mGame)+mobility(mGame)+check(mGame)+checkmate(mGame,depth);
 
     }
@@ -51,8 +52,8 @@ class Evaluate {
             return mGame.getBoard().currentPlayer.IsInCheckMate() ? CHECK_MATE_BONUS * depthBonus(depth): 0;
         }
 
-    }private static int mobility(final Game game){
-        return game.getWhite().Legal_moves().size() - game.getBlack().Legal_moves().size();
+    }private static double mobility(final Game game){
+        return game.getWhite().Legal_moves().size() - game.getBlack().Legal_moves().size()*MOBILITY_BIAS;
     }
 
 
