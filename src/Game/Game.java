@@ -33,7 +33,7 @@ public class Game implements Serializable {
     public boolean moving;
     public Piece Piece_moving;
 
-    public static final boolean whiteSide = false;
+    public static boolean whiteSide = false;
 
 
     public Game(){
@@ -120,7 +120,6 @@ public class Game implements Serializable {
                 }
             }
         }
-
         if(piece.category.equals("Rook_white")) {
             if(piece.x==0) {
                 assert this.white.Get_King() != null;
@@ -160,7 +159,7 @@ public class Game implements Serializable {
 
 
     public void MOVE(Move move, boolean UI){
-
+        this.Piece_moving = move.piece;
         // ---------------- MOVING ---------------
         this.checkMoveBefore(move.spot);
 
@@ -284,7 +283,7 @@ public class Game implements Serializable {
 
 
 
-    public void UpdatePlayerPieces(){
+    private void UpdatePlayerPieces(){
         List<Piece> ALL_BLACK_PIECES = new ArrayList<>();
         List<Piece> ALL_WHITE_PIECES = new ArrayList<>();
 

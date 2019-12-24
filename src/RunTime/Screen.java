@@ -10,6 +10,7 @@ import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingDeque;
 
 public class Screen extends PApplet {
     private Game mGame;
@@ -35,12 +36,16 @@ public class Screen extends PApplet {
 
     private boolean show_hint = false;
 
+    private final int depth = 1;
     //Menu
     private boolean AIvsAI = false;
     private boolean PLAYERvsAI = false;
     private boolean PLAYERvsPLAYER = true;
     private boolean MENU = true;
-    private final boolean AI_player_white = false;
+    private boolean side_setup_Menu = true;
+    private boolean WHITE = false;
+    private boolean BLACK = false;
+    private boolean AI_player_white = true;
 
     // for ai so the canvas has a couple frames to update before the ai starts thinking
     private int draw;
@@ -112,68 +117,92 @@ public class Screen extends PApplet {
     public void draw() {
 
         if (MENU) {
-            fill(255,153,153);
-            rect(0,0,800,900);
+            background(255, 153, 153);
             textSize(64);
             fill(0, 51, 51);
             text("CHESS", 300, 150);
             textSize(20);
             text("Oliver Morgan", 350, 880);
 
-            if(mouseX>=250 && mouseX<600 && mouseY>=350 && mouseY<430){
+            if (mouseX >= 250 && mouseX < 600 && mouseY >= 350 && mouseY < 430) {
                 PLAYERvsPLAYER = true;
                 PLAYERvsAI = false;
                 AIvsAI = false;
-            }
-            else if(mouseX>=280 && mouseX<520 && mouseY>=450 && mouseY<530){
+            } else if (mouseX >= 280 && mouseX < 520 && mouseY >= 450 && mouseY < 530) {
                 PLAYERvsPLAYER = false;
                 PLAYERvsAI = true;
                 AIvsAI = false;
-            }
-            else if(mouseX>=320 && mouseX<470 && mouseY>=550 && mouseY<630){
+            } else if (mouseX >= 320 && mouseX < 470 && mouseY >= 550 && mouseY < 630) {
                 PLAYERvsPLAYER = false;
                 PLAYERvsAI = false;
                 AIvsAI = true;
-            }else{
+            } else {
                 PLAYERvsPLAYER = false;
                 PLAYERvsAI = false;
                 AIvsAI = false;
             }
 
 
-
-
             textSize(32);
-            if(PLAYERvsPLAYER){
+            if (PLAYERvsPLAYER) {
                 fill(126, 209, 235);
-                rect(220,350,330,80);
+                rect(220, 350, 330, 80);
             }
-            fill(102,0,51);
-            text("PLAYER vs PLAYER", 240,400);
+            fill(102, 0, 51);
+            text("PLAYER vs PLAYER", 240, 400);
 
-            if (PLAYERvsAI){
+            if (PLAYERvsAI) {
                 fill(126, 209, 235);
-                rect(280,450,240,80);
-
-            }
-
-            fill(102,0,51);
-            text("PLAYER vs AI", 300,500);
-
-
-            if (AIvsAI){
-                fill(126, 209, 235);
-                rect(320,550,150,80);
+                rect(280, 450, 240, 80);
 
             }
-            fill(102,0,51);
-            text("AI vs AI", 340,600);
+
+            fill(102, 0, 51);
+            text("PLAYER vs AI", 300, 500);
 
 
+            if (AIvsAI) {
+                fill(126, 209, 235);
+                rect(320, 550, 150, 80);
+
+            }
+            fill(102, 0, 51);
+            text("AI vs AI", 340, 600);
 
 
+        }else if(side_setup_Menu && !AIvsAI){
+            if (mouseX >= 125 && mouseX < 275 && mouseY >= 350 && mouseY < 425) {
+                WHITE = true;
+                BLACK = false;
+            } else if (mouseX >= 525 && mouseX < 675 && mouseY >= 350 && mouseY < 425) {
+                WHITE = false;
+                BLACK = true;
+            }else {
+                WHITE = false;
+                BLACK = false;
+            }
+           background(255, 153, 153);
+           fill(0, 51, 51);
+           textSize(64);
+           text("CHESS", 300, 150);
+           textSize(20);
+           text("Oliver Morgan", 350, 880);
 
-        } else {
+           textSize(40);
+           if(WHITE){
+               fill(126, 209, 235);
+               rect(125, 350, 175, 75);
+           }if(BLACK){
+                fill(126, 209, 235);
+                rect(525, 350, 175, 75);
+            }
+
+           fill(255, 255, 255);
+           text("WHITE", 150, 400);
+           fill(225, 225, 102);
+           text("BLACK", 550,400);
+
+        }else{
 
 
             // create board
@@ -209,12 +238,18 @@ public class Screen extends PApplet {
                     rect(i * BLOCK_X, j * BLOCK_Y, (i + 1) * BLOCK_X, (j + 1) * BLOCK_Y);
                 }
             }
+            moveAI();
             // getting the board ready
             // add menu
-            fill(220, 220, 220);
-            rect(0, 800, 800, 800);
+            if(mGame.getBoard().currentPlayer.isWhite()) {
+                fill(255, 255, 255);
+            }else {
+                fill(225, 225, 102);
+            }
+            rect(0,800,800,800);
 
             int Y_cord = 800;
+
 
             if (mGame.white_menu) {
 
@@ -254,10 +289,7 @@ public class Screen extends PApplet {
                 fill(135, 87, 87);
                 text(text, 350, Y_cord + 50);
                 text(mGame.getTurn(), 10, Y_cord + 50);
-
-
             }
-
             for (Spot[] spots : mGame.getBoard().spots) {
                 for (Spot spot : spots) {
                     if (spot.isOccupied() || spot.toShow()) {
@@ -322,23 +354,6 @@ public class Screen extends PApplet {
                 spot.show_on_Spot(mGame.Piece_moving);
             }
 
-            if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && !PLAYERvsPLAYER && draw >= 1) {
-
-                Game_history.add(mGame.copy());
-                draw = 0;
-                MiniMax AI = new MiniMax(3,Game.whiteSide);
-                Move move_AI = AI.getBestMove(mGame);
-                mGame.MOVE(move_AI,true);
-
-
-
-
-
-            }
-            if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER || AIvsAI && !PLAYERvsPLAYER ) {
-                // draw has ten frames to update
-                draw++;
-            }
 
 
 
@@ -357,96 +372,110 @@ public class Screen extends PApplet {
     }
 
     public void mousePressed() {
-        if(MENU){
-            if(PLAYERvsPLAYER||PLAYERvsAI||AIvsAI){
+        if(MENU) {
+            if (PLAYERvsPLAYER || PLAYERvsAI || AIvsAI) {
                 MENU = false;
+                if(AIvsAI){
+
+                }
 
             }
+        }else if(side_setup_Menu){
+            if(WHITE||BLACK){
 
-        }else {
+                side_setup_Menu = false;
+                Game.whiteSide = WHITE;
+                AI_player_white = !WHITE;
+            }
+        }
+        else {
 
-            if (PLAYERvsPLAYER || PLAYERvsAI && mGame.getTurn() % 2 != 0) {
+            if (PLAYERvsPLAYER || PLAYERvsAI) {
                 // the x and y from 0 - 800 to 0 - 7
                 int X_pos = mouse_pos()[0];
                 int Y_pos = mouse_pos()[1];
 
                 // take back move board history bigger than one
                 // button pos
-                int circle_Size = 80;
-                if (overCircle(650, circle_Size) && mGame.white_menu) {
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_white", 900);
-                    mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getWhite().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.white_menu = false;
-                    Game.Possible_moves_black(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
 
 
-                } else if (overCircle(500, circle_Size) && mGame.white_menu) {
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Rook(mGame.change_pawn.x, mGame.change_pawn.y, "Rook_white", 500);
-                    mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getWhite().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.white_menu = false;
-                    Game.Possible_moves_black(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
+
+                    int circle_Size = 80;
+                    if (overCircle(650, circle_Size) && mGame.white_menu) {
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_white", 900);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getWhite().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.white_menu = false;
+                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                } else if (overCircle(350, circle_Size) && mGame.white_menu) {
-
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Bishop(mGame.change_pawn.x, mGame.change_pawn.y, "Bishop_white", 325);
-                    mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getWhite().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.white_menu = false;
-                    Game.Possible_moves_black(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
-
-
-                } else if (overCircle(200, circle_Size) && mGame.white_menu) {
-
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Knight(mGame.change_pawn.x, mGame.change_pawn.y, "Knight_white", 300);
-                    mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getWhite().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.white_menu = false;
-                    Game.Possible_moves_black(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
+                    } else if (overCircle(500, circle_Size) && mGame.white_menu) {
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Rook(mGame.change_pawn.x, mGame.change_pawn.y, "Rook_white", 500);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getWhite().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.white_menu = false;
+                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                } else if (overCircle(650, circle_Size) && mGame.black_menu) {
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_black", 900);
-                    mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getBlack().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.black_menu = false;
-                    Game.Possible_moves_white(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
+                    } else if (overCircle(350, circle_Size) && mGame.white_menu) {
 
-                } else if (overCircle(500, circle_Size) && mGame.black_menu) {
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Rook(mGame.change_pawn.x, mGame.change_pawn.y, "Rook_black", 500);
-                    mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getBlack().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.black_menu = false;
-                    Game.Possible_moves_white(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Bishop(mGame.change_pawn.x, mGame.change_pawn.y, "Bishop_white", 325);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getWhite().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.white_menu = false;
+                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                } else if (overCircle(350, circle_Size) && mGame.black_menu) {
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Bishop(mGame.change_pawn.x, mGame.change_pawn.y, "Bishop_black",-325);
-                    mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getBlack().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.black_menu = false;
-                    Game.Possible_moves_white(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
+                    } else if (overCircle(200, circle_Size) && mGame.white_menu) {
+
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Knight(mGame.change_pawn.x, mGame.change_pawn.y, "Knight_white", 300);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getWhite().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.white_menu = false;
+                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                } else if (overCircle(200, circle_Size) && mGame.black_menu) {
-                    mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Knight(mGame.change_pawn.x, mGame.change_pawn.y, "Knight_black", -300);
-                    mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
-                    mGame.getBlack().pieces.remove(mGame.change_pawn);
-                    mGame.change_pawn = null;
-                    mGame.black_menu = false;
-                    Game.Possible_moves_white(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
+                    } else if (overCircle(650, circle_Size) && mGame.black_menu) {
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_black", 900);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getBlack().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.black_menu = false;
+                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+
+                    } else if (overCircle(500, circle_Size) && mGame.black_menu) {
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Rook(mGame.change_pawn.x, mGame.change_pawn.y, "Rook_black", 500);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getBlack().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.black_menu = false;
+                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                }
+                    } else if (overCircle(350, circle_Size) && mGame.black_menu) {
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Bishop(mGame.change_pawn.x, mGame.change_pawn.y, "Bishop_black", -325);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getBlack().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.black_menu = false;
+                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+
+
+                    } else if (overCircle(200, circle_Size) && mGame.black_menu) {
+                        mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Knight(mGame.change_pawn.x, mGame.change_pawn.y, "Knight_black", -300);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                        mGame.getBlack().pieces.remove(mGame.change_pawn);
+                        mGame.change_pawn = null;
+                        mGame.black_menu = false;
+                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+
+
+                    }
+
 
                 if (mGame.getBoard().getSpot(X_pos, Y_pos).isOccupied()) {
                     // start the moving process
@@ -516,6 +545,41 @@ public class Screen extends PApplet {
 
                 }
             }
+        }
+    }
+
+    private void moveAI(){
+        if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && draw >= 1) {
+
+            if(mGame.getBoard().currentPlayer.IsInCheckMate()){
+                System.exit(0);
+            }
+
+            Game_history.add(mGame.copy());
+            draw = 0;
+            final MiniMax AI = new MiniMax(depth);;
+            Move move_AI = AI.getBestMove(mGame);
+            mGame.MOVE(move_AI, true);
+            if (PLAYERvsAI && AI_player_white && mGame.white_menu) {
+                mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_white", 900);
+                mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                mGame.getWhite().pieces.remove(mGame.change_pawn);
+                mGame.change_pawn = null;
+                mGame.white_menu = false;
+                Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+            } else if (PLAYERvsAI && !AI_player_white && mGame.black_menu) {
+                mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece = new Queen(mGame.change_pawn.x, mGame.change_pawn.y, "Queen_black", 900);
+                mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.x, mGame.change_pawn.y).piece);
+                mGame.getBlack().pieces.remove(mGame.change_pawn);
+                mGame.change_pawn = null;
+                mGame.black_menu = false;
+                Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+            }
+
+        }
+        if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER || AIvsAI && !PLAYERvsPLAYER ) {
+            // draw has ten frames to update
+            draw++;
         }
     }
 

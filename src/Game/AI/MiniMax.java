@@ -8,9 +8,9 @@ import Game.Player;
 public final class MiniMax {
     private int searchDepth;
 
-    private static final int timeLimit = 30000;
+    private static final int timeLimit = 90000;
 
-    public MiniMax(int depth, boolean isWhite){
+    public MiniMax(int depth){
         this.searchDepth = depth;
 
     }
@@ -67,7 +67,7 @@ public final class MiniMax {
             }
             all+=numMoves;
             System.out.println("Process: "+ all+" %");
-            if(System.currentTimeMillis() - starTime>=timeLimit && all>=60){
+            if(System.currentTimeMillis() - starTime>=timeLimit&& all>=60){
                 System.out.println("Time: "+ (System.currentTimeMillis() - starTime));
                 return BestMove;
             }
