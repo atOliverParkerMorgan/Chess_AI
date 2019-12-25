@@ -1,15 +1,13 @@
 package Game.AI;
 
 import Game.Game;
-import pieces.Knight;
-import pieces.Pawn;
 import pieces.Piece;
 
 final class Evaluate {
     private static final int DEPTH_BONUS = 10;
     private static final int CHECK_BONUS = 5;
     private static final int CHECK_MATE_BONUS = 99999;
-    private static final double MOBILITY_BIAS = 0.1;
+    private static final double MOBILITY_BIAS = 0.4;
 
     static double EvaluateGame(final Game mGame, int depth){
         return Score(mGame)+mobility(mGame)+check(mGame)+checkmate(mGame,depth);

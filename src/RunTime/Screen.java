@@ -10,7 +10,6 @@ import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingDeque;
 
 public class Screen extends PApplet {
     private Game mGame;
@@ -36,7 +35,7 @@ public class Screen extends PApplet {
 
     private boolean show_hint = false;
 
-    private final int depth = 1;
+    private final int depth = 3;
     //Menu
     private boolean AIvsAI = false;
     private boolean PLAYERvsAI = false;

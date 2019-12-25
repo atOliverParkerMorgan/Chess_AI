@@ -6,6 +6,9 @@ import Board.Spot;
 import Board.Move;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public final class Rook extends Piece implements Serializable {
@@ -72,12 +75,6 @@ public final class Rook extends Piece implements Serializable {
                 if(s.piece.category.contains(colour)){
                     break;
                 }else{
-                    System.out.println(old_spot.piece);
-                    System.out.println("OLD X: "+old_spot.x);
-                    System.out.println("OLD Y: "+old_spot.y);
-
-                    System.out.println("Spot X: "+s.x);
-                    System.out.println("Spot Y: "+s.y);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                     break;

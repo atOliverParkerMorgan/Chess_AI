@@ -33,7 +33,8 @@ public class Game implements Serializable {
     public boolean moving;
     public Piece Piece_moving;
 
-    public static boolean whiteSide = false;
+    // do not change other board unstable
+    public static boolean whiteSide = true;
 
 
     public Game(){
@@ -248,6 +249,7 @@ public class Game implements Serializable {
         // and showing hint
         this.moving = false;
         this.turn++;
+
 
         if (this.board.currentPlayer.isWhite()) {
             this.board.setCurrentPlayer(this.black);

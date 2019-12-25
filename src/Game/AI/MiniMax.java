@@ -39,7 +39,7 @@ public final class MiniMax {
         double alpha = Integer.MIN_VALUE;
         double beta = Integer.MAX_VALUE;
 
-        Move[] sortedMoves = MoveOrdering.orderMoves(simulatingGame.copy());
+       Move[] sortedMoves = MoveOrdering.orderMoves(simulatingGame.copy());
 
         // time limit started
         final long starTime = System.currentTimeMillis();

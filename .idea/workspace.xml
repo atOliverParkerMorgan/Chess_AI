@@ -3,18 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="135aabdd-e228-408d-92c0-92d0de262d13" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Move.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/AI/MiniMax.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/AI/MiniMax.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Bishop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/King.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Knight.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Pawn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Piece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Queen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Queen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Rook.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Board/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunTime/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunTime/Screen.java" afterDir="false" />
@@ -152,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1577138515716</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="unknown bug">
+      <created>1577225548823</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1577225548823</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -176,6 +172,7 @@
     <MESSAGE value="AI finished MiniMax bug fixed" />
     <MESSAGE value="AI added Evaluate prams" />
     <MESSAGE value="MoveOrdering added" />
-    <option name="LAST_COMMIT_MESSAGE" value="MoveOrdering added" />
+    <MESSAGE value="unknown bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="unknown bug" />
   </component>
 </project>
