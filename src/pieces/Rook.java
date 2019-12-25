@@ -6,9 +6,6 @@ import Board.Spot;
 import Board.Move;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public final class Rook extends Piece implements Serializable {

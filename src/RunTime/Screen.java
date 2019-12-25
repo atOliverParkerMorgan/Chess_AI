@@ -35,7 +35,6 @@ public class Screen extends PApplet {
 
     private boolean show_hint = false;
 
-    private final int depth = 3;
     //Menu
     private boolean AIvsAI = false;
     private boolean PLAYERvsAI = false;
@@ -374,9 +373,7 @@ public class Screen extends PApplet {
         if(MENU) {
             if (PLAYERvsPLAYER || PLAYERvsAI || AIvsAI) {
                 MENU = false;
-                if(AIvsAI){
 
-                }
 
             }
         }else if(side_setup_Menu){
@@ -488,6 +485,7 @@ public class Screen extends PApplet {
         }
 
 
+
     }
 
 
@@ -556,7 +554,8 @@ public class Screen extends PApplet {
 
             Game_history.add(mGame.copy());
             draw = 0;
-            final MiniMax AI = new MiniMax(depth);;
+            int depth = 3;
+            final MiniMax AI = new MiniMax(depth);
             Move move_AI = AI.getBestMove(mGame);
             mGame.MOVE(move_AI, true);
             if (PLAYERvsAI && AI_player_white && mGame.white_menu) {

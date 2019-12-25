@@ -14,7 +14,7 @@ public final class Board implements Serializable{
 
     public Player currentPlayer;
     public Player white;
-    public Player black;
+    private Player black;
 
     // for keeping track of moves
 
@@ -72,7 +72,7 @@ public final class Board implements Serializable{
     }
 
     // copy
-    public Board copy() {
+    private Board copy() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);

@@ -62,14 +62,7 @@ public final class Player implements Serializable {
         }
 
     }
-    public boolean HasCastled(){
-        King k = this.Get_King();
 
-        assert k != null;
-        return k.castled;
-
-
-    }
     public boolean IsInStaleMate(){
         return this.Number_of_Legal_moves()==0;
     }
@@ -150,7 +143,7 @@ public final class Player implements Serializable {
 
 
 
-    King Get_King(){
+    public King Get_King(){
         for(Piece p :this.pieces){
            if(p.category.contains("King")){
                 return (King) p;
