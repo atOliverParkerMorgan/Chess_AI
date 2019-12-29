@@ -31,13 +31,13 @@ public final class Bishop extends Piece implements Serializable {
         int side3;
         int side4;
 
-        int x = p.x;
-        int y = p.y;
+        int x = p.getX();
+        int y = p.getY();
 
         Spot old_spot = board.getSpot(x,y);
 
-        int GoToX = 7-p.x;
-        int GoToY = 7-p.y;
+        int GoToX = 7-p.getX();
+        int GoToY = 7-p.getY();
 
 
         // the diagonal distance is the smaller x or y value
@@ -49,7 +49,7 @@ public final class Bishop extends Piece implements Serializable {
         for (int i = 0; i < side1; i++) {
             Spot s = board.getSpot(x + i + 1, y + i + 1);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);
@@ -65,7 +65,7 @@ public final class Bishop extends Piece implements Serializable {
         for (int i = 0; i < side4; i++) {
             Spot s = board.getSpot(x + i + 1, y - i - 1);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);
@@ -81,7 +81,7 @@ public final class Bishop extends Piece implements Serializable {
         for (int i = 0; i < side2; i++) {
             Spot s = board.getSpot(x - i - 1, y + i + 1);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);
@@ -98,7 +98,7 @@ public final class Bishop extends Piece implements Serializable {
         for (int i = 0; i < side3; i++) {
             Spot s = board.getSpot(x - i - 1, y - i - 1);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);

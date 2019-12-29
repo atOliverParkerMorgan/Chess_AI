@@ -31,7 +31,7 @@ public final class Player implements Serializable {
         King k = this.Get_King();
 
         assert k != null;
-        Spot s = this.board.getSpot(k.x,k.y);
+        Spot s = this.board.getSpot(k.getX(),k.getY());
 
         Game.create_check_map(this.board);
 
@@ -46,7 +46,7 @@ public final class Player implements Serializable {
         King k = this.Get_King();
 
         assert k != null;
-        Spot s = this.board.getSpot(k.x,k.y);
+        Spot s = this.board.getSpot(k.getX(),k.getY());
 
         Game.create_check_map(this.board);
 
@@ -75,14 +75,14 @@ public final class Player implements Serializable {
     private int Number_of_Legal_moves(){
         int total = 0;
         for(Piece p :this.pieces){
-            total+=p.all_possible_moves.size();
+            total+=p.getAll_possible_moves().size();
         }
         return total;
     }
     public List<Move> Legal_moves(){
         List<Move> total = new ArrayList<>();
         for(Piece p :this.pieces){
-            total.addAll(p.all_possible_moves);
+            total.addAll(p.getAll_possible_moves());
         }
         return total;
     }
@@ -102,8 +102,8 @@ public final class Player implements Serializable {
                 pieces.add(new Queen(3, cord_white_y, "Queen_white", 900));
                 pieces.add(new King(4, cord_white_y, "King_white", 10000));
             }else{
-                pieces.add(new Queen(4, cord_white_y, "Queen_white", 900));
-                pieces.add(new King(3, cord_white_y, "King_white", 10000));
+                pieces.add(new Queen(3, cord_white_y, "Queen_white", 900));
+                pieces.add(new King(4, cord_white_y, "King_white", 10000));
             }
             for (int i = 0; i < NUMBER_OF_PAWNS; i++) {
                 if(cord_white_y==7) {
@@ -125,8 +125,8 @@ public final class Player implements Serializable {
                 pieces.add(new Queen(3, cord_black_y, "Queen_black", 900));
                 pieces.add(new King(4, cord_black_y, "King_black", 10000));
             }else {
-                pieces.add(new Queen(4, cord_black_y, "Queen_black", 900));
-                pieces.add(new King(3, cord_black_y, "King_black", 10000));
+                pieces.add(new Queen(3, cord_black_y, "Queen_black", 900));
+                pieces.add(new King(4, cord_black_y, "King_black", 10000));
             }
             for (int i = 0; i < NUMBER_OF_PAWNS; i++) { // draw pawns
                 if(cord_black_y==7) {
@@ -145,7 +145,7 @@ public final class Player implements Serializable {
 
     public King Get_King(){
         for(Piece p :this.pieces){
-           if(p.category.contains("King")){
+           if(p.getCategory().contains("King")){
                 return (King) p;
            }
         }

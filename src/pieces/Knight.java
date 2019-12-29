@@ -26,14 +26,14 @@ public final class Knight extends Piece implements Serializable {
         // TODO Auto-generated constructor stub
     }
     public static void possible_moves(Board board, Piece p, String colour){
-        int x = p.x;
-        int y = p.y;
+        int x = p.getX();
+        int y = p.getY();
 
         Spot old_spot = board.getSpot(x,y);
 
         if (x + 2 <= 7 && y + 1 <= 7) {
             if (board.getSpot(x + 2, y + 1).isOccupied()) {
-                if (!board.getSpot(x + 2, y + 1).piece.category.contains(colour)) {
+                if (!board.getSpot(x + 2, y + 1).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x + 2, y + 1);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
@@ -47,7 +47,7 @@ public final class Knight extends Piece implements Serializable {
         }
         if (x + 1 <= 7 && y + 2 <= 7) {
             if (board.getSpot(x + 1, y + 2).isOccupied()) {
-                if (!board.getSpot(x + 1, y + 2).piece.category.contains(colour)) {
+                if (!board.getSpot(x + 1, y + 2).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x + 1, y + 2);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
@@ -61,7 +61,7 @@ public final class Knight extends Piece implements Serializable {
         }
         if (x - 2 >= 0 && y - 1 >= 0) {
             if (board.getSpot(x - 2, y - 1).isOccupied()) {
-                if (!board.getSpot(x - 2, y - 1).piece.category.contains(colour)) {
+                if (!board.getSpot(x - 2, y - 1).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x - 2, y - 1);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
@@ -74,7 +74,7 @@ public final class Knight extends Piece implements Serializable {
         }
         if (x - 1 >= 0 && y - 2 >= 0) {
             if (board.getSpot(x - 1, y - 2).isOccupied()) {
-                if (!board.getSpot(x - 1, y - 2).piece.category.contains(colour)) {
+                if (!board.getSpot(x - 1, y - 2).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x - 1, y - 2);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
@@ -87,7 +87,7 @@ public final class Knight extends Piece implements Serializable {
         }
         if (x + 2 <= 7 && y - 1 >= 0) {
             if (board.getSpot(x + 2, y - 1).isOccupied()) {
-                if (!board.getSpot(x + 2, y - 1).piece.category.contains(colour)) {
+                if (!board.getSpot(x + 2, y - 1).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x + 2, y - 1);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
@@ -100,7 +100,7 @@ public final class Knight extends Piece implements Serializable {
         }
         if (x - 1 >= 0 && y + 2 <= 7) {
             if (board.getSpot(x - 1, y + 2).isOccupied()) {
-                if (!board.getSpot(x - 1, y + 2).piece.category.contains(colour)) {
+                if (!board.getSpot(x - 1, y + 2).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x - 1, y + 2);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
@@ -113,7 +113,7 @@ public final class Knight extends Piece implements Serializable {
         }
         if (x + 1 <= 7 && y - 2 >= 0) {
             if (board.getSpot(x + 1, y - 2).isOccupied()) {
-                if (!board.getSpot(x + 1, y - 2).piece.category.contains(colour)) {
+                if (!board.getSpot(x + 1, y - 2).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x + 1, y - 2);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
@@ -126,7 +126,7 @@ public final class Knight extends Piece implements Serializable {
         }
         if (x - 2 >= 0 && y + 1 <= 7) {
             if (board.getSpot(x - 2, y + 1).isOccupied()) {
-                if (!board.getSpot(x - 2, y + 1).piece.category.contains(colour)) {
+                if (!board.getSpot(x - 2, y + 1).piece.getCategory().contains(colour)) {
                     Spot s = board.getSpot(x - 2, y + 1);
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);

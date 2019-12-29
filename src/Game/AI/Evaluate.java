@@ -8,11 +8,11 @@ final class Evaluate {
     private static final int CHECK_BONUS = 20;
     private static final int CHECK_MATE_BONUS = 100000;
     private static final double MOBILITY_BIAS = 2;
-    private static double PLACEMENT_BIAS = 11;
+    private static double PLACEMENT_BIAS = 10;
 
     private final static int CASTLE_BONUS = 40;
     private final static int TWO_BISHOPS_BONUS = 50;
-    private final static int NOT_ISOLATED_PAWN_BONUS = 10;
+    private final static int NOT_ISOLATED_PAWN_BONUS = 5;
 
     static double EvaluateGame(final Game mGame, int depth) {
         if(PLACEMENT_BIAS>2){
@@ -27,12 +27,12 @@ final class Evaluate {
         int whiteScore = 0;
 
         for (Piece p : mGame.getWhite().getPieces()) {
-            whiteScore += p.Score;
-            whiteScore += (Game.whiteSide ? p.pos_eval_white[p.y][p.x] : p.pos_eval_black[p.y][p.x])*PLACEMENT_BIAS;
+            whiteScore += p.getScore();
+            whiteScore += (Game.whiteSide ? p.pos_eval_white[p.getY()][p.getX()] : p.pos_eval_black[p.getY()][p.getX()])*PLACEMENT_BIAS;
         }
         for (Piece p : mGame.getBlack().getPieces()) {
-            blackScore += p.Score;
-            blackScore += (Game.whiteSide ? p.pos_eval_black[p.y][p.x] : p.pos_eval_white[p.y][p.x])*PLACEMENT_BIAS;
+            blackScore += p.getScore();
+            blackScore += (Game.whiteSide ? p.pos_eval_black[p.getY()][p.getX()] : p.pos_eval_white[p.getY()][p.getX()])*PLACEMENT_BIAS;
         }
         return whiteScore - blackScore;
     }
@@ -79,7 +79,7 @@ final class Evaluate {
         int re = 0;
 
         for(Piece p: game.getWhite().pieces){
-            if(p.category.contains("Bishop")){
+            if(p.getCategory().contains("Bishop")){
                w++;
                if(w==2){
                    break;
@@ -88,7 +88,7 @@ final class Evaluate {
         }
 
         for(Piece p: game.getBlack().pieces){
-            if(p.category.contains("Bishop")){
+            if(p.getCategory().contains("Bishop")){
                 b++;
                 if(b==2){
                     break;
@@ -112,16 +112,16 @@ final class Evaluate {
         int blackPawnStructure = 0;
 
         for(Piece p :game.getWhite().pieces){
-            if(p.category.contains("Pawns")){
-                if(p.x!=7){
-                    if(game.getBoard().getSpot(p.x+1,p.y+behindW).piece!=null) {
-                        if (game.getBoard().getSpot(p.x + 1, p.y + behindW).piece.category.equals("Pawns_white")) {
+            if(p.getCategory().contains("Pawns")){
+                if(p.getX()!=7){
+                    if(game.getBoard().getSpot(p.getX()+1,p.getY()+behindW).piece!=null) {
+                        if (game.getBoard().getSpot(p.getX() + 1, p.getY() + behindW).piece.getCategory().equals("Pawns_white")) {
                             whitePawnStructure += NOT_ISOLATED_PAWN_BONUS;
                         }
                     }
-                }if(p.x!=0){
-                    if(game.getBoard().getSpot(p.x-1,p.y+behindW).piece!=null) {
-                        if (game.getBoard().getSpot(p.x - 1, p.y + behindW).piece.category.equals("Pawns_white")) {
+                }if(p.getX()!=0){
+                    if(game.getBoard().getSpot(p.getX()-1,p.getY()+behindW).piece!=null) {
+                        if (game.getBoard().getSpot(p.getX() - 1, p.getY() + behindW).piece.getCategory().equals("Pawns_white")) {
                             whitePawnStructure += NOT_ISOLATED_PAWN_BONUS;
                         }
                     }
@@ -130,16 +130,16 @@ final class Evaluate {
             }
         }
         for(Piece p :game.getBlack().pieces){
-            if(p.category.contains("Pawns")){
-                if(p.x!=7){
-                    if(game.getBoard().getSpot(p.x+1,p.y+behindB).piece!=null) {
-                        if (game.getBoard().getSpot(p.x + 1, p.y + behindB).piece.category.equals("Pawns_black")) {
+            if(p.getCategory().contains("Pawns")){
+                if(p.getX()!=7){
+                    if(game.getBoard().getSpot(p.getX()+1,p.getY()+behindB).piece!=null) {
+                        if (game.getBoard().getSpot(p.getX() + 1, p.getY() + behindB).piece.getCategory().equals("Pawns_black")) {
                             blackPawnStructure += NOT_ISOLATED_PAWN_BONUS;
                         }
                     }
-                }if(p.x!=0){
-                    if(game.getBoard().getSpot(p.x-1,p.y+behindB).piece!=null) {
-                        if (game.getBoard().getSpot(p.x - 1, p.y + behindB).piece.category.equals("Pawns_black")) {
+                }if(p.getX()!=0){
+                    if(game.getBoard().getSpot(p.getX()-1,p.getY()+behindB).piece!=null) {
+                        if (game.getBoard().getSpot(p.getX() - 1, p.getY() + behindB).piece.getCategory().equals("Pawns_black")) {
                             blackPawnStructure += NOT_ISOLATED_PAWN_BONUS;
                         }
                     }

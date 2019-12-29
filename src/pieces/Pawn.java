@@ -34,8 +34,8 @@ public final class Pawn extends Piece implements Serializable {
     }
 
     public static void possible_moves(Board board, Piece p, String colour){
-        int x = p.x;
-        int y = p.y;
+        int x = p.getX();
+        int y = p.getY();
 
         Spot old_spot = board.getSpot(x,y);
 
@@ -65,7 +65,7 @@ public final class Pawn extends Piece implements Serializable {
             if (y == en_passe_y) {
                 if (x != 7) {
                     if (board.getSpot(x + 1, y).isOccupied()) {
-                        if (board.getSpot(x + 1, y).piece.category.equals("Pawns_black")) {
+                        if (board.getSpot(x + 1, y).piece.getCategory().equals("Pawns_black")) {
                             Pawn pawn_enpasse = (Pawn) board.getSpot(x + 1, y).piece;
                             if (pawn_enpasse.en_passe) {
                                 Spot s_enpasse = board.getSpot(x + 1, y + minus);
@@ -77,7 +77,7 @@ public final class Pawn extends Piece implements Serializable {
                 }
                 if (x != 0) {
                     if (board.getSpot(x - 1, y).isOccupied()) {
-                        if (board.getSpot(x - 1, y).piece.category.equals("Pawns_black")) {
+                        if (board.getSpot(x - 1, y).piece.getCategory().equals("Pawns_black")) {
                             Pawn pawn_enpasse = (Pawn) board.getSpot(x - 1, y).piece;
                             if (pawn_enpasse.en_passe) {
                                 Spot s_enpasse = board.getSpot(x - 1, y + minus);
@@ -123,7 +123,7 @@ public final class Pawn extends Piece implements Serializable {
                 if (x != 0) {
                     s = board.getSpot(x - 1, y + minus);
                     if (s.isOccupied()) {
-                        if (!s.piece.category.contains("white")) {
+                        if (!s.piece.isWhite()) {
                             Move move = new Move(s,old_spot);
                             p.all_possible_moves.add(move);
                         }
@@ -132,7 +132,7 @@ public final class Pawn extends Piece implements Serializable {
                 if (x != 7) {
                     s = board.getSpot(x + 1, y + minus);
                     if (s.isOccupied()) {
-                        if (!s.piece.category.contains("white")) {
+                        if (!s.piece.isWhite()) {
                             Move move = new Move(s,old_spot);
                             p.all_possible_moves.add(move);
                         }
@@ -163,7 +163,7 @@ public final class Pawn extends Piece implements Serializable {
             if(y==en_passe_y){
                 if(x!=7) {
                     if (board.getSpot(x + 1, y).isOccupied()) {
-                        if (board.getSpot(x + 1, y).piece.category.equals("Pawns_white")) {
+                        if (board.getSpot(x + 1, y).piece.getCategory().equals("Pawns_white")) {
                             Pawn pawn_enpasse = (Pawn) board.getSpot(x + 1, y).piece;
                             if (pawn_enpasse.en_passe) {
                                 Spot s_enpasse = board.getSpot(x + 1, y + minus);
@@ -175,7 +175,7 @@ public final class Pawn extends Piece implements Serializable {
                 }
                 if(x!=0) {
                     if (board.getSpot(x - 1, y).isOccupied()) {
-                        if (board.getSpot(x - 1, y).piece.category.equals("Pawns_white")) {
+                        if (board.getSpot(x - 1, y).piece.getCategory().equals("Pawns_white")) {
                             Pawn pawn_enpasse = (Pawn) board.getSpot(x - 1, y).piece;
                             if (pawn_enpasse.en_passe) {
                                 Spot s_enpasse = board.getSpot(x - 1, y + minus);
@@ -219,7 +219,7 @@ public final class Pawn extends Piece implements Serializable {
                 }if(x!=0) {
                     s = board.getSpot(x - 1, y + minus);
                     if (s.isOccupied()) {
-                        if (!s.piece.category.contains("black")) {
+                        if (!s.piece.isBlack()) {
                             Move move = new Move(s,old_spot);
                             p.all_possible_moves.add(move);
                         }
@@ -227,7 +227,7 @@ public final class Pawn extends Piece implements Serializable {
                 }if(x!=7) {
                     s = board.getSpot(x + 1, y + minus);
                     if (s.isOccupied()) {
-                        if (!s.piece.category.contains("black")) {
+                        if (!s.piece.isBlack()) {
                             Move move = new Move(s,old_spot);
                             p.all_possible_moves.add(move);
                         }

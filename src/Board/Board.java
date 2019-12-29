@@ -125,7 +125,7 @@ public final class Board implements Serializable{
             for(int x = 0; x<8;x++) {
                 Spot spot = this.getSpot(x,y);
                 if(spot.isOccupied()){
-                    switch (spot.piece.category) {
+                    switch (spot.piece.getCategory()) {
                         case "Pawns_white":
                             this.Char_Representation.add("P ");
 
@@ -200,7 +200,7 @@ public final class Board implements Serializable{
 
     public void board_possible_moves(List<Piece> pieces){
         for(Piece p: pieces){
-            String c = p.category;
+            String c = p.getCategory();
 
 
             switch (c) {
@@ -276,19 +276,19 @@ public final class Board implements Serializable{
         Piece k_w = null;
         Piece k_b = null;
 
-        int x = p.x;
-        int y = p.y;
+        int x = p.getX();
+        int y = p.getY();
 
         Piece default_piece = p;
 
         List<Move> delete = new ArrayList<>();
-        for(Move move : p.all_possible_moves) {
+        for(Move move : p.getAll_possible_moves()) {
 
                 Board simulating_board = this.copy();
 
                 //move piece
                 assert simulating_board != null;
-                simulating_board.getSpot(p.x, p.y).unoccupiedSpot();
+                simulating_board.getSpot(p.getX(), p.getY()).unoccupiedSpot();
                 simulating_board.getSpot(move.spot.x, move.spot.y).occupySpot(p);
 
                 // create check map for king
@@ -296,26 +296,26 @@ public final class Board implements Serializable{
                 for(Spot[] s_list: simulating_board.spots){
                     for (Spot s2:s_list) {
                         if (s2.isOccupied()){
-                            if (s2.piece.category.contains("King_white")) {
+                            if (s2.piece.getCategory().contains("King_white")) {
                                 k_w = s2.piece;
-                            } else if (s2.piece.category.contains("King_black")) {
+                            } else if (s2.piece.getCategory().contains("King_black")) {
                                 k_b = s2.piece;
                             }
                         }
                     }
                 }
                 // king can go to a spot occupied by an enemy
-                if (p.category.contains("white")) {
+                if (p.getCategory().contains("white")) {
                     assert k_w != null;
-                    if (!simulating_board.getSpot(k_w.x, k_w.y).isValid_for_white_king) {
+                    if (!simulating_board.getSpot(k_w.getX(), k_w.getY()).isValid_for_white_king) {
                         delete.add(move);
                     }
 
 
                     // king can go to a spot occupied by an enemy (black)
-                }else if (p.category.contains("black")) {
+                }else if (p.getCategory().contains("black")) {
                     assert k_b != null;
-                    if (!simulating_board.getSpot(k_b.x, k_b.y).isValid_for_black_king) {
+                    if (!simulating_board.getSpot(k_b.getX(), k_b.getY()).isValid_for_black_king) {
                         delete.add(move);
                     }
                 }
@@ -328,7 +328,7 @@ public final class Board implements Serializable{
         }
         p = default_piece;
         for(Move move_delete: delete){
-            p.all_possible_moves.remove(move_delete);
+            p.removePossibleMove(move_delete);
         }
 
 
@@ -343,9 +343,9 @@ public final class Board implements Serializable{
         for (Spot[] spots : this.spots){
             for(Spot spot: spots){
                 if(spot.piece!=null) {
-                    int x = spot.piece.x;
-                    int y = spot.piece.y;
-                    switch (spot.piece.category) {
+                    int x = spot.piece.getX();
+                    int y = spot.piece.getY();
+                    switch (spot.piece.getCategory()) {
                         case "Rook_black": {
                             Rook.checkLogic(this, x, y, 7 - x, 7 - y,"black");
                             break;

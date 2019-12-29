@@ -37,8 +37,8 @@ public final class King extends Piece implements Serializable {
     }
 
     public static void possible_moves(Board board, Piece p, String colour){
-        int x = p.x;
-        int y = p.y;
+        int x = p.getX();
+        int y = p.getY();
 
         Spot old_spot = board.getSpot(x,y);
 
@@ -60,7 +60,7 @@ public final class King extends Piece implements Serializable {
         if (GoToX > 0) {
             Spot s = board.getSpot(x + 1, y);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }
@@ -75,7 +75,7 @@ public final class King extends Piece implements Serializable {
                     //checking if the spot is occupied
                     if (k.castling_r && !s2.isOccupied()) {
                         Game.create_check_map(board);
-                        Spot current = board.getSpot(k.x,k.y);
+                        Spot current = board.getSpot(k.getX(),k.getY());
                         // checking if the castling would be valid
                         if (colour.equals("white") && s.isValid_for_white_king && s2.isValid_for_white_king && current.isValid_for_white_king ||
                                 colour.equals("black") && s.isValid_for_black_king && s2.isValid_for_black_king && current.isValid_for_black_king) {
@@ -89,7 +89,7 @@ public final class King extends Piece implements Serializable {
         if (GoToY > 0) {
             Spot s = board.getSpot(x, y + 1);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }
@@ -101,7 +101,7 @@ public final class King extends Piece implements Serializable {
         if (x > 0) {
             Spot s = board.getSpot(x - 1, y);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }
@@ -117,7 +117,7 @@ public final class King extends Piece implements Serializable {
                     if(k.castling_l && !s2.isOccupied()){
                         // checking if the castling would be valid
                         Game.create_check_map(board);
-                        Spot current = board.getSpot(k.x,k.y);
+                        Spot current = board.getSpot(k.getX(),k.getY());
                         // checking if the castling would be valid
                         if (colour.equals("white") && s.isValid_for_white_king && s2.isValid_for_white_king && current.isValid_for_white_king ||
                                 colour.equals("black") && s.isValid_for_black_king && s2.isValid_for_black_king && current.isValid_for_black_king) {
@@ -132,7 +132,7 @@ public final class King extends Piece implements Serializable {
         if (y > 0) {
             Spot s = board.getSpot(x, y - 1);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }
@@ -144,7 +144,7 @@ public final class King extends Piece implements Serializable {
         if (side1 > 0) {
             Spot s = board.getSpot(x + 1, y + 1);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }
@@ -156,7 +156,7 @@ public final class King extends Piece implements Serializable {
         if (side4 > 0) {
             Spot s = board.getSpot(x + 1, y - 1);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }
@@ -168,7 +168,7 @@ public final class King extends Piece implements Serializable {
         if (side2 > 0) {
             Spot s = board.getSpot(x - 1, y + 1);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }
@@ -181,7 +181,7 @@ public final class King extends Piece implements Serializable {
         if (side3 > 0) {
             Spot s = board.getSpot(x - 1, y - 1);
             if (s.isOccupied()) {
-                if (!s.piece.category.contains(colour)) {
+                if (!s.piece.getCategory().contains(colour)) {
                     Move move = new Move(s,old_spot);
                     p.all_possible_moves.add(move);
                 }

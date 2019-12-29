@@ -51,10 +51,10 @@ public class Game implements Serializable {
         // Setup board
         this.board = new Board(this.white, this.black);
         for(Piece P: white.getPieces()) {
-            board.getSpot(P.x, P.y).occupySpot(P);
+            board.getSpot(P.getX(), P.getY()).occupySpot(P);
         }
         for(Piece P: black.getPieces()) {
-            board.getSpot(P.x, P.y).occupySpot(P);
+            board.getSpot(P.getX(), P.getY()).occupySpot(P);
         }
 
         this.white.setBoard(this.board);
@@ -108,42 +108,42 @@ public class Game implements Serializable {
         //RESET EN-PASSE
         if(this.turn%2!=0) {
             for (Piece reset_pawn : this.white.pieces){
-                if(reset_pawn.category.contains("Pawns")){
+                if(reset_pawn.getCategory().contains("Pawns")){
                     Pawn pawn_r = (Pawn) reset_pawn;
                     pawn_r.en_passe = false;
                 }
             }
         }else{
             for (Piece reset_pawn : this.black.pieces){
-                if(reset_pawn.category.contains("Pawns")){
+                if(reset_pawn.getCategory().contains("Pawns")){
                     Pawn pawn_r = (Pawn) reset_pawn;
                     pawn_r.en_passe = false;
                 }
             }
         }
-        if(piece.category.equals("Rook_white")) {
-            if(piece.x==0) {
+        if(piece.getCategory().equals("Rook_white")) {
+            if(piece.getX()==0) {
                 assert this.white.Get_King() != null;
                 this.white.Get_King().castling_l = false;
-            }else if(piece.x==7){
+            }else if(piece.getX()==7){
                 assert this.white.Get_King() != null;
                 this.white.Get_King().castling_r = false;
             }
         }
-        else if(piece.category.equals("Rook_black")){
-            if(piece.x==0) {
+        else if(piece.getCategory().equals("Rook_black")){
+            if(piece.getX()==0) {
                 assert this.black.Get_King() != null;
                 this.black.Get_King().castling_l = false;
-            }else if(piece.x==7){
+            }else if(piece.getX()==7){
                 assert this.black.Get_King() != null;
                 this.black.Get_King().castling_r = false;
             }
         }
         // add piece to new spot
         if(spot.isOccupied()){
-            if(spot.piece.category.contains("white")){
+            if(spot.piece.getCategory().contains("white")){
                 this.white.pieces.remove(spot.piece);
-            }else if(spot.piece.category.contains("black")){
+            }else if(spot.piece.getCategory().contains("black")){
                 this.black.pieces.remove(spot.piece);
             }
         }
@@ -168,7 +168,7 @@ public class Game implements Serializable {
         // this if block checks if a pawn is moving diagonal and if the spot where he is moving is occupied
         // if not this means that the move is a en-passe move since in all other scenarios must have piece
         // of the opposite colour on said spot. under the if statements is the en-passe logic.
-        if (move.piece.category.contains("Pawns")) {
+        if (move.piece.getCategory().contains("Pawns")) {
             if (move.old_spot.x - 1 == move.spot.x && !move.spot.isOccupied()) {
                 Spot enpasse = this.board.getSpot(move.old_spot.x - 1, move.old_spot.y);
                 enpasse.unoccupiedSpot();
@@ -198,11 +198,11 @@ public class Game implements Serializable {
         int endForBlackPawn = whiteSide?7:0;
 
         // Pawn logic
-        if (piece.category.equals("Pawns_white")) {
+        if (piece.getCategory().equals("Pawns_white")) {
             //creating menu when pawn gets at the end of the board
             Pawn p = (Pawn) piece;
 
-            if (piece.y == endForWhitePawn) {
+            if (piece.getY() == endForWhitePawn) {
                 this.white_menu = true;
                 this.change_pawn = piece;
             }
@@ -211,11 +211,11 @@ public class Game implements Serializable {
             p.en_passe = (old_spot.y == 1 && spot.y == 3 && p.first);
             p.first = false;
 
-        } else if (piece.category.equals("Pawns_black")) {
+        } else if (piece.getCategory().equals("Pawns_black")) {
             //creating menu when pawn gets at the end of the board
             Pawn p = (Pawn) piece;
 
-            if (piece.y == endForBlackPawn) {
+            if (piece.getY() == endForBlackPawn) {
                 this.black_menu = true;
                 this.change_pawn = piece;
             }
@@ -225,7 +225,7 @@ public class Game implements Serializable {
             p.first = false;
         }
 
-        if (piece.category.contains("King")) {
+        if (piece.getCategory().contains("King")) {
             King p = (King) piece;
 
             p.castling_k = false;
@@ -292,7 +292,7 @@ public class Game implements Serializable {
         for(Spot[] spots : this.board.spots){
             for(Spot spot : spots){
                 if(spot.isOccupied()){
-                    if(spot.piece.category.contains("white")){
+                    if(spot.piece.getCategory().contains("white")){
                         ALL_WHITE_PIECES.add(spot.piece);
                     }else{
                         ALL_BLACK_PIECES.add(spot.piece);
@@ -309,10 +309,10 @@ public class Game implements Serializable {
     public static void Possible_moves_black(Board board, Player white, Player black){
         // create possible moves on click @Board 57
         for (Piece p : white.pieces) {
-            p.all_possible_moves = new ArrayList<>();
+            p.setAll_possible_moves(new ArrayList<>());
         }
         for (Piece p : black.pieces) {
-            p.all_possible_moves = new ArrayList<>();
+            p.setAll_possible_moves(new ArrayList<>());
         }
 
         board.board_possible_moves(black.pieces);
@@ -321,10 +321,10 @@ public class Game implements Serializable {
     } public static void Possible_moves_white(Board board, Player white, Player black){
         // create possible moves on click @Board 57
         for (Piece p : white.pieces) {
-            p.all_possible_moves = new ArrayList<>();
+            p.setAll_possible_moves(new ArrayList<>());
         }
         for (Piece p : black.pieces) {
-            p.all_possible_moves = new ArrayList<>();
+            p.setAll_possible_moves(new ArrayList<>());
         }
 
         board.board_possible_moves(white.pieces);

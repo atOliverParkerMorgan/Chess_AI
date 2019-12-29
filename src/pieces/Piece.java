@@ -7,16 +7,16 @@ import java.util.List;
 
 public class Piece implements Serializable {
 
-    public final String category;
+    private String category;
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
-    public int Score;
+    private int Score;
 
-    public List<Move> all_possible_moves;
-    public double[][] pos_eval_white;
-    public double[][] pos_eval_black;
+    List<Move> all_possible_moves;
+    public final double[][] pos_eval_white;
+    public final double[][] pos_eval_black;
 
     public Piece(int x, int y, String c, int Score,double[][] pos_eval_white, double[][] pos_eval_black){
         super();
@@ -84,8 +84,71 @@ public class Piece implements Serializable {
         return array;
     }
 
+    public boolean isPawn(){
+        return category.contains("Pawns");
+    }
+    public boolean isRook(){
+        return category.contains("Rook");
+    }
+    public boolean isKnight(){
+        return category.contains("Knight");
+    }
+    public boolean isBishop(){
+        return category.contains("Bishop");
+    }
+    public boolean isQueen(){
+        return category.contains("Queen");
+    }
+    public boolean isKing(){
+        return  category.contains("King");
+    }
+    public boolean isWhite(){
+        return category.contains("white");
+    }
+    public boolean isBlack(){
+        return category.contains("black");
+    }
 
+    public String getCategory() {
+        return category;
+    }
 
+    public int getX() {
+        return x;
+    }
 
+    public int getY() {
+        return y;
+    }
 
+    public int getScore() {
+        return Score;
+    }
+
+    public List<Move> getAll_possible_moves() {
+        return all_possible_moves;
+    }
+    public void removePossibleMove(Move move){
+        all_possible_moves.remove(move);
+    }
+
+    public double[][] getPos_eval_white() {
+        return pos_eval_white;
+    }
+
+    public double[][] getPos_eval_black() {
+        return pos_eval_black;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setAll_possible_moves(List<Move> all_possible_moves) {
+        this.all_possible_moves = all_possible_moves;
+    }
 }

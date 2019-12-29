@@ -40,8 +40,8 @@ public final class Spot implements Serializable {
         //if piece already here, delete it, i. e. set it dead
         //place piece here
         this.piece = piece;
-        piece.x = this.x;
-        piece.y = this.y;
+        piece.setX(x);
+        piece.setY(y);
 
     }
     public void unoccupiedSpot(){
@@ -61,9 +61,9 @@ public final class Spot implements Serializable {
     }
     public String get_Piece_category() {
         if(mouse_on){
-            return show_piece.category;
+            return show_piece.getCategory();
         }
-        return piece.category;
+        return piece.getCategory();
     }
     public Piece getPiece(){return piece;}
 

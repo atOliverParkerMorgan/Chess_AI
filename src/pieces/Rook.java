@@ -26,18 +26,18 @@ public final class Rook extends Piece implements Serializable {
         super(x, y, c,score,pos_eval_white,pos_eval_black);
     }
     public static void possible_moves(Board board, Piece p, String colour) {
-        int x = p.x;
-        int y = p.y;
+        int x = p.getX();
+        int y = p.getY();
 
         Spot old_spot = board.getSpot(x,y);
 
-        int GoToX1 = 7 - p.x;
-        int GoToY1 = 7 - p.y;
+        int GoToX1 = 7 - p.getX();
+        int GoToY1 = 7 - p.getY();
 
         for (int i = 0; i < GoToX1; i++) {
             Spot s = board.getSpot(x + i + 1, y);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);
@@ -53,7 +53,7 @@ public final class Rook extends Piece implements Serializable {
         for (int i = 0; i < GoToY1; i++) {
             Spot s = board.getSpot(x, y + i + 1);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);
@@ -69,7 +69,7 @@ public final class Rook extends Piece implements Serializable {
         for (int i = 0; i < x; i++) {
             Spot s = board.getSpot(x - i - 1, y);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);
@@ -86,7 +86,7 @@ public final class Rook extends Piece implements Serializable {
         for (int i = 0; i < y; i++) {
             Spot s = board.getSpot(x, y - i - 1);
             if(s.isOccupied()){
-                if(s.piece.category.contains(colour)){
+                if(s.piece.getCategory().contains(colour)){
                     break;
                 }else{
                     Move move = new Move(s,old_spot);
