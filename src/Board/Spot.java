@@ -1,6 +1,7 @@
 package Board;
 
 
+import Game.Player;
 import pieces.Piece;
 
 import java.io.Serializable;
@@ -40,8 +41,8 @@ public final class Spot implements Serializable {
         //if piece already here, delete it, i. e. set it dead
         //place piece here
         this.piece = piece;
-        piece.setX(x);
-        piece.setY(y);
+        this.piece.setX(x);
+        this.piece.setY(y);
 
     }
     public void unoccupiedSpot(){

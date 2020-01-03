@@ -15,6 +15,7 @@ public class Screen extends PApplet {
     private Game mGame;
     private List<Game> Game_history;
 
+    // images variables
     private PImage King_img;
     private PImage King_black_img;
 
@@ -41,9 +42,11 @@ public class Screen extends PApplet {
     private boolean PLAYERvsPLAYER = true;
     private boolean MENU = true;
     private boolean side_setup_Menu = true;
+    private boolean depth_menu = true;
     private boolean WHITE = false;
     private boolean BLACK = false;
     private boolean AI_player_white = true;
+    private int AI_depth = -1;
 
     // for ai so the canvas has a couple frames to update before the ai starts thinking
     private int draw;
@@ -61,6 +64,7 @@ public class Screen extends PApplet {
         // add the base dir of the images
         String base_dir = "C:\\Users\\Oliver\\IdeaProjects\\Chess\\src\\sprites\\";
 
+        //loading Images
         King_img = loadImage(base_dir+"King.png");
         King_black_img  = loadImage(base_dir+"King_black.png");
 
@@ -81,6 +85,8 @@ public class Screen extends PApplet {
         // add pieces to for black player
         mGame  = new Game();
         Game_history = new ArrayList<>();
+
+        // get the possible for white ( white always starts )
         Game.Possible_moves_white(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
 
 
@@ -115,6 +121,8 @@ public class Screen extends PApplet {
     public void draw() {
 
         if (MENU) {
+            // creating main menu pick out of: Player vs Player, AI vs Player, AI vs AI
+
             background(255, 153, 153);
             textSize(64);
             fill(0, 51, 51);
@@ -122,6 +130,7 @@ public class Screen extends PApplet {
             textSize(20);
             text("Oliver Morgan", 350, 880);
 
+            // checking mouse (creating boundaries)
             if (mouseX >= 250 && mouseX < 600 && mouseY >= 350 && mouseY < 430) {
                 PLAYERvsPLAYER = true;
                 PLAYERvsAI = false;
@@ -140,7 +149,7 @@ public class Screen extends PApplet {
                 AIvsAI = false;
             }
 
-
+            // out line the option the mouse is over
             textSize(32);
             if (PLAYERvsPLAYER) {
                 fill(126, 209, 235);
@@ -168,7 +177,7 @@ public class Screen extends PApplet {
             text("AI vs AI", 340, 600);
 
 
-        }else if(side_setup_Menu && !AIvsAI){
+        }else if(side_setup_Menu && !AIvsAI && !PLAYERvsPLAYER){
             if (mouseX >= 125 && mouseX < 275 && mouseY >= 350 && mouseY < 425) {
                 WHITE = true;
                 BLACK = false;
@@ -183,6 +192,8 @@ public class Screen extends PApplet {
            fill(0, 51, 51);
            textSize(64);
            text("CHESS", 300, 150);
+           textSize(27);
+           text("Pick the color of your pieces: ",225,300);
            textSize(20);
            text("Oliver Morgan", 350, 880);
 
@@ -190,7 +201,7 @@ public class Screen extends PApplet {
            if(WHITE){
                fill(126, 209, 235);
                rect(125, 350, 175, 75);
-           }if(BLACK){
+           }else if(BLACK){
                 fill(126, 209, 235);
                 rect(525, 350, 175, 75);
             }
@@ -200,7 +211,62 @@ public class Screen extends PApplet {
            fill(225, 225, 102);
            text("BLACK", 550,400);
 
-        }else{
+        }
+        // there is no need to pick a color for Player vs Player so the menu isn't called
+        else if(PLAYERvsPLAYER&&!WHITE){
+            WHITE = true;
+            side_setup_Menu = false;
+            Game.whiteSide = true;
+
+        }
+        // depth menu
+        else if(depth_menu&&(PLAYERvsAI||AIvsAI)){
+            if (mouseX >= 275 && mouseX < 450 && mouseY >= 375 && mouseY < 425) {
+                AI_depth = 1;
+            } else if (mouseX >= 275 && mouseX < 450 && mouseY >= 475 && mouseY < 525) {
+                AI_depth = 2;
+            }else if (mouseX >= 275 && mouseX < 450 && mouseY >= 575 && mouseY < 625){
+                AI_depth = 3;
+            }else if (mouseX >= 275 && mouseX < 450 && mouseY >= 675 && mouseY < 725) {
+                AI_depth = 4;
+            } else {
+                AI_depth = -1;
+            }
+            background(255, 153, 153);
+            fill(0, 51, 51);
+            textSize(64);
+            text("CHESS", 300, 150);
+            textSize(27);
+            text("Pick in what depth the AI will think: ",215,300);
+            textSize(20);
+            text("Oliver Morgan", 350, 880);
+
+            textSize(40);
+            if(AI_depth==1){
+                fill(126, 209, 235);
+                rect(275, 350, 175, 75);
+            }else if(AI_depth==2){
+                fill(126, 209, 235);
+                rect(275, 450, 175, 75);
+            }else if(AI_depth==3){
+                fill(126, 209, 235);
+                rect(275, 550, 175, 75);
+            }
+            else if(AI_depth==4){
+                fill(126, 209, 235);
+                rect(275, 650, 175, 75);
+            }
+
+            fill(255, 43, 120);
+            text("depth: 1", 300,400);
+            text("depth: 2", 300,500);
+            text("depth: 3", 300,600);
+            text("depth: 4", 300,700);
+
+        }
+
+
+        else{
 
 
             // create board
@@ -356,6 +422,7 @@ public class Screen extends PApplet {
 
         }
     }
+    // revert move => take last game state from Game_history ArrayList
     public void keyPressed(){
         if (key == 'z' && Game_history.size() > 0) {
             mGame = Game_history.get(Game_history.size() - 1);
@@ -369,11 +436,16 @@ public class Screen extends PApplet {
     }
 
     public void mousePressed() {
+        // deactivate menu if the mouse is over an option
         if(MENU) {
             if (PLAYERvsPLAYER || PLAYERvsAI || AIvsAI) {
+                if(AIvsAI){
+                    side_setup_Menu = false;
+                }if(PLAYERvsPLAYER){
+                    side_setup_Menu = false;
+                    depth_menu = false;
+                }
                 MENU = false;
-
-
             }
         }else if(side_setup_Menu){
             if(WHITE||BLACK){
@@ -382,7 +454,14 @@ public class Screen extends PApplet {
                 Game.whiteSide = WHITE;
                 AI_player_white = !WHITE;
             }
+        }else if(depth_menu){
+
+            if(AI_depth==1||AI_depth==2||AI_depth==3||AI_depth==4){
+                depth_menu = false;
+                System.out.println(AI_depth);
+            }
         }
+        // pawn level nine menu
         else {
 
             if (PLAYERvsPLAYER || PLAYERvsAI) {
@@ -545,6 +624,8 @@ public class Screen extends PApplet {
     }
 
     private void moveAI(){
+
+
         if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && draw >= 1) {
 
             if(mGame.getBoard().currentPlayer.IsInCheckMate()){
@@ -552,20 +633,23 @@ public class Screen extends PApplet {
             }
 
             Game_history.add(mGame.copy());
-            draw = 0;
-            int depth = 3;
-            final MiniMax AI = new MiniMax(depth);
-            AI.nullMoveHeuristic(mGame);
+            draw = 0; // implemented so board graphics can update
+
+
+            final MiniMax AI = new MiniMax(AI_depth);
             Move move_AI = AI.getBestMove(mGame, false);
             mGame.MOVE(move_AI, true);
-            if (PLAYERvsAI && AI_player_white && mGame.white_menu) {
+
+            if (PLAYERvsAI && AI_player_white && mGame.white_menu || AIvsAI && mGame.white_menu) {
                 mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_white", 900);
                 mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
                 mGame.getWhite().pieces.remove(mGame.change_pawn);
                 mGame.change_pawn = null;
                 mGame.white_menu = false;
                 Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
-            } else if (PLAYERvsAI && !AI_player_white && mGame.black_menu) {
+            }
+            else if (PLAYERvsAI && !AI_player_white && mGame.black_menu || AIvsAI && mGame.black_menu) {
+                System.out.println("here");
                 mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_black", 900);
                 mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
                 mGame.getBlack().pieces.remove(mGame.change_pawn);
@@ -575,8 +659,8 @@ public class Screen extends PApplet {
             }
 
         }
-        if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER || AIvsAI && !PLAYERvsPLAYER ) {
-            // draw has ten frames to update
+        if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white|| AIvsAI  ) {
+            // draw has one frames to update
             draw++;
         }
     }

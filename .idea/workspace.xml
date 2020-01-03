@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="135aabdd-e228-408d-92c0-92d0de262d13" name="Default Changelist" comment="">
+    <list default="true" id="135aabdd-e228-408d-92c0-92d0de262d13" name="Default Changelist" comment="various updates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Spot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Spot.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/AI/MiniMax.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/AI/MiniMax.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Bishop.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Bishop.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/King.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/King.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Knight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Knight.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Pawn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Piece.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/pieces/Rook.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/pieces/Rook.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board/Spot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Spot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunTime/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunTime/Screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pieces/Rook.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -105,8 +105,8 @@ final class Evaluate {
 
     }
     private static double pawnStructure(final Game game){
-        int behindW = Game.whiteSide?-1:1;
-        int behindB = Game.whiteSide?1:-1;
+        int behindW = Game.whiteSide?1:-1;
+        int behindB = Game.whiteSide?-1:1;
 
         int whitePawnStructure = 0;
         int blackPawnStructure = 0;

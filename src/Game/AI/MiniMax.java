@@ -14,24 +14,20 @@ public final class MiniMax {
     private int searchDepth;
     private int searchTiles;
     private List<int[]> nullMoveHeuristicCORD;
+    private long timeMove = 0;
+    private int ab;
 
-    private static final int timeLimit = 30000;
+    private static final int timeLimit = Integer.MAX_VALUE;
 
     public MiniMax(int depth){
         this.searchDepth = depth;
         this.searchTiles = 0;
         this.nullMoveHeuristicCORD = new ArrayList<>();
+        this.timeMove = 0;
+        this.ab = 0;
 
     }
 
-    public void nullMoveHeuristic(final Game mGame){
-        Game simulatingGame = mGame.copy();
-        simulatingGame.getBoard().currentPlayer = simulatingGame.getBoard().currentPlayer.getOpponent();
-        int depth = this.searchDepth;
-        this.searchDepth = depth-2;
-        getBestMove(mGame, true);
-        this.searchDepth = depth;
-    }
 
     public Move getBestMove(final Game mGame, boolean nullHeuristic) {
         // UI
@@ -59,7 +55,12 @@ public final class MiniMax {
         double alpha = Integer.MIN_VALUE;
         double beta = Integer.MAX_VALUE;
 
-       Move[] sortedMoves = MoveOrdering.orderMoves(simulatingGame.copy());
+        Move[] sortedMoves;
+        if(searchDepth>2) {
+            sortedMoves = MoveOrdering.orderMoves(simulatingGame.copy());
+        }else {
+            sortedMoves = simulatingGame.getBoard().currentPlayer.Legal_moves().toArray(new Move[0]);
+        }
 
         // time limit started
         final long starTime = System.currentTimeMillis();
@@ -95,8 +96,12 @@ public final class MiniMax {
         }
 
        final long executionTime = System.currentTimeMillis() - starTime;
-       System.out.println("Time: "+executionTime);
-       System.out.println(searchTiles);
+      // System.out.println("Time: "+executionTime);
+      // System.out.println("Move Time: "+this.timeMove+" ( "+this.timeMove/(executionTime/100)+"%"+" )"); // in depth one process so fast that execution time is zero so Error / by zero is called
+      // System.out.println("AlphaBeta Cuts: "+ab);
+      // System.out.println("searched Tiles: "+searchTiles);
+      // System.out.println("searches per a second: "+ searchTiles/(executionTime/1000));
+
        return BestMove;
 
 
@@ -112,28 +117,22 @@ public final class MiniMax {
         double highestSeenValue = Integer.MIN_VALUE;
         Game original = game.copy();
 
-
-        int x = 0;
         for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
+            final long starTime = System.currentTimeMillis();
+            Game newGame = game.getGameAfterMove(move);
+            this.timeMove+= System.currentTimeMillis() - starTime;
 
-            final double currentValue = min(game.getGameAfterMove(move), depth-1,alpha, beta, nullHeuristic);
+            final double currentValue = min(newGame, depth-1,alpha, beta, nullHeuristic);
 
             highestSeenValue = Math.max(currentValue, highestSeenValue);
             alpha = Math.max(alpha, highestSeenValue);
 
-            if(beta <= alpha || !nullHeuristic && nullMoveHeuristicCORD.contains(new int[]{x, depth})){
-                if(nullHeuristic){
-                    this.nullMoveHeuristicCORD.add(new int[]{x,depth});
-                }
+            if(beta <= alpha ){
+                ab++;
                 break;
             }
-            x++;
-
 
         }
-
-
-
 
 
         return highestSeenValue;
@@ -146,20 +145,20 @@ public final class MiniMax {
         double lowestSeenValue = Integer.MAX_VALUE;
         Game original = game.copy();
 
-        int x = 0;
         for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
 
-            final double currentValue = max(game.getGameAfterMove(move), depth-1, alpha, beta, nullHeuristic);
+            final long starTime = System.currentTimeMillis();
+            Game newGame = game.getGameAfterMove(move);
+            this.timeMove+= System.currentTimeMillis() - starTime;
+
+            final double currentValue = max(newGame, depth-1, alpha, beta, nullHeuristic);
 
             lowestSeenValue = Math.min(currentValue, lowestSeenValue);
             beta = Math.min(beta, lowestSeenValue);
-            if(beta <= alpha || !nullHeuristic && nullMoveHeuristicCORD.contains(new int[]{x, depth})){
-                if(nullHeuristic){
-                    this.nullMoveHeuristicCORD.add(new int[]{x,depth});
-                }
+            if(beta <= alpha) {
+                ab++;
                 break;
             }
-            x++;
 
         }
 

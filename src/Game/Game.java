@@ -13,15 +13,16 @@ import pieces.Piece;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Game implements Serializable {
 
-   private Player white;
-   private Player black;
+    private Player white;
+    private Player black;
 
-   private int turn;
+    private int turn;
 
-   private Board board;
+    private Board board;
 
     // show piece menu when pawn at end of the board
     public boolean white_menu;
@@ -37,7 +38,7 @@ public class Game implements Serializable {
     public static boolean whiteSide = true;
 
 
-    public Game(){
+    public Game() {
 
 
         this.Piece_moving = null;
@@ -50,10 +51,10 @@ public class Game implements Serializable {
 
         // Setup board
         this.board = new Board(this.white, this.black);
-        for(Piece P: white.getPieces()) {
+        for (Piece P : white.getPieces()) {
             board.getSpot(P.getX(), P.getY()).occupySpot(P);
         }
-        for(Piece P: black.getPieces()) {
+        for (Piece P : black.getPieces()) {
             board.getSpot(P.getX(), P.getY()).occupySpot(P);
         }
 
@@ -80,15 +81,14 @@ public class Game implements Serializable {
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
             ObjectInputStream ois = new ObjectInputStream(bais);
             return (Game) ois.readObject();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
 
-    public static void create_check_map(Board board){
+    public static void create_check_map(Board board) {
         // set all spot isValid_for_white_king + isValid_for_white_king to true
         for (Spot[] spots1 : board.spots) {
             for (Spot s : spots1) {
@@ -101,65 +101,61 @@ public class Game implements Serializable {
         board.Check_king();
 
     }
-    private void checkMoveBefore(Spot spot){
+
+    private void checkMoveBefore(Spot spot) {
         // the piece that is being moved
         Piece piece = this.Piece_moving;
 
         //RESET EN-PASSE
-        if(this.turn%2!=0) {
-            for (Piece reset_pawn : this.white.pieces){
-                if(reset_pawn.getCategory().contains("Pawns")){
+        if (this.turn % 2 != 0) {
+            for (Piece reset_pawn : this.white.pieces) {
+                if (reset_pawn.getCategory().contains("Pawns")) {
                     Pawn pawn_r = (Pawn) reset_pawn;
                     pawn_r.en_passe = false;
                 }
             }
-        }else{
-            for (Piece reset_pawn : this.black.pieces){
-                if(reset_pawn.getCategory().contains("Pawns")){
+        } else {
+            for (Piece reset_pawn : this.black.pieces) {
+                if (reset_pawn.getCategory().contains("Pawns")) {
                     Pawn pawn_r = (Pawn) reset_pawn;
                     pawn_r.en_passe = false;
                 }
             }
         }
-        if(piece.getCategory().equals("Rook_white")) {
-            if(piece.getX()==0) {
-                assert this.white.Get_King() != null;
-                this.white.Get_King().castling_l = false;
-            }else if(piece.getX()==7){
-                assert this.white.Get_King() != null;
-                this.white.Get_King().castling_r = false;
+        // if a rook move you cannot castle
+        if (Objects.requireNonNull(this.board.currentPlayer.Get_King()).castling_k) {
+            if (piece.getCategory().equals("Rook_white")) {
+                if (piece.getX() == 0) {
+                    assert this.white.Get_King() != null;
+                    Objects.requireNonNull(this.white.Get_King()).castling_l = false;
+                } else if (piece.getX() == 7) {
+                    assert this.white.Get_King() != null;
+                    Objects.requireNonNull(this.white.Get_King()).castling_r = false;
+                }
+            } else if (piece.getCategory().equals("Rook_black")) {
+                if (piece.getX() == 0) {
+                    assert this.black.Get_King() != null;
+                    Objects.requireNonNull(this.black.Get_King()).castling_l = false;
+                } else if (piece.getX() == 7) {
+                    assert this.black.Get_King() != null;
+                    Objects.requireNonNull(this.black.Get_King()).castling_r = false;
+                }
             }
         }
-        else if(piece.getCategory().equals("Rook_black")){
-            if(piece.getX()==0) {
-                assert this.black.Get_King() != null;
-                this.black.Get_King().castling_l = false;
-            }else if(piece.getX()==7){
-                assert this.black.Get_King() != null;
-                this.black.Get_King().castling_r = false;
-            }
-        }
-        // add piece to new spot
-        if(spot.isOccupied()){
-            if(spot.piece.getCategory().contains("white")){
-                this.white.pieces.remove(spot.piece);
-            }else if(spot.piece.getCategory().contains("black")){
-                this.black.pieces.remove(spot.piece);
-            }
-        }
+
     }
-    public Game getGameAfterMove(Move move){
+
+    public Game getGameAfterMove(Move move) {
         Game game = this.copy();
 
         game.MOVE(move, false);
         return game;
 
 
-
     }
 
 
-    public void MOVE(Move move, boolean UI){
+    public void MOVE(Move move, boolean UI) {
         this.Piece_moving = move.piece;
         // ---------------- MOVING ---------------
         this.checkMoveBefore(move.spot);
@@ -180,22 +176,18 @@ public class Game implements Serializable {
         }
 
 
-        this.board.getSpot(move.spot.x,move.spot.y).occupySpot(move.piece);
-        this.board.getSpot(move.old_spot.x,move.old_spot.y).unoccupiedSpot();
+        this.board.getSpot(move.spot.x, move.spot.y).occupySpot(move.piece);
+        this.board.getSpot(move.old_spot.x, move.old_spot.y).unoccupiedSpot();
 
-
-        this.UpdatePlayerPieces();
 
         this.checkMoveAfter(move.old_spot, move.spot, move.piece, UI);
 
     }
 
 
-
     private void checkMoveAfter(Spot old_spot, Spot spot, Piece piece, boolean UI) {
-
-        int endForWhitePawn = whiteSide?0:7;
-        int endForBlackPawn = whiteSide?7:0;
+        int endForWhitePawn = whiteSide ? 0 : 7;
+        int endForBlackPawn = whiteSide ? 7 : 0;
 
         // Pawn logic
         if (piece.getCategory().equals("Pawns_white")) {
@@ -225,36 +217,43 @@ public class Game implements Serializable {
             p.first = false;
         }
 
-        if (piece.getCategory().contains("King")) {
-            King p = (King) piece;
 
+        // castling
+        if (piece.getCategory().contains("King")) {
+            assert piece instanceof King;
+            King p = (King) piece;
             p.castling_k = false;
             p.castling_l = false;
             p.castling_r = false;
 
+            // old spot is the position of the king
+            // the rook is located at x: 0||7
+
             if (old_spot.x - spot.x == 2) {
 
+                this.board.getSpot(old_spot.x - 1, old_spot.y).occupySpot(board.getSpot(0, old_spot.y).piece); //move the rook to the left of the king
                 this.board.getSpot(0, old_spot.y).unoccupiedSpot();
-                this.board.getSpot(old_spot.x - 1, old_spot.y).occupySpot(board.getSpot(7, old_spot.y).piece);
                 p.castled = true;
 
             }
-            if (-old_spot.x + spot.x == 2) {
+            if (spot.x - old_spot.x == 2) {
+                this.board.getSpot(old_spot.x + 1, old_spot.y).occupySpot(board.getSpot(7, old_spot.y).piece); //move the rook to the right of the king
                 this.board.getSpot(7, old_spot.y).unoccupiedSpot();
-                this.board.getSpot(old_spot.x + 1, old_spot.y).occupySpot(board.getSpot(0, old_spot.y).piece);
                 p.castled = true;
             }
         }
+
+
         // stop moving
         // and showing hint
         this.moving = false;
         this.turn++;
+        this.UpdatePlayerPieces();
 
 
         if (this.board.currentPlayer.isWhite()) {
             this.board.setCurrentPlayer(this.black);
             Possible_moves_black(this.board, this.white, this.black);
-
         } else {
             this.board.setCurrentPlayer(this.white);
             Possible_moves_white(this.board, this.white, this.black);
