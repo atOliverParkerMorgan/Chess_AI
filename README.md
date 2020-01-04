@@ -3,10 +3,10 @@ this program is a chess UI but it comes with a built in AI
 
 ## AI
 the AI uses
-* [MiniMax] (https://en.wikipedia.org/wiki/Minimax)
-** [alpha beta pruning] (https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning)
-** [null move-heuristic pruning] (https://en.wikipedia.org/wiki/Null-move_heuristic)
-** [move ordering](https://stackoverflow.com/questions/9964496/alpha-beta-move-ordering)
+* [MiniMax] (https://en.wikipedia.org/wiki/Minimax) 
+* [alpha beta pruning] (https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning) 
+* [null move-heuristic pruning] (https://en.wikipedia.org/wiki/Null-move_heuristic)
+* [move ordering](https://stackoverflow.com/questions/9964496/alpha-beta-move-ordering)
 
 *[Evaluation](https://www.chessprogramming.org/Evaluation)
 
