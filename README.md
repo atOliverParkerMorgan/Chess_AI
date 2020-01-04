@@ -1,5 +1,5 @@
 # Chess (AI included)
-this program is a chess UI but it comes with a built in AI
+this program is a chess UI it comes with a built in AI
 
 ## AI
 the AI uses
