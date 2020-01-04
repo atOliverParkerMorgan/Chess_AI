@@ -14,10 +14,9 @@ the AI uses
 * play a game Player vs Player
 * play a againts my toy AI 
 * watch two AIs battle it out
-'''
+```
 note the AI is very primitive the Evaluation could be much better and the MiniMax alghorithm could be optimized
-'''
-
+```
 ## How does it look?
 these are some screenshots from the app:
 
