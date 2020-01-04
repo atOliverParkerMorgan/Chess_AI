@@ -22,8 +22,6 @@ public final class Bishop extends Piece implements Serializable {
     private final static double[][] pos_eval_black = Piece.reverse_array(Objects.requireNonNull(Piece.array_clone(pos_eval_white)));
     public Bishop(int x, int y, String c, int score) {
         super(x, y, c,score,pos_eval_white,pos_eval_black);
-
-        // TODO Auto-generated constructor stub
     }
     public static void possible_moves(Board board, Piece p, String colour){
         int side1;

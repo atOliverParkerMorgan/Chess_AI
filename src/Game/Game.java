@@ -102,7 +102,7 @@ public class Game implements Serializable {
 
     }
 
-    private void checkMoveBefore(Spot spot) {
+    private void checkMoveBefore() {
         // the piece that is being moved
         Piece piece = this.Piece_moving;
 
@@ -158,7 +158,7 @@ public class Game implements Serializable {
     public void MOVE(Move move, boolean UI) {
         this.Piece_moving = move.piece;
         // ---------------- MOVING ---------------
-        this.checkMoveBefore(move.spot);
+        this.checkMoveBefore();
 
         //EN-PASSE => effect in move
         // this if block checks if a pawn is moving diagonal and if the spot where he is moving is occupied

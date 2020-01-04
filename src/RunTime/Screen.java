@@ -62,7 +62,7 @@ public class Screen extends PApplet {
         // noLoop();
 
         // add the base dir of the images
-        String base_dir = "C:\\Users\\Oliver\\IdeaProjects\\Chess\\src\\sprites\\";
+        String base_dir = System.getProperty("user.dir")+"\\src\\sprites\\"; // may create error everybody as their own directory
 
         //loading Images
         King_img = loadImage(base_dir+"King.png");
@@ -636,9 +636,9 @@ public class Screen extends PApplet {
             draw = 0; // implemented so board graphics can update
 
 
-            final MiniMax AI = new MiniMax(AI_depth);
+            final MiniMax AI = new MiniMax(AI_depth,false,Integer.MAX_VALUE);
             Move move_AI = AI.getBestMove(mGame, false);
-            mGame.MOVE(move_AI, true);
+            mGame.MOVE(move_AI, AI.UI);
 
             if (PLAYERvsAI && AI_player_white && mGame.white_menu || AIvsAI && mGame.white_menu) {
                 mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_white", 900);
@@ -649,7 +649,6 @@ public class Screen extends PApplet {
                 Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
             }
             else if (PLAYERvsAI && !AI_player_white && mGame.black_menu || AIvsAI && mGame.black_menu) {
-                System.out.println("here");
                 mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_black", 900);
                 mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
                 mGame.getBlack().pieces.remove(mGame.change_pawn);

@@ -17,9 +17,6 @@ public final class Board implements Serializable{
     private Player black;
 
     // for keeping track of moves
-
-
-
     private List<String> Char_Representation;
 
     public Board(Player player, Player black){

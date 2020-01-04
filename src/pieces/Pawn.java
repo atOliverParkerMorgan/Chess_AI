@@ -30,7 +30,6 @@ public final class Pawn extends Piece implements Serializable {
 
         this.en_passe = false;
         this.first = true;
-        // TODO Auto-generated constructor stub
     }
 
     public static void possible_moves(Board board, Piece p, String colour){

@@ -16,7 +16,7 @@ public final class Move implements Serializable {
         this.old_spot = old_spot;
         this.piece = old_spot.piece;
         if(this.piece == null){
-            throw new Error("Move the move that you're trying to make does not contain a piece spot from: x: "+old_spot.x+" y: "+old_spot.y+" spot to: x: "+spot.x+"y: "+spot.y+" piece status: "+ piece);
+            throw new Error("Move the move that you're trying to make does not contain a piece spot from: x: "+old_spot.x+" y: "+old_spot.y+" spot to: x: "+spot.x+" y: "+spot.y+" piece status: "+ piece);
         }
     }
 

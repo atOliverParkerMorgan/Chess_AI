@@ -16,11 +16,14 @@ public final class MiniMax {
     private List<int[]> nullMoveHeuristicCORD;
     private long timeMove = 0;
     private int ab;
+    public boolean UI;
+    private int timeLimit;
 
-    private static final int timeLimit = Integer.MAX_VALUE;
-
-    public MiniMax(int depth){
+    public MiniMax(int depth, boolean UI, int timeLimit){
         this.searchDepth = depth;
+        this.timeLimit = timeLimit; //the max time the AI is allowed to think
+        this.UI = UI;
+
         this.searchTiles = 0;
         this.nullMoveHeuristicCORD = new ArrayList<>();
         this.timeMove = 0;
@@ -31,10 +34,12 @@ public final class MiniMax {
 
     public Move getBestMove(final Game mGame, boolean nullHeuristic) {
         // UI
-        if(mGame.getBoard().currentPlayer.isWhite()) {
-            System.out.println("WHITE " + "THINKING with depth = " + this.searchDepth);
-        }else{
-            System.out.println("BLACK " + "THINKING with depth = " + this.searchDepth);
+        if(UI) {
+            if (mGame.getBoard().currentPlayer.isWhite()) {
+                System.out.println("WHITE " + "THINKING with depth = " + this.searchDepth);
+            } else {
+                System.out.println("BLACK " + "THINKING with depth = " + this.searchDepth);
+            }
         }
         // percentage
         int numMoves = 100 / mGame.getBoard().currentPlayer.Legal_moves().size();
@@ -77,30 +82,33 @@ public final class MiniMax {
 
             if(player.isWhite() && currentValue > highestSeenValue){
                 highestSeenValue = currentValue;
-                System.out.println("WHITE score: "+highestSeenValue);
+                if(UI){System.out.println("WHITE score: "+highestSeenValue);}
                 BestMove = move;
 
             }if(!player.isWhite() && currentValue < lowestSeenValues){
                 lowestSeenValues = currentValue;
-                System.out.println("BLACK score: "+ -lowestSeenValues);
+                if(UI){System.out.println("BLACK score: "+ -lowestSeenValues);}
                 BestMove = move;
 
             }
-            all+=numMoves;
-            System.out.println("Process: "+ all+" %");
+            if(UI){
+                all+=numMoves;
+                System.out.println("Process: "+ all+" %");
+            }
             if(System.currentTimeMillis() - starTime>=timeLimit){
-                System.out.println("Time: "+ (System.currentTimeMillis() - starTime));
+                if(UI){System.out.println("Time: "+ (System.currentTimeMillis() - starTime));}
                 return BestMove;
             }
 
         }
-
-       final long executionTime = System.currentTimeMillis() - starTime;
-      // System.out.println("Time: "+executionTime);
-      // System.out.println("Move Time: "+this.timeMove+" ( "+this.timeMove/(executionTime/100)+"%"+" )"); // in depth one process so fast that execution time is zero so Error / by zero is called
-      // System.out.println("AlphaBeta Cuts: "+ab);
-      // System.out.println("searched Tiles: "+searchTiles);
-      // System.out.println("searches per a second: "+ searchTiles/(executionTime/1000));
+       if(UI) {
+           final long executionTime = System.currentTimeMillis() - starTime;
+           System.out.println("Time: "+executionTime);
+           // System.out.println("Move Time: "+this.timeMove+" ( "+this.timeMove/(executionTime/100)+"%"+" )"); // in depth one process so fast that execution time is zero so Error / by zero is called
+           // System.out.println("AlphaBeta Cuts: "+ab);
+           // System.out.println("searched Tiles: "+searchTiles);
+           // System.out.println("searches per a second: "+ searchTiles/(executionTime/1000));
+       }
 
        return BestMove;
 
