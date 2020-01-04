@@ -458,7 +458,6 @@ public class Screen extends PApplet {
 
             if(AI_depth==1||AI_depth==2||AI_depth==3||AI_depth==4){
                 depth_menu = false;
-                System.out.println(AI_depth);
             }
         }
         // pawn level nine menu
