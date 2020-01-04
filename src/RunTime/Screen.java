@@ -635,8 +635,8 @@ public class Screen extends PApplet {
             draw = 0; // implemented so board graphics can update
 
 
-            final MiniMax AI = new MiniMax(AI_depth,false,Integer.MAX_VALUE);
-            Move move_AI = AI.getBestMove(mGame, false);
+            final MiniMax AI = new MiniMax(AI_depth,true,Integer.MAX_VALUE);
+            Move move_AI = AI.getBestMove(mGame, true);
             mGame.MOVE(move_AI, AI.UI);
 
             if (PLAYERvsAI && AI_player_white && mGame.white_menu || AIvsAI && mGame.white_menu) {
