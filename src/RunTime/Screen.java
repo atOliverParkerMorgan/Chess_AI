@@ -244,17 +244,17 @@ public class Screen extends PApplet {
             textSize(40);
             if(AI_depth==1){
                 fill(126, 209, 235);
-                rect(275, 350, 175, 75);
+                rect(275, 350, 200, 75);
             }else if(AI_depth==2){
                 fill(126, 209, 235);
-                rect(275, 450, 175, 75);
+                rect(275, 450, 200, 75);
             }else if(AI_depth==3){
                 fill(126, 209, 235);
-                rect(275, 550, 175, 75);
+                rect(275, 550, 200, 75);
             }
             else if(AI_depth==4){
                 fill(126, 209, 235);
-                rect(275, 650, 175, 75);
+                rect(275, 650, 200, 75);
             }
 
             fill(255, 43, 120);
