@@ -124,60 +124,60 @@ public final class Board implements Serializable{
                 if(spot.isOccupied()){
                     switch (spot.piece.getCategory()) {
                         case "Pawns_white":
-                            this.Char_Representation.add("P ");
+                            this.Char_Representation.add("\u2659");
 
                             break;
                         case "Queen_white":
-                            this.Char_Representation.add("Q ");
+                            this.Char_Representation.add("\u2655");
 
                             break;
                         case "King_white":
-                            this.Char_Representation.add("K ");
+                            this.Char_Representation.add("\u2654");
 
 
                             break;
                         case "Bishop_white":
-                            this.Char_Representation.add("B ");
+                            this.Char_Representation.add("\u2657");
 
 
                             break;
                         case "Knight_white":
-                            this.Char_Representation.add("H ");
+                            this.Char_Representation.add("\u2658");
 
 
                             break;
                         case "Rook_white":
-                            this.Char_Representation.add("R ");
+                            this.Char_Representation.add("\u2656");
 
 
                             break;
                         case "Pawns_black":
-                            this.Char_Representation.add("p ");
+                            this.Char_Representation.add("\u265F");
 
 
                             break;
                         case "Queen_black":
-                            this.Char_Representation.add("q ");
+                            this.Char_Representation.add("\u265B");
 
 
                             break;
                         case "King_black":
-                            this.Char_Representation.add("k ");
+                            this.Char_Representation.add("\u265A");
 
 
                             break;
                         case "Bishop_black":
-                            this.Char_Representation.add("b ");
+                            this.Char_Representation.add("\u265D");
 
 
                             break;
                         case "Knight_black":
-                            this.Char_Representation.add("h ");
+                            this.Char_Representation.add("\u265E");
 
 
                             break;
                         case "Rook_black":
-                            this.Char_Representation.add("r ");
+                            this.Char_Representation.add("\u265C");
 
                             break;
                     }

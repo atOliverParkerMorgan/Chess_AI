@@ -458,7 +458,6 @@ public class Screen extends PApplet {
 
             if(AI_depth==1||AI_depth==2||AI_depth==3||AI_depth==4){
                 depth_menu = false;
-                System.out.println(AI_depth);
             }
         }
         // pawn level nine menu
@@ -636,7 +635,7 @@ public class Screen extends PApplet {
             draw = 0; // implemented so board graphics can update
 
 
-            final MiniMax AI = new MiniMax(AI_depth,false,Integer.MAX_VALUE);
+            final MiniMax AI = new MiniMax(AI_depth,true,Integer.MAX_VALUE);
             Move move_AI = AI.getBestMove(mGame, false);
             mGame.MOVE(move_AI, AI.UI);
 
