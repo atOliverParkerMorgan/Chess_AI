@@ -48,8 +48,8 @@ these are some screenshots from the app:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/atOliverParkerMorgan/Chess_AI/blob/master/LICENSE) file for details
 
 ## Acknowledgments
-the UI is fully functional, but the AI could be much better and faster. My computer calculates about 70 moves per a second ([DeepBlue](https://en.wikipedia.org/wiki/Deep_Blue_(chess_computer) calculated 200 million moves per a second) 
+the UI is fully functional, but the AI could be much better and faster. My computer calculates about 70 moves per a second ([DeepBlue](https://en.wikipedia.org/wiki/Deep_Blue_(chess_computer)) calculated 200 million moves per a second) 
 the AI cold be further expanded with [parallel computing](https://stackoverflow.com/questions/3350459/parallel-programming-in-java) or optimization of the [MOVE](https://github.com/atOliverParkerMorgan/Chess_AI/blob/master/src/Game/Game.java) method 

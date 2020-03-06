@@ -4,21 +4,29 @@ import Game.Game;
 import pieces.Piece;
 
 final class Evaluate {
+
     private static final int DEPTH_BONUS = 10;
     private static final int CHECK_BONUS = 20;
     private static final int CHECK_MATE_BONUS = 100000;
-    private static final double MOBILITY_BIAS = 2;
-    private static double PLACEMENT_BIAS = 10;
+    private static double MOBILITY_BIAS = 4;
+    private static double SUBTRACT_FROM_MOBILITY = 1;
 
     private final static int CASTLE_BONUS = 40;
     private final static int TWO_BISHOPS_BONUS = 50;
     private final static int NOT_ISOLATED_PAWN_BONUS = 5;
+    private final static int MOVE_QUEEN_TO_EARLY = 150;
+
 
     static double EvaluateGame(final Game mGame, int depth) {
-        if(PLACEMENT_BIAS>2){
-            PLACEMENT_BIAS-=mGame.getTurn();
+        if(MOBILITY_BIAS-SUBTRACT_FROM_MOBILITY>0) {
+            MOBILITY_BIAS -= SUBTRACT_FROM_MOBILITY;
+            SUBTRACT_FROM_MOBILITY = 1 / mGame.getTurn();
+        }else {
+            MOBILITY_BIAS = 1;
         }
-        return Score(mGame) + mobility(mGame) + check(mGame) + checkmate(mGame, depth) + hasCastled(mGame)+twoBishops(mGame) + pawnStructure(mGame);
+
+
+        return Score(mGame) + mobility(mGame) + check(mGame) + checkmate(mGame, depth) + hasCastled(mGame)+twoBishops(mGame) + pawnStructure(mGame) + queenToEarly(mGame);
 
     }
 
@@ -28,11 +36,11 @@ final class Evaluate {
 
         for (Piece p : mGame.getWhite().getPieces()) {
             whiteScore += p.getScore();
-            whiteScore += (Game.whiteSide ? p.pos_eval_white[p.getY()][p.getX()] : p.pos_eval_black[p.getY()][p.getX()])*PLACEMENT_BIAS;
+            whiteScore += (Game.whiteSide ? p.pos_eval_white[p.getY()][p.getX()] : p.pos_eval_black[p.getY()][p.getX()])*2*MOBILITY_BIAS;
         }
         for (Piece p : mGame.getBlack().getPieces()) {
             blackScore += p.getScore();
-            blackScore += (Game.whiteSide ? p.pos_eval_black[p.getY()][p.getX()] : p.pos_eval_white[p.getY()][p.getX()])*PLACEMENT_BIAS;
+            blackScore += (Game.whiteSide ? p.pos_eval_black[p.getY()][p.getX()] : p.pos_eval_white[p.getY()][p.getX()])*2*MOBILITY_BIAS;
         }
         return whiteScore - blackScore;
     }
@@ -148,6 +156,15 @@ final class Evaluate {
             }
         }
         return whitePawnStructure-blackPawnStructure;
+    }
+    private static int queenToEarly(final Game game){
+        if(10<game.getTurn()&&game.Piece_moving.getCategory().contains("Queen_black")){
+            return MOVE_QUEEN_TO_EARLY;
+        }else if(10<game.getTurn()&&game.Piece_moving.getCategory().contains("Queen_white")){
+            return -MOVE_QUEEN_TO_EARLY;
+        }
+
+        return 0;
     }
 
 
