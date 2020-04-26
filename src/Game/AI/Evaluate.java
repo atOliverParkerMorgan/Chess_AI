@@ -1,7 +1,7 @@
 package Game.AI;
 
 import Game.Game;
-import pieces.Piece;
+import Pieces.Piece;
 
 final class Evaluate {
 

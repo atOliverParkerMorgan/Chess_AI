@@ -1,4 +1,4 @@
-package pieces;
+package Pieces;
 import Board.Move;
 
 import java.io.*;

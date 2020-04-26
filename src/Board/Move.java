@@ -1,7 +1,7 @@
 package Board;
 
 
-import pieces.Piece;
+import Pieces.Piece;
 
 import java.io.Serializable;
 

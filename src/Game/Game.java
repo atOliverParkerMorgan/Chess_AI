@@ -6,9 +6,9 @@ import Board.Board;
 import Board.Spot;
 import Board.Move;
 
-import pieces.King;
-import pieces.Pawn;
-import pieces.Piece;
+import Pieces.King;
+import Pieces.Pawn;
+import Pieces.Piece;
 
 import java.io.*;
 import java.util.ArrayList;

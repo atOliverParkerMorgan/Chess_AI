@@ -3,7 +3,7 @@ package Game;
 import Board.Spot;
 import Board.Move;
 import Board.Board;
-import pieces.*;
+import Pieces.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;

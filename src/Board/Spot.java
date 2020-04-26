@@ -1,6 +1,6 @@
 package Board;
 
-import pieces.Piece;
+import Pieces.Piece;
 import java.io.Serializable;
 
 public final class Spot implements Serializable {

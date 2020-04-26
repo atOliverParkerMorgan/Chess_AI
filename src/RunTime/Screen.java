@@ -4,7 +4,7 @@ import Board.Move;
 import Board.Spot;
 import Game.AI.MiniMax;
 import Game.Game;
-import pieces.*;
+import Pieces.*;
 import processing.core.PApplet;
 import processing.core.PImage;
 

@@ -2,7 +2,7 @@ package Board;
 
 
 import Game.Player;
-import pieces.*;
+import Pieces.*;
 import Game.Game;
 
 import java.io.*;
