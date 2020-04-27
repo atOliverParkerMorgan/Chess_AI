@@ -77,8 +77,8 @@ public final class King extends Piece implements Serializable {
                         Game.create_check_map(board);
                         Spot current = board.getSpot(k.getX(),k.getY());
                         // checking if the castling would be valid
-                        if (colour.equals("white") && s.isValid_for_white_king && s2.isValid_for_white_king && current.isValid_for_white_king ||
-                                colour.equals("black") && s.isValid_for_black_king && s2.isValid_for_black_king && current.isValid_for_black_king) {
+                        if (colour.equals("white") && s.isValidForWhiteKing && s2.isValidForWhiteKing && current.isValidForWhiteKing ||
+                                colour.equals("black") && s.isValidForBlackKing && s2.isValidForBlackKing && current.isValidForBlackKing) {
                             move = new Move(s2,old_spot);
                             p.all_possible_moves.add(move);
                         }
@@ -119,8 +119,8 @@ public final class King extends Piece implements Serializable {
                         Game.create_check_map(board);
                         Spot current = board.getSpot(k.getX(),k.getY());
                         // checking if the castling would be valid
-                        if (colour.equals("white") && s.isValid_for_white_king && s2.isValid_for_white_king && current.isValid_for_white_king ||
-                                colour.equals("black") && s.isValid_for_black_king && s2.isValid_for_black_king && current.isValid_for_black_king) {
+                        if (colour.equals("white") && s.isValidForWhiteKing && s2.isValidForWhiteKing && current.isValidForWhiteKing ||
+                                colour.equals("black") && s.isValidForBlackKing && s2.isValidForBlackKing && current.isValidForBlackKing) {
                             move = new Move(s2,old_spot);
                             p.all_possible_moves.add(move);
                         }
@@ -213,67 +213,67 @@ public final class King extends Piece implements Serializable {
         if(GoToX>0){
             Spot s = board.getSpot(x + 1, y);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
         }
         if(GoToY>0) {
             Spot s = board.getSpot(x, y + 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
         }
         if(x>0) {
             Spot s = board.getSpot(x - 1, y);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
 
         }
         if(y>0){
             Spot s = board.getSpot(x, y - 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
         }
         if(side1>0){
             Spot s = board.getSpot(x + 1, y + 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
         }
         if(side4>0){
             Spot s = board.getSpot(x + 1, y - 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
         }
         if(side2>0){
             Spot s = board.getSpot(x - 1, y + 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
 
         }
         if(side3>0){
             Spot s = board.getSpot(x - 1, y - 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
         }
 

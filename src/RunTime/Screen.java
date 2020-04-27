@@ -356,7 +356,7 @@ public class Screen extends PApplet {
             for (Spot[] spots : mGame.getBoard().spots) {
                 for (Spot spot : spots) {
                     if (spot.isOccupied() || spot.toShow()) {
-                        switch (spot.get_Piece_category()) {
+                        switch (spot.getPieceCategory()) {
                             case "King_white":
                                 image(King_img, spot.x * 100, spot.y * 100);
                                 break;
@@ -407,14 +407,14 @@ public class Screen extends PApplet {
                 // default
                 for (Spot[] spots : mGame.getBoard().spots) {
                     for (Spot spot : spots) {
-                        spot.mouse_on = false;
-                        spot.show_piece = null;
+                        spot.mouseOn = false;
+                        spot.showPiece = null;
                     }
                 }
                 // change the look of the spot were the mouse is located
                 Spot spot = mGame.getBoard().getSpot(X, Y);
-                spot.mouse_on = true;
-                spot.show_on_Spot(mGame.Piece_moving);
+                spot.mouseOn = true;
+                spot.showOnSpot(mGame.Piece_moving);
             }
 
 
@@ -574,8 +574,8 @@ public class Screen extends PApplet {
             for (Spot[] spots : mGame.getBoard().spots) {
                 for (Spot s : spots) {
 
-                    s.mouse_on = false;
-                    s.show_piece = null;
+                    s.mouseOn = false;
+                    s.showPiece = null;
                 }
 
             }
@@ -611,7 +611,7 @@ public class Screen extends PApplet {
                     mGame.moving = false;
 
                     for (Move m : mGame.Piece_moving.getAll_possible_moves()) {
-                        if (m.spot == new_move.spot && m.old_spot == new_move.old_spot) {
+                        if (m.spot == new_move.spot && m.oldSpot == new_move.oldSpot) {
                             Game_history.add(mGame.copy());
                             mGame.MOVE(new_move, false);
                         }

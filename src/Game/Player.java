@@ -36,9 +36,9 @@ public final class Player implements Serializable {
         Game.create_check_map(this.board);
 
         if(this.white){
-           return !s.isValid_for_white_king;
+           return !s.isValidForWhiteKing;
         }else{
-           return  !s.isValid_for_black_king;
+           return  !s.isValidForBlackKing;
         }
 
     }
@@ -54,11 +54,11 @@ public final class Player implements Serializable {
         if(this.white){
             Game.Possible_moves_white(this.board, this , this.opponent);
 
-            return !s.isValid_for_white_king && this.Number_of_Legal_moves()==0;
+            return !s.isValidForWhiteKing && this.Number_of_Legal_moves()==0;
         }else{
             Game.Possible_moves_black(this.board,this.opponent , this);
 
-            return  !s.isValid_for_black_king && this.Number_of_Legal_moves()==0;
+            return  !s.isValidForBlackKing && this.Number_of_Legal_moves()==0;
         }
 
     }

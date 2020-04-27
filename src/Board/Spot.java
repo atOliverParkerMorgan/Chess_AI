@@ -9,19 +9,18 @@ public final class Spot implements Serializable {
     // the piece on the spot
     public Piece piece;
     //the piece that is shown on the UI
-    public Piece show_piece;
+    public Piece showPiece;
     // white king can move here
-    public boolean isValid_for_white_king;
+    public boolean isValidForWhiteKing;
     // black king can move here
-    public boolean isValid_for_black_king;
+    public boolean isValidForBlackKing;
 
-    public boolean mouse_on = false;
+    public boolean mouseOn = false;
 
     final String id;
 
 
     Spot(int x, int y, String id) {
-        super();
         // the location of the spot
         this.id = id;
         this.x = x;
@@ -29,8 +28,8 @@ public final class Spot implements Serializable {
         // the piece on the spot
         piece = null;
         // at init all spot are valid for kings
-        this.isValid_for_white_king = true;
-        this.isValid_for_black_king = true;
+        this.isValidForWhiteKing = true;
+        this.isValidForBlackKing = true;
 
     }
 
@@ -44,7 +43,7 @@ public final class Spot implements Serializable {
     }
     public void unoccupiedSpot(){
         this.piece = null;
-        show_piece = null;
+        showPiece = null;
     }
 
     public boolean isOccupied() {
@@ -55,19 +54,19 @@ public final class Spot implements Serializable {
 
     public boolean toShow() {
 
-        return mouse_on;
+        return mouseOn;
     }
-    public String get_Piece_category() {
-        if(mouse_on){
-            return show_piece.getCategory();
+    public String getPieceCategory() {
+        if(mouseOn){
+            return showPiece.getCategory();
         }
         return piece.getCategory();
     }
     public Piece getPiece(){return piece;}
 
-    public void show_on_Spot(Piece piece){
-        if(mouse_on) {
-            show_piece = piece;
+    public void showOnSpot(Piece piece){
+        if(mouseOn) {
+            showPiece = piece;
         }
     }
 

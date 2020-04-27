@@ -257,10 +257,10 @@ public final class Pawn extends Piece implements Serializable {
             if(y!=end){
                 if(x!=7) {
                     Spot s = board.getSpot(x + 1, y + minus);
-                    s.isValid_for_black_king = false;
+                    s.isValidForBlackKing = false;
                 }if(x!=0) {
                     Spot s2 = board.getSpot(x - 1, y + minus);
-                    s2.isValid_for_black_king = false;
+                    s2.isValidForBlackKing = false;
                 }
             }
         }else{
@@ -279,10 +279,10 @@ public final class Pawn extends Piece implements Serializable {
             if(y!=end){
                 if(x!=7) {
                     Spot s = board.getSpot(x + 1, y + minus);
-                    s.isValid_for_white_king = false;
+                    s.isValidForWhiteKing = false;
                 }if(x!=0){
                     Spot s2 = board.getSpot(x - 1, y + minus);
-                    s2.isValid_for_white_king = false;
+                    s2.isValidForWhiteKing = false;
                 }
             }
         }

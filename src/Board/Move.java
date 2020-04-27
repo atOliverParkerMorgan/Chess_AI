@@ -8,15 +8,15 @@ import java.io.Serializable;
 public final class Move implements Serializable {
 
     public final Spot spot;
-    public final Spot old_spot;
+    public final Spot oldSpot;
     public final Piece piece;
 
-    public Move(Spot spot, Spot old_spot){
+    public Move(Spot spot, Spot oldSpot){
         this.spot = spot;
-        this.old_spot = old_spot;
-        this.piece = old_spot.piece;
+        this.oldSpot = oldSpot;
+        this.piece = oldSpot.piece;
         if(this.piece == null){
-            throw new Error("Move the move that you're trying to make does not contain a piece spot from: x: "+old_spot.x+" y: "+old_spot.y+" spot to: x: "+spot.x+" y: "+spot.y+" piece status: "+ piece);
+            throw new Error("Move the move that you're trying to make does not contain a piece spot from: x: "+ oldSpot.x+" y: "+ oldSpot.y+" spot to: x: "+spot.x+" y: "+spot.y+" piece status: "+ piece);
         }
     }
 

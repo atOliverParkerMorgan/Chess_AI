@@ -105,9 +105,9 @@ public final class Rook extends Piece implements Serializable {
         for (int i = 0; i < goToX1; i++) {
             Spot s = board.getSpot(x + i + 1, y);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
             if (s.isOccupied()) {
                 break;
@@ -116,9 +116,9 @@ public final class Rook extends Piece implements Serializable {
         for (int i = 0; i < goToY1; i++) {
             Spot s = board.getSpot(x, y + i + 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
             if (s.isOccupied()) {
                 break;
@@ -127,9 +127,9 @@ public final class Rook extends Piece implements Serializable {
         for (int i = 0; i < x; i++) {
             Spot s = board.getSpot(x - i - 1, y);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
             if (s.isOccupied()) {
                 break;
@@ -139,9 +139,9 @@ public final class Rook extends Piece implements Serializable {
         for (int i = 0; i < y; i++) {
             Spot s = board.getSpot(x, y - i - 1);
             if(colour.equals("white")) {
-                s.isValid_for_black_king = false;
+                s.isValidForBlackKing = false;
             }else{
-                s.isValid_for_white_king = false;
+                s.isValidForWhiteKing = false;
             }
             if (s.isOccupied()) {
                 break;

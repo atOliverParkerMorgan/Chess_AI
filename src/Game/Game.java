@@ -92,13 +92,13 @@ public class Game implements Serializable {
         // set all spot isValid_for_white_king + isValid_for_white_king to true
         for (Spot[] spots1 : board.spots) {
             for (Spot s : spots1) {
-                s.isValid_for_black_king = true;
-                s.isValid_for_white_king = true;
+                s.isValidForBlackKing = true;
+                s.isValidForWhiteKing = true;
             }
         }
 
         // check for king being in check
-        board.Check_king();
+        board.checkKing();
 
     }
 
@@ -165,11 +165,11 @@ public class Game implements Serializable {
         // if not this means that the move is a en-passe move since in all other scenarios must have piece
         // of the opposite colour on said spot. under the if statements is the en-passe logic.
         if (move.piece.getCategory().contains("Pawns")) {
-            if (move.old_spot.x - 1 == move.spot.x && !move.spot.isOccupied()) {
-                Spot enpasse = this.board.getSpot(move.old_spot.x - 1, move.old_spot.y);
+            if (move.oldSpot.x - 1 == move.spot.x && !move.spot.isOccupied()) {
+                Spot enpasse = this.board.getSpot(move.oldSpot.x - 1, move.oldSpot.y);
                 enpasse.unoccupiedSpot();
-            } else if (move.old_spot.x + 1 == move.spot.x && !move.spot.isOccupied()) {
-                Spot enpasse = this.board.getSpot(move.old_spot.x + 1, move.old_spot.y);
+            } else if (move.oldSpot.x + 1 == move.spot.x && !move.spot.isOccupied()) {
+                Spot enpasse = this.board.getSpot(move.oldSpot.x + 1, move.oldSpot.y);
                 enpasse.unoccupiedSpot();
 
             }
@@ -177,10 +177,10 @@ public class Game implements Serializable {
 
 
         this.board.getSpot(move.spot.x, move.spot.y).occupySpot(move.piece);
-        this.board.getSpot(move.old_spot.x, move.old_spot.y).unoccupiedSpot();
+        this.board.getSpot(move.oldSpot.x, move.oldSpot.y).unoccupiedSpot();
 
 
-        this.checkMoveAfter(move.old_spot, move.spot, move.piece, UI);
+        this.checkMoveAfter(move.oldSpot, move.spot, move.piece, UI);
 
     }
 
@@ -263,7 +263,7 @@ public class Game implements Serializable {
         if(UI) {
 
             System.out.println();
-            this.board.BoardInChars();
+            this.board.boardInChars();
             this.board.printBoardChars();
             System.out.println();
 
@@ -314,7 +314,7 @@ public class Game implements Serializable {
             p.setAll_possible_moves(new ArrayList<>());
         }
 
-        board.board_possible_moves(black.pieces);
+        board.boardPossibleMoves(black.pieces);
 
 
     } public static void Possible_moves_white(Board board, Player white, Player black){
@@ -326,7 +326,7 @@ public class Game implements Serializable {
             p.setAll_possible_moves(new ArrayList<>());
         }
 
-        board.board_possible_moves(white.pieces);
+        board.boardPossibleMoves(white.pieces);
 
     }
 

@@ -13,14 +13,13 @@ public final class Board implements Serializable{
     public Spot[][] spots;
 
     public Player currentPlayer;
-    public Player white;
+    private Player white;
     private Player black;
 
     // for keeping track of moves
-    private List<String> Char_Representation;
+    private List<String> charRepresentation;
 
     public Board(Player player, Player black){
-        super();
         this.currentPlayer = player;
 
         this.white = player;
@@ -28,7 +27,7 @@ public final class Board implements Serializable{
         // default
 
 
-        this.Char_Representation = new ArrayList<>();
+        this.charRepresentation = new ArrayList<>();
         this.spots = new Spot[8][8];
 
         final String[] X_CORD = new String[] {"a","b","c","d","e","f","g","h"};
@@ -45,14 +44,14 @@ public final class Board implements Serializable{
     }
 
 
-    public void SwitchPlayer(){
+    public void switchPlayer(){
         if(this.currentPlayer.isWhite()){
             this.currentPlayer = this.black;
         }else{
             this.currentPlayer = this.white;
         }
     }
-    public void ShowCords(){
+    public void showCords(){
         StringBuilder show = new StringBuilder();
         for(Spot[] spots: this.spots){
             for(Spot spot: spots){
@@ -85,38 +84,25 @@ public final class Board implements Serializable{
     }
     public void printBoardChars(){
 
-        for (int i = 0; i < Char_Representation.size(); i += 8) {
-            System.out.println(this.Char_Representation.get(i) +
-                    this.Char_Representation.get(i + 1) +
-                    this.Char_Representation.get(i + 2) +
-                    this.Char_Representation.get(i + 3) +
-                    this.Char_Representation.get(i + 4) +
-                    this.Char_Representation.get(i + 5) +
-                    this.Char_Representation.get(i + 6) +
-                    this.Char_Representation.get(i + 7));
+        for (int i = 0; i < charRepresentation.size(); i += 8) {
+            System.out.println(this.charRepresentation.get(i) +
+                    this.charRepresentation.get(i + 1) +
+                    this.charRepresentation.get(i + 2) +
+                    this.charRepresentation.get(i + 3) +
+                    this.charRepresentation.get(i + 4) +
+                    this.charRepresentation.get(i + 5) +
+                    this.charRepresentation.get(i + 6) +
+                    this.charRepresentation.get(i + 7));
 
-        }if(this.Char_Representation.size()!=64) {
-            System.out.println("ERROR => Char_Representation != 64; size = "+this.Char_Representation.size());
+        }if(this.charRepresentation.size()!=64) {
+            System.out.println("ERROR => Char_Representation != 64; size = "+this.charRepresentation.size());
         }
 
     }
-    public void printBoardSpotId(){
-
-        for(Spot[] s: this.spots) {
-            StringBuilder pr = new StringBuilder();
-            for(Spot spot: s){
-                pr.append(spot.id).append(" ");
-            }
-            System.out.println(pr.toString());
 
 
-        }
-
-
-    }
-
-    public void BoardInChars(){
-    this.Char_Representation = new ArrayList<>();
+    public void boardInChars(){
+    this.charRepresentation = new ArrayList<>();
 
         for(int y = 0; y<8;y++){
             for(int x = 0; x<8;x++) {
@@ -124,66 +110,66 @@ public final class Board implements Serializable{
                 if(spot.isOccupied()){
                     switch (spot.piece.getCategory()) {
                         case "Pawns_white":
-                            this.Char_Representation.add("\u2659");
+                            this.charRepresentation.add("\u2659");
 
                             break;
                         case "Queen_white":
-                            this.Char_Representation.add("\u2655");
+                            this.charRepresentation.add("\u2655");
 
                             break;
                         case "King_white":
-                            this.Char_Representation.add("\u2654");
+                            this.charRepresentation.add("\u2654");
 
 
                             break;
                         case "Bishop_white":
-                            this.Char_Representation.add("\u2657");
+                            this.charRepresentation.add("\u2657");
 
 
                             break;
                         case "Knight_white":
-                            this.Char_Representation.add("\u2658");
+                            this.charRepresentation.add("\u2658");
 
 
                             break;
                         case "Rook_white":
-                            this.Char_Representation.add("\u2656");
+                            this.charRepresentation.add("\u2656");
 
 
                             break;
                         case "Pawns_black":
-                            this.Char_Representation.add("\u265F");
+                            this.charRepresentation.add("\u265F");
 
 
                             break;
                         case "Queen_black":
-                            this.Char_Representation.add("\u265B");
+                            this.charRepresentation.add("\u265B");
 
 
                             break;
                         case "King_black":
-                            this.Char_Representation.add("\u265A");
+                            this.charRepresentation.add("\u265A");
 
 
                             break;
                         case "Bishop_black":
-                            this.Char_Representation.add("\u265D");
+                            this.charRepresentation.add("\u265D");
 
 
                             break;
                         case "Knight_black":
-                            this.Char_Representation.add("\u265E");
+                            this.charRepresentation.add("\u265E");
 
 
                             break;
                         case "Rook_black":
-                            this.Char_Representation.add("\u265C");
+                            this.charRepresentation.add("\u265C");
 
                             break;
                     }
 
                 }else{
-                    this.Char_Representation.add("- ");
+                    this.charRepresentation.add("- ");
                 }
             }
         }
@@ -195,7 +181,7 @@ public final class Board implements Serializable{
 
 
 
-    public void board_possible_moves(List<Piece> pieces){
+    public void boardPossibleMoves(List<Piece> pieces){
         for(Piece p: pieces){
             String c = p.getCategory();
 
@@ -203,70 +189,70 @@ public final class Board implements Serializable{
             switch (c) {
                 case "Rook_black":
                     Rook.possible_moves(this, p, "black");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "Rook_white":
                     Rook.possible_moves(this, p, "white");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "Knight_black":
                     Knight.possible_moves(this, p, "black");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "Knight_white":
                     Knight.possible_moves(this, p, "white");
-                    Simulate_moves(p);
+                    simulateMoves(p);
                     break;
                 case "Bishop_black":
                     Bishop.possible_moves(this, p, "black");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "Bishop_white":
                     Bishop.possible_moves(this, p, "white");
-                    Simulate_moves(p);
+                    simulateMoves(p);
                     break;
                 case "Queen_black":
                     // ROOK + Bishop
                     Bishop.possible_moves(this, p, "black");
                     Rook.possible_moves(this, p, "black");
-                    Simulate_moves(p);
+                    simulateMoves(p);
                     break;
                 case "Queen_white":
                     // ROOK + Bishop
                     Bishop.possible_moves(this, p, "white");
                     Rook.possible_moves(this, p, "white");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "King_white":
                     King.possible_moves(this, p, "white");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "King_black":
                     King.possible_moves(this, p, "black");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "Pawns_white":
                     Pawn.possible_moves(this, p, "white");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
                 case "Pawns_black":
                     Pawn.possible_moves(this, p, "black");
-                    Simulate_moves(p);
+                    simulateMoves(p);
 
                     break;
             }
         }
     }
 
-    private void Simulate_moves(Piece p){
+    private void simulateMoves(Piece p){
         // this function prevents a move that would put the king in check by simulating the move and then deleting all
         // moves that could lead to the king being in check
         //kings
@@ -304,7 +290,7 @@ public final class Board implements Serializable{
                 // king can go to a spot occupied by an enemy
                 if (p.getCategory().contains("white")) {
                     assert k_w != null;
-                    if (!simulating_board.getSpot(k_w.getX(), k_w.getY()).isValid_for_white_king) {
+                    if (!simulating_board.getSpot(k_w.getX(), k_w.getY()).isValidForWhiteKing) {
                         delete.add(move);
                     }
 
@@ -312,7 +298,7 @@ public final class Board implements Serializable{
                     // king can go to a spot occupied by an enemy (black)
                 }else if (p.getCategory().contains("black")) {
                     assert k_b != null;
-                    if (!simulating_board.getSpot(k_b.getX(), k_b.getY()).isValid_for_black_king) {
+                    if (!simulating_board.getSpot(k_b.getX(), k_b.getY()).isValidForBlackKing) {
                         delete.add(move);
                     }
                 }
@@ -334,7 +320,7 @@ public final class Board implements Serializable{
 
 
 
-    public void Check_king(){
+    public void checkKing(){
         // this function adds all if siValid_for_white_king or black_king
         // to false or true depending on the pieces on the board
         for (Spot[] spots : this.spots){

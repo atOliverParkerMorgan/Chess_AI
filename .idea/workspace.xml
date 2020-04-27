@@ -2,28 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="135aabdd-e228-408d-92c0-92d0de262d13" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Move.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Spot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Spot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board/Spot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Spot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Queen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Rook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunTime/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunTime/Screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Bishop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/King.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Knight.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Pawn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Queen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Rook.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +74,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Populace">
+    <configuration name="Populace" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Populace" />
+      <module name="Chess" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Screen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="RunTime.Screen" />
       <module name="Chess" />
@@ -94,6 +97,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Populace" />
         <item itemvalue="Application.Screen" />
       </list>
     </recent_temporary>
@@ -200,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583520453736</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="renamed packet Pieces">
+      <created>1587899471089</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1587899471089</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,6 +240,7 @@
     <MESSAGE value="various updates" />
     <MESSAGE value="updating README file" />
     <MESSAGE value="adding ascii code as pieces in charMap" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding ascii code as pieces in charMap" />
+    <MESSAGE value="renamed packet Pieces" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed packet Pieces" />
   </component>
 </project>

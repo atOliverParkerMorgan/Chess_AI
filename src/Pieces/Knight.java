@@ -141,59 +141,59 @@ public final class Knight extends Piece implements Serializable {
     public static void checkLogic(Board board, int x, int y, String colour){
         if (x + 2 <= 7 && y + 1 <= 7) {
             if(colour.equals("white")){
-                board.getSpot(x + 2, y + 1).isValid_for_black_king = false;
+                board.getSpot(x + 2, y + 1).isValidForBlackKing = false;
             }else{
-                board.getSpot(x + 2, y + 1).isValid_for_white_king = false;
+                board.getSpot(x + 2, y + 1).isValidForWhiteKing = false;
             }
 
         }
         if (x + 1 <= 7 && y + 2 <= 7) {
             if(colour.equals("white")){
-                board.getSpot(x + 1, y + 2).isValid_for_black_king = false;
+                board.getSpot(x + 1, y + 2).isValidForBlackKing = false;
             }else{
-                board.getSpot(x + 1, y + 2).isValid_for_white_king = false;
+                board.getSpot(x + 1, y + 2).isValidForWhiteKing = false;
             }
         }
         if (x - 2 >= 0 && y - 1 >= 0) {
             if(colour.equals("white")){
-                board.getSpot(x - 2, y - 1).isValid_for_black_king = false;
+                board.getSpot(x - 2, y - 1).isValidForBlackKing = false;
             }else{
-                board.getSpot(x - 2, y - 1).isValid_for_white_king = false;
+                board.getSpot(x - 2, y - 1).isValidForWhiteKing = false;
             }
         }
         if (x - 1 >= 0 && y - 2 >= 0) {
             if(colour.equals("white")){
-                board.getSpot(x - 1, y - 2).isValid_for_black_king = false;
+                board.getSpot(x - 1, y - 2).isValidForBlackKing = false;
             }else{
-                board.getSpot(x - 1, y - 2).isValid_for_white_king = false;
+                board.getSpot(x - 1, y - 2).isValidForWhiteKing = false;
             }
         }
         if (x + 2 <= 7 && y - 1 >= 0) {
             if(colour.equals("white")){
-                board.getSpot(x + 2, y - 1).isValid_for_black_king = false;
+                board.getSpot(x + 2, y - 1).isValidForBlackKing = false;
             }else{
-                board.getSpot(x + 2, y - 1).isValid_for_white_king = false;
+                board.getSpot(x + 2, y - 1).isValidForWhiteKing = false;
             }
         }
         if (x - 1 >= 0 && y + 2 <= 7) {
             if(colour.equals("white")){
-                board.getSpot(x - 1, y + 2).isValid_for_black_king = false;
+                board.getSpot(x - 1, y + 2).isValidForBlackKing = false;
             }else{
-                board.getSpot(x - 1, y + 2).isValid_for_white_king = false;
+                board.getSpot(x - 1, y + 2).isValidForWhiteKing = false;
             }
         }
         if (x + 1 <= 7 && y - 2 >= 0) {
             if(colour.equals("white")){
-                board.getSpot(x + 1, y - 2).isValid_for_black_king = false;
+                board.getSpot(x + 1, y - 2).isValidForBlackKing = false;
             }else{
-                board.getSpot(x + 1, y - 2).isValid_for_white_king = false;
+                board.getSpot(x + 1, y - 2).isValidForWhiteKing = false;
             }
         }
         if (x - 2 >= 0 && y + 1 <= 7) {
             if(colour.equals("white")){
-                board.getSpot(x - 2, y + 1).isValid_for_black_king = false;
+                board.getSpot(x - 2, y + 1).isValidForBlackKing = false;
             }else{
-                board.getSpot(x - 2, y + 1).isValid_for_white_king = false;
+                board.getSpot(x - 2, y + 1).isValidForWhiteKing = false;
             }
         }
     }
