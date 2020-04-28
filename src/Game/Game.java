@@ -25,23 +25,22 @@ public class Game implements Serializable {
     private Board board;
 
     // show piece menu when pawn at end of the board
-    public boolean white_menu;
-    public boolean black_menu;
+    public boolean whiteMenu;
+    public boolean blackMenu;
 
-    public Piece change_pawn;
+    public Piece changePawn;
 
 
     public boolean moving;
-    public Piece Piece_moving;
+    public Piece pieceMoving;
 
-    // do not change other board unstable
     public static boolean whiteSide = true;
 
 
     public Game() {
 
 
-        this.Piece_moving = null;
+        this.pieceMoving = null;
         Player.setBoardToWhiteSide(whiteSide);
         this.white = new Player(true);
         this.black = new Player(false);
@@ -65,8 +64,8 @@ public class Game implements Serializable {
         this.black.setOpponent(this.white);
 
         //Pawn gets to the end init
-        this.black_menu = false;
-        this.white_menu = false;
+        this.blackMenu = false;
+        this.whiteMenu = false;
 
         this.turn = 1;
         this.moving = false;
@@ -88,7 +87,7 @@ public class Game implements Serializable {
     }
 
 
-    public static void create_check_map(Board board) {
+    public static void createCheckMap(Board board) {
         // set all spot isValid_for_white_king + isValid_for_white_king to true
         for (Spot[] spots1 : board.spots) {
             for (Spot s : spots1) {
@@ -104,41 +103,41 @@ public class Game implements Serializable {
 
     private void checkMoveBefore() {
         // the piece that is being moved
-        Piece piece = this.Piece_moving;
+        Piece piece = this.pieceMoving;
 
         //RESET EN-PASSE
         if (this.turn % 2 != 0) {
             for (Piece reset_pawn : this.white.pieces) {
                 if (reset_pawn.getCategory().contains("Pawns")) {
                     Pawn pawn_r = (Pawn) reset_pawn;
-                    pawn_r.en_passe = false;
+                    pawn_r.enPasse = false;
                 }
             }
         } else {
             for (Piece reset_pawn : this.black.pieces) {
                 if (reset_pawn.getCategory().contains("Pawns")) {
                     Pawn pawn_r = (Pawn) reset_pawn;
-                    pawn_r.en_passe = false;
+                    pawn_r.enPasse = false;
                 }
             }
         }
         // if a rook move you cannot castle
-        if (Objects.requireNonNull(this.board.currentPlayer.Get_King()).castling_k) {
+        if (Objects.requireNonNull(this.board.currentPlayer.getKing()).castlingK) {
             if (piece.getCategory().equals("Rook_white")) {
                 if (piece.getX() == 0) {
-                    assert this.white.Get_King() != null;
-                    Objects.requireNonNull(this.white.Get_King()).castling_l = false;
+                    assert this.white.getKing() != null;
+                    Objects.requireNonNull(this.white.getKing()).castlingL = false;
                 } else if (piece.getX() == 7) {
-                    assert this.white.Get_King() != null;
-                    Objects.requireNonNull(this.white.Get_King()).castling_r = false;
+                    assert this.white.getKing() != null;
+                    Objects.requireNonNull(this.white.getKing()).castlingR = false;
                 }
             } else if (piece.getCategory().equals("Rook_black")) {
                 if (piece.getX() == 0) {
-                    assert this.black.Get_King() != null;
-                    Objects.requireNonNull(this.black.Get_King()).castling_l = false;
+                    assert this.black.getKing() != null;
+                    Objects.requireNonNull(this.black.getKing()).castlingL = false;
                 } else if (piece.getX() == 7) {
-                    assert this.black.Get_King() != null;
-                    Objects.requireNonNull(this.black.Get_King()).castling_r = false;
+                    assert this.black.getKing() != null;
+                    Objects.requireNonNull(this.black.getKing()).castlingR = false;
                 }
             }
         }
@@ -148,15 +147,15 @@ public class Game implements Serializable {
     public Game getGameAfterMove(Move move) {
         Game game = this.copy();
 
-        game.MOVE(move, false);
+        game.move(move, false);
         return game;
 
 
     }
 
 
-    public void MOVE(Move move, boolean UI) {
-        this.Piece_moving = move.piece;
+    public void move(Move move, boolean UI) {
+        this.pieceMoving = move.piece;
         // ---------------- MOVING ---------------
         this.checkMoveBefore();
 
@@ -195,12 +194,12 @@ public class Game implements Serializable {
             Pawn p = (Pawn) piece;
 
             if (piece.getY() == endForWhitePawn) {
-                this.white_menu = true;
-                this.change_pawn = piece;
+                this.whiteMenu = true;
+                this.changePawn = piece;
             }
 
             // EN-PASSE
-            p.en_passe = (old_spot.y == 1 && spot.y == 3 && p.first);
+            p.enPasse = (old_spot.y == 1 && spot.y == 3 && p.first);
             p.first = false;
 
         } else if (piece.getCategory().equals("Pawns_black")) {
@@ -208,12 +207,12 @@ public class Game implements Serializable {
             Pawn p = (Pawn) piece;
 
             if (piece.getY() == endForBlackPawn) {
-                this.black_menu = true;
-                this.change_pawn = piece;
+                this.blackMenu = true;
+                this.changePawn = piece;
             }
 
             // EN-PASSE
-            p.en_passe = (old_spot.y == 6 && spot.y == 4 && p.first || old_spot.y == 1 && spot.y == 3 && p.first);
+            p.enPasse = (old_spot.y == 6 && spot.y == 4 && p.first || old_spot.y == 1 && spot.y == 3 && p.first);
             p.first = false;
         }
 
@@ -222,9 +221,9 @@ public class Game implements Serializable {
         if (piece.getCategory().contains("King")) {
             assert piece instanceof King;
             King p = (King) piece;
-            p.castling_k = false;
-            p.castling_l = false;
-            p.castling_r = false;
+            p.castlingK = false;
+            p.castlingL = false;
+            p.castlingR = false;
 
             // old spot is the position of the king
             // the rook is located at x: 0||7
@@ -253,10 +252,10 @@ public class Game implements Serializable {
 
         if (this.board.currentPlayer.isWhite()) {
             this.board.setCurrentPlayer(this.black);
-            Possible_moves_black(this.board, this.white, this.black);
+            possibleMovesBlack(this.board, this.white, this.black);
         } else {
             this.board.setCurrentPlayer(this.white);
-            Possible_moves_white(this.board, this.white, this.black);
+            possibleMovesWhite(this.board, this.white, this.black);
 
         }
         // Console Log UI
@@ -267,11 +266,11 @@ public class Game implements Serializable {
             this.board.printBoardChars();
             System.out.println();
 
-            if (this.board.currentPlayer.IsInCheckMate()) {
+            if (this.board.currentPlayer.isInCheckMate()) {
                 System.out.println("!!! CHECKMATE !!!");
-            } else if (this.board.currentPlayer.IsInStaleMate()) {
+            } else if (this.board.currentPlayer.isInStaleMate()) {
                 System.out.println("!!! STALEMATE !!! ");
-            } else if (this.board.currentPlayer.IsInCheck()) {
+            } else if (this.board.currentPlayer.isInCheck()) {
                 System.out.println("!!! CHECK !!! ");
             }
 
@@ -305,7 +304,7 @@ public class Game implements Serializable {
     }
 
 
-    public static void Possible_moves_black(Board board, Player white, Player black){
+    public static void possibleMovesBlack(Board board, Player white, Player black){
         // create possible moves on click @Board 57
         for (Piece p : white.pieces) {
             p.setAll_possible_moves(new ArrayList<>());
@@ -317,7 +316,7 @@ public class Game implements Serializable {
         board.boardPossibleMoves(black.pieces);
 
 
-    } public static void Possible_moves_white(Board board, Player white, Player black){
+    } public static void possibleMovesWhite(Board board, Player white, Player black){
         // create possible moves on click @Board 57
         for (Piece p : white.pieces) {
             p.setAll_possible_moves(new ArrayList<>());

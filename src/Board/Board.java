@@ -188,63 +188,63 @@ public final class Board implements Serializable{
 
             switch (c) {
                 case "Rook_black":
-                    Rook.possible_moves(this, p, "black");
+                    Rook.possibleMoves(this, p, "black");
                     simulateMoves(p);
 
                     break;
                 case "Rook_white":
-                    Rook.possible_moves(this, p, "white");
+                    Rook.possibleMoves(this, p, "white");
                     simulateMoves(p);
 
                     break;
                 case "Knight_black":
-                    Knight.possible_moves(this, p, "black");
+                    Knight.possibleMoves(this, p, "black");
                     simulateMoves(p);
 
                     break;
                 case "Knight_white":
-                    Knight.possible_moves(this, p, "white");
+                    Knight.possibleMoves(this, p, "white");
                     simulateMoves(p);
                     break;
                 case "Bishop_black":
-                    Bishop.possible_moves(this, p, "black");
+                    Bishop.possibleMoves(this, p, "black");
                     simulateMoves(p);
 
                     break;
                 case "Bishop_white":
-                    Bishop.possible_moves(this, p, "white");
+                    Bishop.possibleMoves(this, p, "white");
                     simulateMoves(p);
                     break;
                 case "Queen_black":
                     // ROOK + Bishop
-                    Bishop.possible_moves(this, p, "black");
-                    Rook.possible_moves(this, p, "black");
+                    Bishop.possibleMoves(this, p, "black");
+                    Rook.possibleMoves(this, p, "black");
                     simulateMoves(p);
                     break;
                 case "Queen_white":
                     // ROOK + Bishop
-                    Bishop.possible_moves(this, p, "white");
-                    Rook.possible_moves(this, p, "white");
+                    Bishop.possibleMoves(this, p, "white");
+                    Rook.possibleMoves(this, p, "white");
                     simulateMoves(p);
 
                     break;
                 case "King_white":
-                    King.possible_moves(this, p, "white");
+                    King.possibleMoves(this, p, "white");
                     simulateMoves(p);
 
                     break;
                 case "King_black":
-                    King.possible_moves(this, p, "black");
+                    King.possibleMoves(this, p, "black");
                     simulateMoves(p);
 
                     break;
                 case "Pawns_white":
-                    Pawn.possible_moves(this, p, "white");
+                    Pawn.possibleMoves(this, p, "white");
                     simulateMoves(p);
 
                     break;
                 case "Pawns_black":
-                    Pawn.possible_moves(this, p, "black");
+                    Pawn.possibleMoves(this, p, "black");
                     simulateMoves(p);
 
                     break;
@@ -275,7 +275,7 @@ public final class Board implements Serializable{
                 simulating_board.getSpot(move.spot.x, move.spot.y).occupySpot(p);
 
                 // create check map for king
-                Game.create_check_map(simulating_board);
+                Game.createCheckMap(simulating_board);
                 for(Spot[] s_list: simulating_board.spots){
                     for (Spot s2:s_list) {
                         if (s2.isOccupied()){

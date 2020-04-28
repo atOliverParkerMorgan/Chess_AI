@@ -3,21 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="135aabdd-e228-408d-92c0-92d0de262d13" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Move.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Board/Spot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Board/Spot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/Game/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chess/RunTime/Screen.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Board/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Board/Spot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board/Spot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/Evaluate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/MiniMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/AI/MoveOrdering.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/AI/MoveOrdering.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/King.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Queen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pieces/Rook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RunTime/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RunTime/Screen.java" afterDir="false" />
     </list>
@@ -74,7 +71,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Populace">
+  <component name="RunManager" selected="Application.Screen">
     <configuration name="Populace" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Populace" />
       <module name="Chess" />
@@ -97,8 +94,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Populace" />
         <item itemvalue="Application.Screen" />
+        <item itemvalue="Application.Populace" />
       </list>
     </recent_temporary>
   </component>
@@ -211,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587899471089</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="renamed packet variables">
+      <created>1587977471491</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1587977471491</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,6 +245,7 @@
     <MESSAGE value="updating README file" />
     <MESSAGE value="adding ascii code as pieces in charMap" />
     <MESSAGE value="renamed packet Pieces" />
-    <option name="LAST_COMMIT_MESSAGE" value="renamed packet Pieces" />
+    <MESSAGE value="renamed packet variables" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed packet variables" />
   </component>
 </project>

@@ -44,7 +44,7 @@ public class Piece implements Serializable {
             return null;
         }
     }
-    static double[][] array_clone(double[][] array){
+    static double[][] arrayClone(double[][] array){
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -60,7 +60,7 @@ public class Piece implements Serializable {
     }
 
 
-    static double[][] reverse_array(double[][] array){
+    static double[][] reverseArray(double[][] array){
 
 
         // switch items in array

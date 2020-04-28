@@ -17,20 +17,20 @@ final class Evaluate {
     private final static int MOVE_QUEEN_TO_EARLY = 150;
 
 
-    static double EvaluateGame(final Game mGame, int depth) {
+    static double evaluateGame(final Game mGame, int depth) {
         if(MOBILITY_BIAS-SUBTRACT_FROM_MOBILITY>0) {
             MOBILITY_BIAS -= SUBTRACT_FROM_MOBILITY;
             SUBTRACT_FROM_MOBILITY = 1 / mGame.getTurn();
         }else {
-            MOBILITY_BIAS = 1;
+            MOBILITY_BIAS = 2;
         }
 
 
-        return Score(mGame) + mobility(mGame) + check(mGame) + checkmate(mGame, depth) + hasCastled(mGame)+twoBishops(mGame) + pawnStructure(mGame) + queenToEarly(mGame);
+        return score(mGame) + mobility(mGame) + check(mGame) + checkmate(mGame, depth) + hasCastled(mGame)+twoBishops(mGame) + pawnStructure(mGame) + queenToEarly(mGame);
 
     }
 
-    private static int Score(final Game mGame) {
+    private static int score(final Game mGame) {
         int blackScore = 0;
         int whiteScore = 0;
 
@@ -53,9 +53,9 @@ final class Evaluate {
 
         if (mGame.getBoard().currentPlayer.isWhite()) {
 
-            return -(mGame.getBoard().currentPlayer.IsInCheck() ? CHECK_BONUS : 0);
+            return -(mGame.getBoard().currentPlayer.isInCheck() ? CHECK_BONUS : 0);
         } else {
-            return mGame.getBoard().currentPlayer.IsInCheck() ? CHECK_BONUS : 0;
+            return mGame.getBoard().currentPlayer.isInCheck() ? CHECK_BONUS : 0;
         }
 
 
@@ -63,21 +63,21 @@ final class Evaluate {
 
     private static int checkmate(final Game mGame, int depth) {
         if (mGame.getBoard().currentPlayer.isWhite()) {
-            return -(mGame.getBoard().currentPlayer.IsInCheckMate() ? CHECK_MATE_BONUS * depthBonus(depth) : 0);
+            return -(mGame.getBoard().currentPlayer.isInCheckMate() ? CHECK_MATE_BONUS * depthBonus(depth) : 0);
         } else {
-            return mGame.getBoard().currentPlayer.IsInCheckMate() ? CHECK_MATE_BONUS * depthBonus(depth) : 0;
+            return mGame.getBoard().currentPlayer.isInCheckMate() ? CHECK_MATE_BONUS * depthBonus(depth) : 0;
         }
 
     }
 
     private static double mobility(final Game game) {
-        return (game.getWhite().Legal_moves().size() - game.getBlack().Legal_moves().size()) * MOBILITY_BIAS;
+        return (game.getWhite().legalMoves().size() - game.getBlack().legalMoves().size()) * MOBILITY_BIAS;
     }
     private static double hasCastled(final Game game){
-        assert game.getWhite().Get_King() != null;
-        double white = game.getWhite().Get_King().castled?CASTLE_BONUS:0;
-        assert game.getBlack().Get_King() != null;
-        double black = game.getBlack().Get_King().castled?CASTLE_BONUS:0;
+        assert game.getWhite().getKing() != null;
+        double white = game.getWhite().getKing().castled?CASTLE_BONUS:0;
+        assert game.getBlack().getKing() != null;
+        double black = game.getBlack().getKing().castled?CASTLE_BONUS:0;
 
         return white - black;
     }
@@ -158,9 +158,9 @@ final class Evaluate {
         return whitePawnStructure-blackPawnStructure;
     }
     private static int queenToEarly(final Game game){
-        if(10<game.getTurn()&&game.Piece_moving.getCategory().contains("Queen_black")){
+        if(10<game.getTurn()&&game.pieceMoving.getCategory().contains("Queen_black")){
             return MOVE_QUEEN_TO_EARLY;
-        }else if(10<game.getTurn()&&game.Piece_moving.getCategory().contains("Queen_white")){
+        }else if(10<game.getTurn()&&game.pieceMoving.getCategory().contains("Queen_white")){
             return -MOVE_QUEEN_TO_EARLY;
         }
 

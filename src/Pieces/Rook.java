@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public final class Rook extends Piece implements Serializable {
 
-    private final static double[][] pos_eval_white = new double[][]{
+    private final static double[][] POS_EVAL_WHITE = new double[][]{
             {  0, 0,  0,  0,  0,  0,  0,   0},
             { .5, 1,  1,  1,  1,  1,  1,  .5},
             {-.5, 0,  0,  0,  0,  0,  0, -.5},
@@ -21,11 +21,11 @@ public final class Rook extends Piece implements Serializable {
             {  0, 0,  0, .5, .5,  0,  0,   0}
     };
 
-    private final static double[][] pos_eval_black = Piece.reverse_array(Objects.requireNonNull(Piece.array_clone(pos_eval_white)));
+    private final static double[][] POS_EVAL_BLACK = Piece.reverseArray(Objects.requireNonNull(Piece.arrayClone(POS_EVAL_WHITE)));
     public Rook(int x, int y, String c, int score) {
-        super(x, y, c,score,pos_eval_white,pos_eval_black);
+        super(x, y, c,score, POS_EVAL_WHITE, POS_EVAL_BLACK);
     }
-    public static void possible_moves(Board board, Piece p, String colour) {
+    public static void possibleMoves(Board board, Piece p, String colour) {
         int x = p.getX();
         int y = p.getY();
 

@@ -87,7 +87,7 @@ public class Screen extends PApplet {
         Game_history = new ArrayList<>();
 
         // get the possible for white ( white always starts )
-        Game.Possible_moves_white(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
+        Game.possibleMovesWhite(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
 
 
     }
@@ -217,7 +217,6 @@ public class Screen extends PApplet {
             WHITE = true;
             side_setup_Menu = false;
             Game.whiteSide = true;
-
         }
         // depth menu
         else if(depth_menu&&(PLAYERvsAI||AIvsAI)){
@@ -264,11 +263,7 @@ public class Screen extends PApplet {
             text("depth: 4", 300,700);
 
         }
-
-
         else{
-
-
             // create board
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -276,7 +271,7 @@ public class Screen extends PApplet {
                         fill(255, 255, 102); // black
 
                         if (show_hint) {
-                            for (Move m : mGame.Piece_moving.getAll_possible_moves()) {
+                            for (Move m : mGame.pieceMoving.getAll_possible_moves()) {
                                 if (m.spot.x == i && m.spot.y == j) {
                                     fill(0, 204, 102);
 
@@ -286,7 +281,7 @@ public class Screen extends PApplet {
                     } else {
                         fill(255, 255, 255); // white
                         if (show_hint) {
-                            for (Move m : mGame.Piece_moving.getAll_possible_moves()) {
+                            for (Move m : mGame.pieceMoving.getAll_possible_moves()) {
                                 if (m.spot.x == i && m.spot.y == j) {
                                     fill(0, 204, 102);
                                 }
@@ -314,7 +309,7 @@ public class Screen extends PApplet {
             int Y_cord = 800;
 
 
-            if (mGame.white_menu) {
+            if (mGame.whiteMenu) {
 
                 //show pieces
                 image(Queen_img, 600, Y_cord);
@@ -326,7 +321,7 @@ public class Screen extends PApplet {
                 image(Knight_img, 150, Y_cord);
 
 
-            } else if (mGame.black_menu) {
+            } else if (mGame.blackMenu) {
 
 
                 //show pieces
@@ -414,7 +409,7 @@ public class Screen extends PApplet {
                 // change the look of the spot were the mouse is located
                 Spot spot = mGame.getBoard().getSpot(X, Y);
                 spot.mouseOn = true;
-                spot.showOnSpot(mGame.Piece_moving);
+                spot.showOnSpot(mGame.pieceMoving);
             }
 
 
@@ -474,77 +469,77 @@ public class Screen extends PApplet {
 
 
                     int circle_Size = 80;
-                    if (overCircle(650, circle_Size) && mGame.white_menu) {
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_white", 900);
-                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getWhite().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.white_menu = false;
-                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+                    if (overCircle(650, circle_Size) && mGame.whiteMenu) {
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_white", 900);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getWhite().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.whiteMenu = false;
+                        Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(500, circle_Size) && mGame.white_menu) {
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Rook(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Rook_white", 500);
-                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getWhite().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.white_menu = false;
-                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+                    } else if (overCircle(500, circle_Size) && mGame.whiteMenu) {
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Rook(mGame.changePawn.getX(), mGame.changePawn.getY(), "Rook_white", 500);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getWhite().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.whiteMenu = false;
+                        Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(350, circle_Size) && mGame.white_menu) {
+                    } else if (overCircle(350, circle_Size) && mGame.whiteMenu) {
 
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Bishop(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Bishop_white", 325);
-                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getWhite().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.white_menu = false;
-                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
-
-
-                    } else if (overCircle(200, circle_Size) && mGame.white_menu) {
-
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Knight(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Knight_white", 300);
-                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getWhite().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.white_menu = false;
-                        Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Bishop(mGame.changePawn.getX(), mGame.changePawn.getY(), "Bishop_white", 325);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getWhite().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.whiteMenu = false;
+                        Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(650, circle_Size) && mGame.black_menu) {
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_black", 900);
-                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getBlack().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.black_menu = false;
-                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+                    } else if (overCircle(200, circle_Size) && mGame.whiteMenu) {
 
-                    } else if (overCircle(500, circle_Size) && mGame.black_menu) {
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Rook(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Rook_black", 500);
-                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getBlack().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.black_menu = false;
-                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Knight(mGame.changePawn.getX(), mGame.changePawn.getY(), "Knight_white", 300);
+                        mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getWhite().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.whiteMenu = false;
+                        Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(350, circle_Size) && mGame.black_menu) {
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Bishop(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Bishop_black", -325);
-                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getBlack().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.black_menu = false;
-                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+                    } else if (overCircle(650, circle_Size) && mGame.blackMenu) {
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_black", 900);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getBlack().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.blackMenu = false;
+                        Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+
+                    } else if (overCircle(500, circle_Size) && mGame.blackMenu) {
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Rook(mGame.changePawn.getX(), mGame.changePawn.getY(), "Rook_black", 500);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getBlack().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.blackMenu = false;
+                        Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(200, circle_Size) && mGame.black_menu) {
-                        mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Knight(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Knight_black", -300);
-                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                        mGame.getBlack().pieces.remove(mGame.change_pawn);
-                        mGame.change_pawn = null;
-                        mGame.black_menu = false;
-                        Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+                    } else if (overCircle(350, circle_Size) && mGame.blackMenu) {
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Bishop(mGame.changePawn.getX(), mGame.changePawn.getY(), "Bishop_black", -325);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getBlack().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.blackMenu = false;
+                        Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+
+
+                    } else if (overCircle(200, circle_Size) && mGame.blackMenu) {
+                        mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Knight(mGame.changePawn.getX(), mGame.changePawn.getY(), "Knight_black", -300);
+                        mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                        mGame.getBlack().pieces.remove(mGame.changePawn);
+                        mGame.changePawn = null;
+                        mGame.blackMenu = false;
+                        Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
                     }
@@ -556,7 +551,7 @@ public class Screen extends PApplet {
                     show_hint = true;
 
                     // the piece that we want to move
-                    mGame.Piece_moving = mGame.getBoard().getSpot(X_pos, Y_pos).piece;
+                    mGame.pieceMoving = mGame.getBoard().getSpot(X_pos, Y_pos).piece;
                 }
             }
         }
@@ -595,7 +590,7 @@ public class Screen extends PApplet {
                 Spot old_spot;
                 boolean Error = false;
                 try {
-                    old_spot = mGame.getBoard().getSpot(mGame.Piece_moving.getX(), mGame.Piece_moving.getY());
+                    old_spot = mGame.getBoard().getSpot(mGame.pieceMoving.getX(), mGame.pieceMoving.getY());
                 } catch (Exception e) {
                     print(e);
                     print('\n');
@@ -610,10 +605,10 @@ public class Screen extends PApplet {
                     show_hint = false;
                     mGame.moving = false;
 
-                    for (Move m : mGame.Piece_moving.getAll_possible_moves()) {
+                    for (Move m : mGame.pieceMoving.getAll_possible_moves()) {
                         if (m.spot == new_move.spot && m.oldSpot == new_move.oldSpot) {
                             Game_history.add(mGame.copy());
-                            mGame.MOVE(new_move, false);
+                            mGame.move(new_move, false);
                         }
                     }
 
@@ -627,7 +622,7 @@ public class Screen extends PApplet {
 
         if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && draw >= 1) {
 
-            if(mGame.getBoard().currentPlayer.IsInCheckMate()){
+            if(mGame.getBoard().currentPlayer.isInCheckMate()){
                 System.exit(0);
             }
 
@@ -637,23 +632,23 @@ public class Screen extends PApplet {
 
             final MiniMax AI = new MiniMax(AI_depth,true,Integer.MAX_VALUE);
             Move move_AI = AI.getBestMove(mGame, false);
-            mGame.MOVE(move_AI, AI.UI);
+            mGame.move(move_AI, AI.UI);
 
-            if (PLAYERvsAI && AI_player_white && mGame.white_menu || AIvsAI && mGame.white_menu) {
-                mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_white", 900);
-                mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                mGame.getWhite().pieces.remove(mGame.change_pawn);
-                mGame.change_pawn = null;
-                mGame.white_menu = false;
-                Game.Possible_moves_black(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+            if (PLAYERvsAI && AI_player_white && mGame.whiteMenu || AIvsAI && mGame.whiteMenu) {
+                mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_white", 900);
+                mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                mGame.getWhite().pieces.remove(mGame.changePawn);
+                mGame.changePawn = null;
+                mGame.whiteMenu = false;
+                Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
             }
-            else if (PLAYERvsAI && !AI_player_white && mGame.black_menu || AIvsAI && mGame.black_menu) {
-                mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece = new Queen(mGame.change_pawn.getX(), mGame.change_pawn.getY(), "Queen_black", 900);
-                mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.change_pawn.getX(), mGame.change_pawn.getY()).piece);
-                mGame.getBlack().pieces.remove(mGame.change_pawn);
-                mGame.change_pawn = null;
-                mGame.black_menu = false;
-                Game.Possible_moves_white(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
+            else if (PLAYERvsAI && !AI_player_white && mGame.blackMenu || AIvsAI && mGame.blackMenu) {
+                mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_black", 900);
+                mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
+                mGame.getBlack().pieces.remove(mGame.changePawn);
+                mGame.changePawn = null;
+                mGame.blackMenu = false;
+                Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
             }
 
         }

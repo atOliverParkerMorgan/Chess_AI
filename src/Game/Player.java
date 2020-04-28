@@ -15,8 +15,8 @@ public final class Player implements Serializable {
     private boolean white;
     private Player opponent;
     private Board board;
-    private static int cord_white_y = 0;
-    private static int cord_black_y = 7;
+    private static int cordWhiteY = 0;
+    private static int cordBlackY = 7;
 
     Player(boolean white){
         this.opponent = null;
@@ -27,13 +27,13 @@ public final class Player implements Serializable {
         this.white = white;
         this.pieces = new ArrayList<>();
     }
-    public boolean IsInCheck(){
-        King k = this.Get_King();
+    public boolean isInCheck(){
+        King k = this.getKing();
 
         assert k != null;
         Spot s = this.board.getSpot(k.getX(),k.getY());
 
-        Game.create_check_map(this.board);
+        Game.createCheckMap(this.board);
 
         if(this.white){
            return !s.isValidForWhiteKing;
@@ -42,29 +42,29 @@ public final class Player implements Serializable {
         }
 
     }
-    public boolean IsInCheckMate(){
-        King k = this.Get_King();
+    public boolean isInCheckMate(){
+        King k = this.getKing();
 
         assert k != null;
         Spot s = this.board.getSpot(k.getX(),k.getY());
 
-        Game.create_check_map(this.board);
+        Game.createCheckMap(this.board);
 
 
         if(this.white){
-            Game.Possible_moves_white(this.board, this , this.opponent);
+            Game.possibleMovesWhite(this.board, this , this.opponent);
 
-            return !s.isValidForWhiteKing && this.Number_of_Legal_moves()==0;
+            return !s.isValidForWhiteKing && this.numberOfLegalMoves()==0;
         }else{
-            Game.Possible_moves_black(this.board,this.opponent , this);
+            Game.possibleMovesBlack(this.board,this.opponent , this);
 
-            return  !s.isValidForBlackKing && this.Number_of_Legal_moves()==0;
+            return  !s.isValidForBlackKing && this.numberOfLegalMoves()==0;
         }
 
     }
 
-    public boolean IsInStaleMate(){
-        return this.Number_of_Legal_moves()==0;
+    public boolean isInStaleMate(){
+        return this.numberOfLegalMoves()==0;
     }
 
 
@@ -72,14 +72,14 @@ public final class Player implements Serializable {
     public List<Piece> getPieces(){
         return this.pieces;
     }
-    private int Number_of_Legal_moves(){
+    private int numberOfLegalMoves(){
         int total = 0;
         for(Piece p :this.pieces){
             total+=p.getAll_possible_moves().size();
         }
         return total;
     }
-    public List<Move> Legal_moves(){
+    public List<Move> legalMoves(){
         List<Move> total = new ArrayList<>();
         for(Piece p :this.pieces){
             total.addAll(p.getAll_possible_moves());
@@ -91,48 +91,48 @@ public final class Player implements Serializable {
         final int NUMBER_OF_PAWNS = 8;
         if(this.white) {
 
-            pieces.add(new Rook(0, cord_white_y, "Rook_white",500));
-            pieces.add(new Rook(7, cord_white_y, "Rook_white",500));
-            pieces.add(new Knight(1, cord_white_y, "Knight_white",300));
-            pieces.add(new Knight(6, cord_white_y, "Knight_white",300));
-            pieces.add(new Bishop(2, cord_white_y, "Bishop_white",300));
-            pieces.add(new Bishop(5, cord_white_y, "Bishop_white",300));
+            pieces.add(new Rook(0, cordWhiteY, "Rook_white",500));
+            pieces.add(new Rook(7, cordWhiteY, "Rook_white",500));
+            pieces.add(new Knight(1, cordWhiteY, "Knight_white",300));
+            pieces.add(new Knight(6, cordWhiteY, "Knight_white",300));
+            pieces.add(new Bishop(2, cordWhiteY, "Bishop_white",300));
+            pieces.add(new Bishop(5, cordWhiteY, "Bishop_white",300));
             // queen always has to have her color this will change if black is on index_y zero or seven
-            if(cord_white_y==0) {
-                pieces.add(new Queen(3, cord_white_y, "Queen_white", 900));
-                pieces.add(new King(4, cord_white_y, "King_white", 10000));
+            if(cordWhiteY ==0) {
+                pieces.add(new Queen(3, cordWhiteY, "Queen_white", 900));
+                pieces.add(new King(4, cordWhiteY, "King_white", 10000));
             }else{
-                pieces.add(new Queen(3, cord_white_y, "Queen_white", 900));
-                pieces.add(new King(4, cord_white_y, "King_white", 10000));
+                pieces.add(new Queen(3, cordWhiteY, "Queen_white", 900));
+                pieces.add(new King(4, cordWhiteY, "King_white", 10000));
             }
             for (int i = 0; i < NUMBER_OF_PAWNS; i++) {
-                if(cord_white_y==7) {
-                    pieces.add(new Pawn(i, cord_white_y - 1, "Pawns_white", 100));
+                if(cordWhiteY ==7) {
+                    pieces.add(new Pawn(i, cordWhiteY - 1, "Pawns_white", 100));
                 }else{
-                    pieces.add(new Pawn(i, cord_white_y + 1, "Pawns_white", 100));
+                    pieces.add(new Pawn(i, cordWhiteY + 1, "Pawns_white", 100));
                 }
             }
         }else {
 
-            pieces.add(new Rook(0, cord_black_y,"Rook_black",500));
-            pieces.add(new Rook(7, cord_black_y,"Rook_black",500));
-            pieces.add(new Knight(1, cord_black_y,"Knight_black",300));
-            pieces.add(new Knight(6, cord_black_y,"Knight_black",300));
-            pieces.add(new Bishop(2, cord_black_y,"Bishop_black",300));
-            pieces.add(new Bishop(5, cord_black_y,"Bishop_black",300));
+            pieces.add(new Rook(0, cordBlackY,"Rook_black",500));
+            pieces.add(new Rook(7, cordBlackY,"Rook_black",500));
+            pieces.add(new Knight(1, cordBlackY,"Knight_black",300));
+            pieces.add(new Knight(6, cordBlackY,"Knight_black",300));
+            pieces.add(new Bishop(2, cordBlackY,"Bishop_black",300));
+            pieces.add(new Bishop(5, cordBlackY,"Bishop_black",300));
             // queen always has to have her color this will change if black is on index_y zero or seven
-            if(cord_black_y==7) {
-                pieces.add(new Queen(3, cord_black_y, "Queen_black", 900));
-                pieces.add(new King(4, cord_black_y, "King_black", 10000));
+            if(cordBlackY ==7) {
+                pieces.add(new Queen(3, cordBlackY, "Queen_black", 900));
+                pieces.add(new King(4, cordBlackY, "King_black", 10000));
             }else {
-                pieces.add(new Queen(3, cord_black_y, "Queen_black", 900));
-                pieces.add(new King(4, cord_black_y, "King_black", 10000));
+                pieces.add(new Queen(3, cordBlackY, "Queen_black", 900));
+                pieces.add(new King(4, cordBlackY, "King_black", 10000));
             }
             for (int i = 0; i < NUMBER_OF_PAWNS; i++) { // draw pawns
-                if(cord_black_y==7) {
-                    pieces.add(new Pawn(i, cord_black_y - 1, "Pawns_black", 100));
+                if(cordBlackY ==7) {
+                    pieces.add(new Pawn(i, cordBlackY - 1, "Pawns_black", 100));
                 }else{
-                    pieces.add(new Pawn(i, cord_black_y + 1, "Pawns_black", 100));
+                    pieces.add(new Pawn(i, cordBlackY + 1, "Pawns_black", 100));
                 }
             }
         }
@@ -143,7 +143,7 @@ public final class Player implements Serializable {
 
 
 
-    public King Get_King(){
+    public King getKing(){
         for(Piece p :this.pieces){
            if(p.getCategory().contains("King")){
                 return (King) p;
@@ -156,20 +156,20 @@ public final class Player implements Serializable {
 
     static void setBoardToWhiteSide(boolean toME){
         if(toME){
-            cord_white_y = 7;
-            cord_black_y = 0;
+            cordWhiteY = 7;
+            cordBlackY = 0;
         }else {
-            cord_white_y = 0;
-            cord_black_y = 7;
+            cordWhiteY = 0;
+            cordBlackY = 7;
         }
     }
 
-    public static int getCord_white_y() {
-        return cord_white_y;
+    public static int getCordWhiteY() {
+        return cordWhiteY;
     }
 
-    public static int getCord_black_y() {
-        return cord_black_y;
+    public static int getCordBlackY() {
+        return cordBlackY;
     }
 
     public boolean isWhite() {

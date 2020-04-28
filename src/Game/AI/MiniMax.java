@@ -5,16 +5,11 @@ import Board.Move;
 import Game.Game;
 import Game.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public final class MiniMax {
     private int searchDepth;
-    private int searchTiles;
-    private List<int[]> nullMoveHeuristicCORD;
-    private long timeMove = 0;
+    private int searchMoves;
+
+    private long timeMove;
     private int ab;
     public boolean UI;
     private int timeLimit;
@@ -24,8 +19,7 @@ public final class MiniMax {
         this.timeLimit = timeLimit; //the max time the AI is allowed to think
         this.UI = UI;
 
-        this.searchTiles = 0;
-        this.nullMoveHeuristicCORD = new ArrayList<>();
+        this.searchMoves = 0;
         this.timeMove = 0;
         this.ab = 0;
 
@@ -42,7 +36,7 @@ public final class MiniMax {
             }
         }
         // percentage
-        int numMoves = 100 / mGame.getBoard().currentPlayer.Legal_moves().size();
+        int numMoves = 100 / mGame.getBoard().currentPlayer.legalMoves().size();
         int all = 0;
 
         Move BestMove = null;
@@ -64,7 +58,7 @@ public final class MiniMax {
         if(searchDepth>2) {
             sortedMoves = MoveOrdering.orderMoves(simulatingGame.copy());
         }else {
-            sortedMoves = simulatingGame.getBoard().currentPlayer.Legal_moves().toArray(new Move[0]);
+            sortedMoves = simulatingGame.getBoard().currentPlayer.legalMoves().toArray(new Move[0]);
         }
 
         // time limit started
@@ -104,10 +98,10 @@ public final class MiniMax {
        if(UI) {
            final long executionTime = System.currentTimeMillis() - starTime;
            System.out.println("Time: "+executionTime);
-           // System.out.println("Move Time: "+this.timeMove+" ( "+this.timeMove/(executionTime/100)+"%"+" )"); // in depth one process so fast that execution time is zero so Error / by zero is called
-           // System.out.println("AlphaBeta Cuts: "+ab);
-           // System.out.println("searched Tiles: "+searchTiles);
-           // System.out.println("searches per a second: "+ searchTiles/(executionTime/1000));
+           System.out.println("Move Time: "+this.timeMove+" ( "+this.timeMove/(executionTime/100)+"%"+" )"); // in depth one process so fast that execution time is zero so Error / by zero is called
+           System.out.println("AlphaBeta Cuts: "+ab);
+           System.out.println("searched Tiles: "+searchMoves);
+           System.out.println("searches per a second: "+ searchMoves/(executionTime/1000));
        }
 
        return BestMove;
@@ -119,13 +113,13 @@ public final class MiniMax {
     }
     private double max(Game game, final int depth, double alpha, double beta, boolean nullHeuristic){
         if(depth == 0||isEndGameScenario(game.getBoard())){
-            searchTiles++;
-            return Evaluate.EvaluateGame(game, depth);
+            searchMoves++;
+            return Evaluate.evaluateGame(game, depth);
         }
         double highestSeenValue = Integer.MIN_VALUE;
         Game original = game.copy();
 
-        for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
+        for(final Move move: original.getBoard().currentPlayer.legalMoves()){
             final long starTime = System.currentTimeMillis();
             Game newGame = game.getGameAfterMove(move);
             this.timeMove+= System.currentTimeMillis() - starTime;
@@ -146,14 +140,14 @@ public final class MiniMax {
         return highestSeenValue;
     }private double min(Game game, final int depth, double alpha, double beta, boolean nullHeuristic){
         if(depth == 0||isEndGameScenario(game.getBoard())){
-            searchTiles++;
-            return  Evaluate.EvaluateGame(game,depth);
+            searchMoves++;
+            return  Evaluate.evaluateGame(game,depth);
         }
 
         double lowestSeenValue = Integer.MAX_VALUE;
         Game original = game.copy();
 
-        for(final Move move: original.getBoard().currentPlayer.Legal_moves()){
+        for(final Move move: original.getBoard().currentPlayer.legalMoves()){
 
             final long starTime = System.currentTimeMillis();
             Game newGame = game.getGameAfterMove(move);
@@ -176,8 +170,8 @@ public final class MiniMax {
 
     }
     private boolean isEndGameScenario(Board board) {
-        return board.currentPlayer.IsInCheckMate() ||
-                board.currentPlayer.IsInStaleMate();
+        return board.currentPlayer.isInCheckMate() ||
+                board.currentPlayer.isInStaleMate();
 
     }
 

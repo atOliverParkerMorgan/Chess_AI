@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public final class King extends Piece implements Serializable {
-    public boolean castling_r;
-    public boolean castling_l;
-    public boolean castling_k;
+    public boolean castlingR;
+    public boolean castlingL;
+    public boolean castlingK;
     public boolean castled;
-    private final static double[][] pos_eval_white = new double[][]{
+    private final static double[][] POS_EVAL_WHITE = new double[][]{
             {-3,-4,-4,-5,-5,-4,-4,-3},
             {-3,-4,-4,-5,-5,-4,-4,-3},
             {-3,-4,-4,-5,-5,-4,-4,-3},
@@ -23,20 +23,20 @@ public final class King extends Piece implements Serializable {
             { 2, 3, 1, 0, 0, 1, 3, 2}
     };
 
-    private final static double[][] pos_eval_black = Piece.reverse_array(Objects.requireNonNull(Piece.array_clone(pos_eval_white)));
+    private final static double[][] POS_EVAL_BLACK = Piece.reverseArray(Objects.requireNonNull(Piece.arrayClone(POS_EVAL_WHITE)));
 
 
 
     public King(int x, int y, String c, int score) {
-        super(x, y, c,score,pos_eval_white,pos_eval_black);
-        this.castling_r = true;
-        this.castling_l = true;
-        this.castling_k = true;
+        super(x, y, c,score, POS_EVAL_WHITE, POS_EVAL_BLACK);
+        this.castlingR = true;
+        this.castlingL = true;
+        this.castlingK = true;
         this.castled = false;
 
     }
 
-    public static void possible_moves(Board board, Piece p, String colour){
+    public static void possibleMoves(Board board, Piece p, String colour){
         int x = p.getX();
         int y = p.getY();
 
@@ -70,11 +70,11 @@ public final class King extends Piece implements Serializable {
                 Move move = new Move(s,old_spot);
                 p.all_possible_moves.add(move);
                 King k = (King) p;
-                if(k.castling_k) {
+                if(k.castlingK) {
                     Spot s2 = board.getSpot(x + 2, y);
                     //checking if the spot is occupied
-                    if (k.castling_r && !s2.isOccupied()) {
-                        Game.create_check_map(board);
+                    if (k.castlingR && !s2.isOccupied()) {
+                        Game.createCheckMap(board);
                         Spot current = board.getSpot(k.getX(),k.getY());
                         // checking if the castling would be valid
                         if (colour.equals("white") && s.isValidForWhiteKing && s2.isValidForWhiteKing && current.isValidForWhiteKing ||
@@ -111,12 +111,12 @@ public final class King extends Piece implements Serializable {
                 Move move = new Move(s,old_spot);
                 p.all_possible_moves.add(move);
                 King k = (King) p;
-                if(k.castling_k) {
+                if(k.castlingK) {
                     Spot s2 = board.getSpot(x-2,y);
                     //checking if the spot is occupied
-                    if(k.castling_l && !s2.isOccupied()){
+                    if(k.castlingL && !s2.isOccupied()){
                         // checking if the castling would be valid
-                        Game.create_check_map(board);
+                        Game.createCheckMap(board);
                         Spot current = board.getSpot(k.getX(),k.getY());
                         // checking if the castling would be valid
                         if (colour.equals("white") && s.isValidForWhiteKing && s2.isValidForWhiteKing && current.isValidForWhiteKing ||
