@@ -13,40 +13,40 @@ import java.util.List;
 
 public class Screen extends PApplet {
     private Game mGame;
-    private List<Game> Game_history;
+    private List<Game> gameHistory;
 
     // images variables
-    private PImage King_img;
-    private PImage King_black_img;
+    private PImage kingImg;
+    private PImage kingBlackImg;
 
-    private PImage Queen_img;
-    private PImage Queen_black_img;
+    private PImage queenImg;
+    private PImage queenBlackImg;
 
-    private PImage Bishop_img;
-    private PImage Bishop_black_img;
+    private PImage bishopImg;
+    private PImage bishopBlackImg;
 
-    private PImage Knight_img;
-    private PImage Knight_black_img;
+    private PImage knightImg;
+    private PImage knightBlackImg;
 
-    private PImage Rook_img;
-    private PImage Rook_black_img;
+    private PImage rookImg;
+    private PImage rookBlackImg;
 
-    private PImage Pawn_img;
-    private PImage Pawn_black_img;
+    private PImage pawnImg;
+    private PImage pawnBlackImg;
 
-    private boolean show_hint = false;
+    private boolean showHint = false;
 
     //Menu
     private boolean AIvsAI = false;
     private boolean PLAYERvsAI = false;
     private boolean PLAYERvsPLAYER = true;
     private boolean MENU = true;
-    private boolean side_setup_Menu = true;
-    private boolean depth_menu = true;
+    private boolean sideSetupMenu = true;
+    private boolean depthMenu = true;
     private boolean WHITE = false;
     private boolean BLACK = false;
-    private boolean AI_player_white = true;
-    private int AI_depth = -1;
+    private boolean AIPlayerWhite = true;
+    private int AIDepth = -1;
 
     // for ai so the canvas has a couple frames to update before the ai starts thinking
     private int draw;
@@ -58,33 +58,33 @@ public class Screen extends PApplet {
         draw = 0;
 
         // Canvas
-        size(800, 900);
+        size((displayHeight-200), displayHeight-80);
         // noLoop();
 
         // add the base dir of the images
         String base_dir = System.getProperty("user.dir")+"\\src\\sprites\\"; // may create error everybody as their own directory
 
         //loading Images
-        King_img = loadImage(base_dir+"King.png");
-        King_black_img  = loadImage(base_dir+"King_black.png");
+        kingImg = loadImage(base_dir+"King.png");
+        kingBlackImg = loadImage(base_dir+"King_black.png");
 
-        Queen_img = loadImage(base_dir+"Queen.png");
-        Queen_black_img = loadImage(base_dir+"Queen_black.png");
+        queenImg = loadImage(base_dir+"Queen.png");
+        queenBlackImg = loadImage(base_dir+"Queen_black.png");
 
-        Bishop_img = loadImage(base_dir+"Bishop.png");
-        Bishop_black_img = loadImage(base_dir+"Bishop_black.png");
+        bishopImg = loadImage(base_dir+"Bishop.png");
+        bishopBlackImg = loadImage(base_dir+"Bishop_black.png");
 
-        Knight_img = loadImage(base_dir+"Knight.png");
-        Knight_black_img = loadImage(base_dir+"Knight_black.png");
+        knightImg = loadImage(base_dir+"Knight.png");
+        knightBlackImg = loadImage(base_dir+"Knight_black.png");
 
-        Rook_img = loadImage(base_dir+"Rook.png");
-        Rook_black_img = loadImage(base_dir+"Rook_black.png");
+        rookImg = loadImage(base_dir+"Rook.png");
+        rookBlackImg = loadImage(base_dir+"Rook_black.png");
 
-        Pawn_img = loadImage(base_dir+"Pawn.png");
-        Pawn_black_img = loadImage(base_dir+"Pawn_black.png");
+        pawnImg = loadImage(base_dir+"Pawn.png");
+        pawnBlackImg = loadImage(base_dir+"Pawn_black.png");
         // add pieces to for black player
         mGame  = new Game();
-        Game_history = new ArrayList<>();
+        gameHistory = new ArrayList<>();
 
         // get the possible for white ( white always starts )
         Game.possibleMovesWhite(mGame.getBoard(),mGame.getWhite(),mGame.getBlack());
@@ -94,20 +94,20 @@ public class Screen extends PApplet {
     private int[] mouse_pos(){
         int X = 0;
         int Y = 0;
-        if(mouseX>=100 && mouseX <200){X = 1;}
-        if(mouseY>=100 && mouseY <200){Y = 1;}
-        if(mouseX>=200 && mouseX <300){X = 2;}
-        if(mouseY>=200 && mouseY <300){Y = 2;}
-        if(mouseX>=300 && mouseX <400){X = 3;}
-        if(mouseY>=300 && mouseY <400){Y = 3;}
-        if(mouseX>=400 && mouseX <500){X = 4;}
-        if(mouseY>=400 && mouseY <500){Y = 4;}
-        if(mouseX>=500 && mouseX <600){X = 5;}
-        if(mouseY>=500 && mouseY <600){Y = 5;}
-        if(mouseX>=600 && mouseX <700){X = 6;}
-        if(mouseY>=600 && mouseY <700){Y = 6;}
-        if(mouseX>=700){X = 7;}
-        if(mouseY>=700){Y = 7;}
+        if(mouseX>=(displayHeight-200)/8 && mouseX <2*(displayHeight-200)/8){X = 1;}
+        if(mouseY>=(displayHeight-200)/8 && mouseY <2*(displayHeight-200)/8){Y = 1;}
+        if(mouseX>=2*(displayHeight-200)/8 && mouseX <3*(displayHeight-200)/8){X = 2;}
+        if(mouseY>=2*(displayHeight-200)/8 && mouseY <3*(displayHeight-200)/8){Y = 2;}
+        if(mouseX>=3*(displayHeight-200)/8 && mouseX <4*(displayHeight-200)/8){X = 3;}
+        if(mouseY>=3*(displayHeight-200)/8 && mouseY <4*(displayHeight-200)/8){Y = 3;}
+        if(mouseX>=4*(displayHeight-200)/8 && mouseX <5*(displayHeight-200)/8){X = 4;}
+        if(mouseY>=4*(displayHeight-200)/8 && mouseY <5*(displayHeight-200)/8){Y = 4;}
+        if(mouseX>=5*(displayHeight-200)/8 && mouseX <6*(displayHeight-200)/8){X = 5;}
+        if(mouseY>=5*(displayHeight-200)/8 && mouseY <6*(displayHeight-200)/8){Y = 5;}
+        if(mouseX>=6*(displayHeight-200)/8 && mouseX <7*(displayHeight-200)/8){X = 6;}
+        if(mouseY>=6*(displayHeight-200)/8 && mouseY <7*(displayHeight-200)/8){Y = 6;}
+        if(mouseX>=7*(displayHeight-200)/8){X = 7;}
+        if(mouseY>=7*(displayHeight-200)/8){Y = 7;}
         return new int[]{X, Y};
     }
 
@@ -126,20 +126,20 @@ public class Screen extends PApplet {
             background(255, 153, 153);
             textSize(64);
             fill(0, 51, 51);
-            text("CHESS", 300, 150);
+            text("CHESS", (displayHeight-200)/2-64, displayHeight/10);
             textSize(20);
-            text("Oliver Morgan", 350, 880);
+            text("Oliver Morgan", (displayHeight-200)/2, (int)(displayHeight/1.1));
 
             // checking mouse (creating boundaries)
-            if (mouseX >= 250 && mouseX < 600 && mouseY >= 350 && mouseY < 430) {
+            if (mouseX >= (displayHeight-200)/2-120 && mouseX <(displayHeight-200)/2+210  && mouseY >= displayHeight/3-40 && mouseY < displayHeight/3+40) {
                 PLAYERvsPLAYER = true;
                 PLAYERvsAI = false;
                 AIvsAI = false;
-            } else if (mouseX >= 280 && mouseX < 520 && mouseY >= 450 && mouseY < 530) {
+            } else if (mouseX >= (displayHeight-200)/2-80 && mouseX < (displayHeight-200)/2+160 && mouseY >= displayHeight/3+60 && mouseY < displayHeight/3+120) {
                 PLAYERvsPLAYER = false;
                 PLAYERvsAI = true;
                 AIvsAI = false;
-            } else if (mouseX >= 320 && mouseX < 470 && mouseY >= 550 && mouseY < 630) {
+            } else if (mouseX >= (displayHeight-200)/2-40 && mouseX < (displayHeight-200)/2+110 && mouseY >= displayHeight/3+150 && mouseY < displayHeight/3+230) {
                 PLAYERvsPLAYER = false;
                 PLAYERvsAI = false;
                 AIvsAI = true;
@@ -153,31 +153,31 @@ public class Screen extends PApplet {
             textSize(32);
             if (PLAYERvsPLAYER) {
                 fill(126, 209, 235);
-                rect(220, 350, 330, 80);
+                rect((displayHeight-200)/2-120, displayHeight/3-40, 330, 80);
             }
             fill(102, 0, 51);
-            text("PLAYER vs PLAYER", 240, 400);
+            text("PLAYER vs PLAYER", (displayHeight-200)/2-100, displayHeight/3);
 
             if (PLAYERvsAI) {
                 fill(126, 209, 235);
-                rect(280, 450, 240, 80);
+                rect((displayHeight-200)/2-80, displayHeight/3+60, 240, 80);
 
             }
 
             fill(102, 0, 51);
-            text("PLAYER vs AI", 300, 500);
+            text("PLAYER vs AI", (displayHeight-200)/2-60, displayHeight/3+100);
 
 
             if (AIvsAI) {
                 fill(126, 209, 235);
-                rect(320, 550, 150, 80);
+                rect((displayHeight-200)/2-40,displayHeight/3+150, 150, 80);
 
             }
             fill(102, 0, 51);
-            text("AI vs AI", 340, 600);
+            text("AI vs AI", (displayHeight-200)/2-20,displayHeight/3+200);
 
 
-        }else if(side_setup_Menu && !AIvsAI && !PLAYERvsPLAYER){
+        }else if(sideSetupMenu && !AIvsAI && !PLAYERvsPLAYER){
             if (mouseX >= 125 && mouseX < 275 && mouseY >= 350 && mouseY < 425) {
                 WHITE = true;
                 BLACK = false;
@@ -189,13 +189,15 @@ public class Screen extends PApplet {
                 BLACK = false;
             }
            background(255, 153, 153);
+            textSize(64);
+            fill(0, 51, 51);
+            text("CHESS", (displayHeight-200)/2-64, displayHeight/10);
+            textSize(27);
+            text("Pick the color of your pieces: ",(displayHeight-200)/2-150, displayHeight/5);
+            textSize(20);
+            text("Oliver Morgan", (displayHeight-200)/2, (int)(displayHeight/1.1));
            fill(0, 51, 51);
-           textSize(64);
-           text("CHESS", 300, 150);
-           textSize(27);
-           text("Pick the color of your pieces: ",225,300);
-           textSize(20);
-           text("Oliver Morgan", 350, 880);
+
 
            textSize(40);
            if(WHITE){
@@ -215,52 +217,54 @@ public class Screen extends PApplet {
         // there is no need to pick a color for Player vs Player so the menu isn't called
         else if(PLAYERvsPLAYER&&!WHITE){
             WHITE = true;
-            side_setup_Menu = false;
+            sideSetupMenu = false;
             Game.whiteSide = true;
         }
         // depth menu
-        else if(depth_menu&&(PLAYERvsAI||AIvsAI)){
-            if (mouseX >= 275 && mouseX < 450 && mouseY >= 375 && mouseY < 425) {
-                AI_depth = 1;
-            } else if (mouseX >= 275 && mouseX < 450 && mouseY >= 475 && mouseY < 525) {
-                AI_depth = 2;
-            }else if (mouseX >= 275 && mouseX < 450 && mouseY >= 575 && mouseY < 625){
-                AI_depth = 3;
-            }else if (mouseX >= 275 && mouseX < 450 && mouseY >= 675 && mouseY < 725) {
-                AI_depth = 4;
+        else if(depthMenu &&(PLAYERvsAI||AIvsAI)){
+            if (mouseX >=(displayHeight-200)/2-40 && mouseX < (displayHeight-200)/2+135 && mouseY >= displayHeight/5+150 && mouseY < displayHeight/5+225) {
+                AIDepth = 1;
+            } else if (mouseX >=(displayHeight-200)/2-40 && mouseX < (displayHeight-200)/2+135 && mouseY >= displayHeight/5+250 && mouseY < displayHeight/5+325) {
+                AIDepth = 2;
+            }else if (mouseX >= (displayHeight-200)/2-40 && mouseX < (displayHeight-200)/2+135 && mouseY >= displayHeight/5+350 && mouseY < displayHeight/5+425){
+                AIDepth = 3;
+            }else if (mouseX >= (displayHeight-200)/2-40 && mouseX < (displayHeight-200)/2+135 && mouseY >= displayHeight/5+450 && mouseY < displayHeight/5+525) {
+                AIDepth = 4;
             } else {
-                AI_depth = -1;
+                AIDepth = -1;
             }
             background(255, 153, 153);
-            fill(0, 51, 51);
             textSize(64);
-            text("CHESS", 300, 150);
+            fill(0, 51, 51);
+            text("CHESS", (displayHeight-200)/2-64, displayHeight/10);
             textSize(27);
-            text("Pick in what depth the AI will think: ",215,300);
+            text("Pick in what depth the AI will think:",(displayHeight-200)/2-170, displayHeight/5);
             textSize(20);
-            text("Oliver Morgan", 350, 880);
+            text("Oliver Morgan", (displayHeight-200)/2, (int)(displayHeight/1.1));
+
+
 
             textSize(40);
-            if(AI_depth==1){
+            if(AIDepth ==1){
                 fill(126, 209, 235);
-                rect(275, 350, 175, 75);
-            }else if(AI_depth==2){
+                rect((displayHeight-200)/2-40, displayHeight/5+150, 175, 75);
+            }else if(AIDepth ==2){
                 fill(126, 209, 235);
-                rect(275, 450, 175, 75);
-            }else if(AI_depth==3){
+                rect((displayHeight-200)/2-40, displayHeight/5+250, 175, 75);
+            }else if(AIDepth ==3){
                 fill(126, 209, 235);
-                rect(275, 550, 175, 75);
+                rect((displayHeight-200)/2-40, displayHeight/5+350, 175, 75);
             }
-            else if(AI_depth==4){
+            else if(AIDepth ==4){
                 fill(126, 209, 235);
-                rect(275, 650, 175, 75);
+                rect((displayHeight-200)/2-40, displayHeight/5+450, 175, 75);
             }
 
             fill(255, 43, 120);
-            text("depth: 1", 300,400);
-            text("depth: 2", 300,500);
-            text("depth: 3", 300,600);
-            text("depth: 4", 300,700);
+            text("depth: 1", (displayHeight-200)/2-20,displayHeight/5+200);
+            text("depth: 2", (displayHeight-200)/2-20,displayHeight/5+300);
+            text("depth: 3", (displayHeight-200)/2-20,displayHeight/5+400);
+            text("depth: 4", (displayHeight-200)/2-20,displayHeight/5+500);
 
         }
         else{
@@ -270,7 +274,7 @@ public class Screen extends PApplet {
                     if ((i + j + 1) % 2 == 0) {
                         fill(255, 255, 102); // black
 
-                        if (show_hint) {
+                        if (showHint) {
                             for (Move m : mGame.pieceMoving.getAll_possible_moves()) {
                                 if (m.spot.x == i && m.spot.y == j) {
                                     fill(0, 204, 102);
@@ -280,7 +284,7 @@ public class Screen extends PApplet {
                         }
                     } else {
                         fill(255, 255, 255); // white
-                        if (show_hint) {
+                        if (showHint) {
                             for (Move m : mGame.pieceMoving.getAll_possible_moves()) {
                                 if (m.spot.x == i && m.spot.y == j) {
                                     fill(0, 204, 102);
@@ -289,10 +293,8 @@ public class Screen extends PApplet {
                         }
 
                     }
-                    int WIDTH = 800;
-                    int BLOCK_X = WIDTH / 8;
-                    int HEIGHT = 800;
-                    int BLOCK_Y = HEIGHT / 8;
+                    final int BLOCK_X = (displayHeight-200) / 8;
+                    final int BLOCK_Y = (displayHeight-200) / 8;
                     rect(i * BLOCK_X, j * BLOCK_Y, (i + 1) * BLOCK_X, (j + 1) * BLOCK_Y);
                 }
             }
@@ -304,34 +306,34 @@ public class Screen extends PApplet {
             }else {
                 fill(225, 225, 102);
             }
-            rect(0,800,800,800);
+            rect(0,displayHeight-200,displayHeight,200);
 
-            int Y_cord = 800;
+            int Y_cord = displayHeight-130;
 
 
             if (mGame.whiteMenu) {
 
                 //show pieces
-                image(Queen_img, 600, Y_cord);
+                image(queenImg, Y_cord-Y_cord/4+80, Y_cord);
 
-                image(Rook_img, 450, Y_cord);
+                image(rookImg, Y_cord-(Y_cord/4)*2+80, Y_cord);
 
-                image(Bishop_img, 300, Y_cord);
+                image(bishopImg, Y_cord-(Y_cord/4)*3+80, Y_cord);
 
-                image(Knight_img, 150, Y_cord);
+                image(knightImg, 80, Y_cord);
 
 
             } else if (mGame.blackMenu) {
 
 
                 //show pieces
-                image(Queen_black_img, 600, Y_cord);
+                image(queenBlackImg, Y_cord-Y_cord/4+80, Y_cord);
 
-                image(Rook_black_img, 450, Y_cord);
+                image(rookBlackImg, Y_cord-(Y_cord/4)*2+80, Y_cord);
 
-                image(Bishop_black_img, 300, Y_cord);
+                image(bishopBlackImg, Y_cord-(Y_cord/4)*3+80, Y_cord);
 
-                image(Knight_black_img, 150, Y_cord);
+                image(knightBlackImg, 80, Y_cord);
 
 
             } else {
@@ -345,48 +347,50 @@ public class Screen extends PApplet {
                 }
                 textSize(32);
                 fill(135, 87, 87);
-                text(text, 350, Y_cord + 50);
-                text(mGame.getTurn(), 10, Y_cord + 50);
+                text(text, (displayHeight-200)/2-20, Y_cord);
+                text(mGame.getTurn(), 20, Y_cord);
             }
+            final int BLOCK_X = (displayHeight-200) / 8;
+            final int BLOCK_Y = (displayHeight-200) / 8;
             for (Spot[] spots : mGame.getBoard().spots) {
                 for (Spot spot : spots) {
                     if (spot.isOccupied() || spot.toShow()) {
                         switch (spot.getPieceCategory()) {
                             case "King_white":
-                                image(King_img, spot.x * 100, spot.y * 100);
+                                image(kingImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Queen_white":
-                                image(Queen_img, spot.x * 100, spot.y * 100);
+                                image(queenImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Bishop_white":
-                                image(Bishop_img, spot.x * 100, spot.y * 100);
+                                image(bishopImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Knight_white":
-                                image(Knight_img, spot.x * 100, spot.y * 100);
+                                image(knightImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Rook_white":
-                                image(Rook_img, spot.x * 100, spot.y * 100);
+                                image(rookImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Pawns_white":
-                                image(Pawn_img, spot.x * 100, spot.y * 100);
+                                image(pawnImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "King_black":
-                                image(King_black_img, spot.x * 100, spot.y * 100);
+                                image(kingBlackImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Queen_black":
-                                image(Queen_black_img, spot.x * 100, spot.y * 100);
+                                image(queenBlackImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Bishop_black":
-                                image(Bishop_black_img, spot.x * 100, spot.y * 100);
+                                image(bishopBlackImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Knight_black":
-                                image(Knight_black_img, spot.x * 100, spot.y * 100);
+                                image(knightBlackImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Rook_black":
-                                image(Rook_black_img, spot.x * 100, spot.y * 100);
+                                image(rookBlackImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                             case "Pawns_black":
-                                image(Pawn_black_img, spot.x * 100, spot.y * 100);
+                                image(pawnBlackImg, spot.x * BLOCK_X, spot.y * BLOCK_Y);
                                 break;
                         }
                     }
@@ -419,9 +423,9 @@ public class Screen extends PApplet {
     }
     // revert move => take last game state from Game_history ArrayList
     public void keyPressed(){
-        if (key == 'z' && Game_history.size() > 0) {
-            mGame = Game_history.get(Game_history.size() - 1);
-            Game_history.remove(Game_history.size() - 1);
+        if (key == 'z' && gameHistory.size() > 0) {
+            mGame = gameHistory.get(gameHistory.size() - 1);
+            gameHistory.remove(gameHistory.size() - 1);
             System.out.println("!!! TAKE-BACK !!!");
             System.out.println();
         }
@@ -435,24 +439,24 @@ public class Screen extends PApplet {
         if(MENU) {
             if (PLAYERvsPLAYER || PLAYERvsAI || AIvsAI) {
                 if(AIvsAI){
-                    side_setup_Menu = false;
+                    sideSetupMenu = false;
                 }if(PLAYERvsPLAYER){
-                    side_setup_Menu = false;
-                    depth_menu = false;
+                    sideSetupMenu = false;
+                    depthMenu = false;
                 }
                 MENU = false;
             }
-        }else if(side_setup_Menu){
+        }else if(sideSetupMenu){
             if(WHITE||BLACK){
 
-                side_setup_Menu = false;
+                sideSetupMenu = false;
                 Game.whiteSide = WHITE;
-                AI_player_white = !WHITE;
+                AIPlayerWhite = !WHITE;
             }
-        }else if(depth_menu){
+        }else if(depthMenu){
 
-            if(AI_depth==1||AI_depth==2||AI_depth==3||AI_depth==4){
-                depth_menu = false;
+            if(AIDepth ==1|| AIDepth ==2|| AIDepth ==3|| AIDepth ==4){
+                depthMenu = false;
             }
         }
         // pawn level nine menu
@@ -548,7 +552,7 @@ public class Screen extends PApplet {
                 if (mGame.getBoard().getSpot(X_pos, Y_pos).isOccupied()) {
                     // start the moving process
                     mGame.moving = true;
-                    show_hint = true;
+                    showHint = true;
 
                     // the piece that we want to move
                     mGame.pieceMoving = mGame.getBoard().getSpot(X_pos, Y_pos).piece;
@@ -562,7 +566,7 @@ public class Screen extends PApplet {
 
 
     public void mouseReleased(){
-        if(PLAYERvsPLAYER || PLAYERvsAI && mGame.getBoard().currentPlayer.isWhite()!=AI_player_white) {
+        if(PLAYERvsPLAYER || PLAYERvsAI && mGame.getBoard().currentPlayer.isWhite()!= AIPlayerWhite) {
 
             // reset board
             assert mGame.getBoard() != null;
@@ -602,12 +606,12 @@ public class Screen extends PApplet {
 
                     Move new_move = new Move(spot, old_spot);
                     // check if piece is in the possible moves + if its the players turn
-                    show_hint = false;
+                    showHint = false;
                     mGame.moving = false;
 
                     for (Move m : mGame.pieceMoving.getAll_possible_moves()) {
                         if (m.spot == new_move.spot && m.oldSpot == new_move.oldSpot) {
-                            Game_history.add(mGame.copy());
+                            gameHistory.add(mGame.copy());
                             mGame.move(new_move, false);
                         }
                     }
@@ -620,21 +624,21 @@ public class Screen extends PApplet {
     private void moveAI(){
 
 
-        if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && draw >= 1) {
+        if(mGame.getBoard().currentPlayer.isWhite()== AIPlayerWhite && !PLAYERvsPLAYER && draw >= 1|| AIvsAI && draw >= 1) {
 
             if(mGame.getBoard().currentPlayer.isInCheckMate()){
                 System.exit(0);
             }
 
-            Game_history.add(mGame.copy());
+            gameHistory.add(mGame.copy());
             draw = 0; // implemented so board graphics can update
 
 
-            final MiniMax AI = new MiniMax(AI_depth,true,Integer.MAX_VALUE);
+            final MiniMax AI = new MiniMax(AIDepth,true,Integer.MAX_VALUE);
             Move move_AI = AI.getBestMove(mGame, false);
             mGame.move(move_AI, AI.UI);
 
-            if (PLAYERvsAI && AI_player_white && mGame.whiteMenu || AIvsAI && mGame.whiteMenu) {
+            if (PLAYERvsAI && AIPlayerWhite && mGame.whiteMenu || AIvsAI && mGame.whiteMenu) {
                 mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_white", 900);
                 mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                 mGame.getWhite().pieces.remove(mGame.changePawn);
@@ -642,7 +646,7 @@ public class Screen extends PApplet {
                 mGame.whiteMenu = false;
                 Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
             }
-            else if (PLAYERvsAI && !AI_player_white && mGame.blackMenu || AIvsAI && mGame.blackMenu) {
+            else if (PLAYERvsAI && !AIPlayerWhite && mGame.blackMenu || AIvsAI && mGame.blackMenu) {
                 mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_black", 900);
                 mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                 mGame.getBlack().pieces.remove(mGame.changePawn);
@@ -652,7 +656,7 @@ public class Screen extends PApplet {
             }
 
         }
-        if(mGame.getBoard().currentPlayer.isWhite()==AI_player_white|| AIvsAI  ) {
+        if(mGame.getBoard().currentPlayer.isWhite()== AIPlayerWhite || AIvsAI  ) {
             // draw has one frames to update
             draw++;
         }

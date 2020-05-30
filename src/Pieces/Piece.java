@@ -19,7 +19,7 @@ public class Piece implements Serializable {
     public final double[][] pos_eval_black;
 
     public Piece(int x, int y, String c, int Score,double[][] pos_eval_white, double[][] pos_eval_black){
-        super();
+
         this.pos_eval_white = pos_eval_white;
         this.pos_eval_black = pos_eval_black;
         this.x = x;

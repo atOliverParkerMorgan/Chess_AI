@@ -98,10 +98,14 @@ public final class MiniMax {
        if(UI) {
            final long executionTime = System.currentTimeMillis() - starTime;
            System.out.println("Time: "+executionTime);
-           System.out.println("Move Time: "+this.timeMove+" ( "+this.timeMove/(executionTime/100)+"%"+" )"); // in depth one process so fast that execution time is zero so Error / by zero is called
+           if(executionTime/100!=0) {
+               System.out.println("Move Time: " + this.timeMove + " ( " + this.timeMove / (executionTime / 100) + "%" + " )"); // in depth one process so fast that execution time is zero so Error / by zero is called
+           }
            System.out.println("AlphaBeta Cuts: "+ab);
            System.out.println("searched Tiles: "+searchMoves);
-           System.out.println("searches per a second: "+ searchMoves/(executionTime/1000));
+           if((executionTime/1000)!=0) {
+               System.out.println("searches per a second: " + searchMoves / (executionTime / 1000));
+           }
        }
 
        return BestMove;
