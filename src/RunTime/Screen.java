@@ -114,7 +114,7 @@ public class Screen extends PApplet {
     // function onclick for button
     private boolean overCircle(int x, int diameter) {
         float disX = x - mouseX;
-        float disY = 850 - mouseY;
+        float disY = displayHeight-150 - mouseY;
         return sqrt(sq(disX) + sq(disY)) < diameter / 2;
     }
 
@@ -308,7 +308,7 @@ public class Screen extends PApplet {
             }
             rect(0,displayHeight-200,displayHeight,200);
 
-            int Y_cord = displayHeight-130;
+            final int Y_cord = displayHeight-200;
 
 
             if (mGame.whiteMenu) {
@@ -347,8 +347,8 @@ public class Screen extends PApplet {
                 }
                 textSize(32);
                 fill(135, 87, 87);
-                text(text, (displayHeight-200)/2-20, Y_cord);
-                text(mGame.getTurn(), 20, Y_cord);
+                text(text, (displayHeight-200)/2-20, displayHeight-130);
+                text(mGame.getTurn(), 20, displayHeight-130);
             }
             final int BLOCK_X = (displayHeight-200) / 8;
             final int BLOCK_Y = (displayHeight-200) / 8;
@@ -471,9 +471,10 @@ public class Screen extends PApplet {
                 // button pos
 
 
+                    final int Y_cord = displayHeight-200;
+                    final int circle_Size = 80;
 
-                    int circle_Size = 80;
-                    if (overCircle(650, circle_Size) && mGame.whiteMenu) {
+                    if (overCircle(Y_cord-Y_cord/4+130, circle_Size) && mGame.whiteMenu) {
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_white", 900);
                         mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                         mGame.getWhite().pieces.remove(mGame.changePawn);
@@ -482,7 +483,7 @@ public class Screen extends PApplet {
                         Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(500, circle_Size) && mGame.whiteMenu) {
+                    } else if (overCircle(Y_cord-(Y_cord/4)*2+130, circle_Size) && mGame.whiteMenu) {
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Rook(mGame.changePawn.getX(), mGame.changePawn.getY(), "Rook_white", 500);
                         mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                         mGame.getWhite().pieces.remove(mGame.changePawn);
@@ -491,7 +492,7 @@ public class Screen extends PApplet {
                         Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(350, circle_Size) && mGame.whiteMenu) {
+                    } else if (overCircle(Y_cord-(Y_cord/4)*3+130, circle_Size) && mGame.whiteMenu) {
 
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Bishop(mGame.changePawn.getX(), mGame.changePawn.getY(), "Bishop_white", 325);
                         mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
@@ -501,7 +502,7 @@ public class Screen extends PApplet {
                         Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(200, circle_Size) && mGame.whiteMenu) {
+                    } else if (overCircle(130, circle_Size) && mGame.whiteMenu) {
 
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Knight(mGame.changePawn.getX(), mGame.changePawn.getY(), "Knight_white", 300);
                         mGame.getWhite().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
@@ -511,7 +512,7 @@ public class Screen extends PApplet {
                         Game.possibleMovesBlack(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(650, circle_Size) && mGame.blackMenu) {
+                    } else if (overCircle(Y_cord-Y_cord/4+130, circle_Size) && mGame.blackMenu) {
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Queen(mGame.changePawn.getX(), mGame.changePawn.getY(), "Queen_black", 900);
                         mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                         mGame.getBlack().pieces.remove(mGame.changePawn);
@@ -519,7 +520,7 @@ public class Screen extends PApplet {
                         mGame.blackMenu = false;
                         Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
-                    } else if (overCircle(500, circle_Size) && mGame.blackMenu) {
+                    } else if (overCircle(Y_cord-(Y_cord/4)*2+130, circle_Size) && mGame.blackMenu) {
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Rook(mGame.changePawn.getX(), mGame.changePawn.getY(), "Rook_black", 500);
                         mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                         mGame.getBlack().pieces.remove(mGame.changePawn);
@@ -528,7 +529,7 @@ public class Screen extends PApplet {
                         Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(350, circle_Size) && mGame.blackMenu) {
+                    } else if (overCircle(Y_cord-(Y_cord/4)*3+130, circle_Size) && mGame.blackMenu) {
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Bishop(mGame.changePawn.getX(), mGame.changePawn.getY(), "Bishop_black", -325);
                         mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                         mGame.getBlack().pieces.remove(mGame.changePawn);
@@ -537,7 +538,7 @@ public class Screen extends PApplet {
                         Game.possibleMovesWhite(mGame.getBoard(), mGame.getWhite(), mGame.getBlack());
 
 
-                    } else if (overCircle(200, circle_Size) && mGame.blackMenu) {
+                    } else if (overCircle(130, circle_Size) && mGame.blackMenu) {
                         mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece = new Knight(mGame.changePawn.getX(), mGame.changePawn.getY(), "Knight_black", -300);
                         mGame.getBlack().pieces.add(mGame.getBoard().getSpot(mGame.changePawn.getX(), mGame.changePawn.getY()).piece);
                         mGame.getBlack().pieces.remove(mGame.changePawn);
