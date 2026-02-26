@@ -1,55 +1,73 @@
-# Chess (AI included)
-this program is a chess UI it comes with a built in AI
+# Chess AI
 
-## AI
-the AI uses
-* [MiniMax](https://en.wikipedia.org/wiki/Minimax) 
-#
-* [alpha beta pruning](https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning) 
-* [null move-heuristic pruning](https://en.wikipedia.org/wiki/Null-move_heuristic)
-* [move ordering](https://stackoverflow.com/questions/9964496/alpha-beta-move-ordering)
-#
-* [Evaluation](https://www.chessprogramming.org/Evaluation)
+## Project Overview
+Chess AI is a Java desktop chess application with a Processing-based interface and a built-in engine. It supports human vs human, human vs AI, and AI vs AI play, including core chess rules such as castling, en passant, promotion, check, and checkmate.
 
-## For what can use this?
-* play a game Player vs Player
-* play a againts my toy AI 
-* watch two AIs battle it out
+## Features
+- Three game modes: **Player vs Player**, **Player vs AI**, **AI vs AI**
+- Drag-and-drop board interaction
+- Undo support (`Z`) using full game-state history
+- AI search based on minimax with alpha-beta pruning
+- Additional AI heuristics: move ordering and evaluation terms (mobility, castling bonus, bishop pair, pawn structure)
+- In-game setup menus for side selection and AI depth
+
+## Architecture / Structure
+The project is organized into focused packages:
+
+```text
+src/
+	Board/      # Board state, squares, move objects
+	Pieces/     # Piece classes and piece-specific movement rules
+	Game/       # Game flow, players, turn handling
+		AI/       # Search and evaluation (MiniMax, Evaluate, MoveOrdering)
+	RunTime/    # Processing UI and runtime loop (entry point)
+	sprites/    # Piece images
+lib/          # Processing and JOGL dependencies
 ```
-note the AI is very primitive the Evaluation could be much better and the MiniMax alghorithm could be optimized
+
+Key entry point:
+- `RunTime.Screen` (`PApplet.main("RunTime.Screen")`)
+
+## Build & Run Instructions
+
+### Prerequisites
+- Java 8+ (JDK recommended)
+- Processing core libraries (already included in `lib/`)
+
+### Option 1: Run from IntelliJ IDEA
+1. Open the project root.
+2. Ensure all JARs in `lib/` are added as project dependencies.
+3. Run the `RunTime.Screen` main class.
+
+### Option 2: Run from terminal (Linux/macOS)
+From the repository root:
+
+```bash
+mkdir -p out
+find src -name "*.java" > sources.txt
+javac -cp "lib/*" -d out @sources.txt
+java -cp "out:lib/*" RunTime.Screen
 ```
-## Controls
-* you can take back a move with Z (!!! TAKE-BACK !!! will always be printed in the console)
-* the piece are controlled by dragging and dropping
 
-## How does it look?
-these are some screenshots from the app:
+For Windows, use `;` instead of `:` in the runtime classpath.
 
-* ### main page
-#
+## Testing
+This repository does not currently include an automated test suite.
+
+Recommended manual checks:
+- Start each game mode and verify turn flow
+- Validate legal move generation (including castling and en passant)
+- Trigger a promotion and select each replacement piece
+- Use `Z` to undo moves repeatedly
+- Run AI vs AI at different depths and confirm stable execution
+
+## Project Context
+This project is a functional chess game with a "toy" AI implementation intended for learning and experimentation. The UI is complete and playable, while the AI favors clarity over peak strength and can be improved further through search optimizations and stronger evaluation logic.
+
+## Screenshots
 ![Main UI](https://i.imgur.com/quMhIbL.png)
 
-#
-* ### menu page
-# 
-
-![menu UI](https://i.imgur.com/N5R8ITK.png)
-
-#
-
-
-## Built With
-
-* [Processing](https://processing.org/) - The graphic interface
-
-## Author
-
-**OLIVER MORGAN**
+![Menu UI](https://i.imgur.com/N5R8ITK.png)
 
 ## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/atOliverParkerMorgan/Chess_AI/blob/master/LICENSE) file for details
-
-## Acknowledgments
-the UI is fully functional, but the AI could be much better and faster. My computer calculates about 70 moves per a second ([DeepBlue](https://en.wikipedia.org/wiki/Deep_Blue_(chess_computer)) calculated 200 million moves per a second) 
-the AI cold be further expanded with [parallel computing](https://stackoverflow.com/questions/3350459/parallel-programming-in-java) or optimization of the [MOVE](https://github.com/atOliverParkerMorgan/Chess_AI/blob/master/src/Game/Game.java) method 
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
